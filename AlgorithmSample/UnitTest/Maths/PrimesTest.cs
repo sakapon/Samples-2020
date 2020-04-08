@@ -23,7 +23,7 @@ namespace UnitTest.Maths
 			void Test(long n)
 			{
 				var actual = Primes.Factorize(n);
-				Console.WriteLine(string.Join(" ", actual));
+				Console.WriteLine($"{n} = {string.Join(" * ", actual)}");
 				Assert.AreEqual(n, actual.Aggregate(1L, (x, y) => x * y));
 			}
 		}
@@ -79,7 +79,7 @@ namespace UnitTest.Maths
 			Test(1000000, 78498);
 			Test(10000000, 664579);
 
-			void Test(int n, int expected)
+			void Test(long n, int expected)
 			{
 				var actual = TestHelper.MeasureTime(() => Primes.GetPrimes(n));
 				Assert.AreEqual(expected, actual.Length);
@@ -108,7 +108,7 @@ namespace UnitTest.Maths
 
 			void Test(int M)
 			{
-				CollectionAssert.AreEqual(Primes.GetPrimes(M).Select(p => (long)p).ToArray(), Primes.GetPrimes(1, M));
+				CollectionAssert.AreEqual(Primes.GetPrimes(M), Primes.GetPrimes(1, M));
 			}
 		}
 	}
