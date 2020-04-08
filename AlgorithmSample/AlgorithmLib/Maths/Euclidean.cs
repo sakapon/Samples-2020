@@ -4,11 +4,11 @@ namespace AlgorithmLib.Maths
 {
 	public static class Euclidean
 	{
-		public static int Gcd(int x, int y) { for (int r; (r = x % y) > 0; x = y, y = r) ; return y; }
-		public static int Lcm(int x, int y) => x / Gcd(x, y) * y;
+		public static int Gcd(int a, int b) { for (int r; (r = a % b) > 0; a = b, b = r) ; return b; }
+		public static int Lcm(int a, int b) => a / Gcd(a, b) * b;
 
-		public static long Gcd(long x, long y) { for (long r; (r = x % y) > 0; x = y, y = r) ; return y; }
-		public static long Lcm(long x, long y) => x / Gcd(x, y) * y;
+		public static long Gcd(long a, long b) { for (long r; (r = a % b) > 0; a = b, b = r) ; return b; }
+		public static long Lcm(long a, long b) => a / Gcd(a, b) * b;
 
 		// ax + by = 1 の解
 		// 前提: a と b は互いに素。

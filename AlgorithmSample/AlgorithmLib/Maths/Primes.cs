@@ -12,12 +12,15 @@ namespace AlgorithmLib.Maths
 		/// <returns>素因数のコレクション。n = 1 の場合は空の配列。</returns>
 		public static long[] Factorize(long n)
 		{
-			// √n を超える素因数はたかだか 1 個であり、その次数は 1。
-			// 候補 x を 2 または奇数に限定することで高速化します。
 			var r = new List<long>();
-			while (n % 2 == 0) { r.Add(2); n /= 2; }
-			for (long x = 3; x * x <= n && n > 1; x += 2)
-				while (n % x == 0) { r.Add(x); n /= x; }
+			for (long x = 2; x * x <= n && n > 1; ++x)
+				while (n % x == 0)
+				{
+					r.Add(x);
+					n /= x;
+				}
+
+			// √n を超える素因数はたかだか 1 個であり、その次数は 1。
 			if (n > 1) r.Add(n);
 			return r.ToArray();
 		}
@@ -33,10 +36,11 @@ namespace AlgorithmLib.Maths
 			for (long x = 1; x * x <= n; ++x)
 				if (n % x == 0) r.Add(x);
 
-			var i = r.Count - 1;
-			if (r[i] * r[i] == n) --i;
-			for (; i >= 0; --i)
-				r.Add(n / r[i]);
+			for (int i = r.Count - 1; i >= 0; --i)
+			{
+				var v = n / r[i];
+				if (v > r[i]) r.Add(v);
+			}
 			return r.ToArray();
 		}
 
@@ -47,11 +51,9 @@ namespace AlgorithmLib.Maths
 		/// <returns>素数である場合に限り true。</returns>
 		public static bool IsPrime(long n)
 		{
-			// 候補 x を 2 または奇数に限定することで高速化します。
-			if (n < 2 || n > 2 && n % 2 == 0) return false;
-			for (long x = 3; x * x <= n; x += 2)
+			for (long x = 2; x * x <= n; ++x)
 				if (n % x == 0) return false;
-			return true;
+			return n > 1;
 		}
 
 		/// <summary>
