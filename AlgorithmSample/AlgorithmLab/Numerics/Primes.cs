@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AlgorithmLab.Numerics
 {
-	public static class PrimesLab
+	public static class Primes
 	{
 		// O(√n)
 		public static long[] Divisors(long n)
