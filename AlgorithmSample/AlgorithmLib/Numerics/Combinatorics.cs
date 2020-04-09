@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlgorithmLib.Maths
+namespace AlgorithmLib.Numerics
 {
 	public static class Combinatorics
 	{

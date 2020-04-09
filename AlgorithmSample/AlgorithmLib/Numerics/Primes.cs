@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlgorithmLib.Maths
+namespace AlgorithmLib.Numerics
 {
 	public static class Primes
 	{

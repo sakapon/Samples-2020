@@ -1,8 +1,8 @@
 ﻿using System;
-using AlgorithmLib.Maths;
+using AlgorithmLib.Numerics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTest.Maths
+namespace UnitTest.Numerics
 {
 	[TestClass]
 	public class EuclideanTest
