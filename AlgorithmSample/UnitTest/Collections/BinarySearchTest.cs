@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AlgorithmLab.Collections;
+using KLibrary.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest.Collections
@@ -9,8 +10,6 @@ namespace UnitTest.Collections
 	[TestClass]
 	public class BinarySearchTest
 	{
-		static readonly Random random = new Random();
-
 		[TestMethod]
 		public void FirstGt_Random()
 		{
@@ -22,7 +21,7 @@ namespace UnitTest.Collections
 
 			void Test(int n)
 			{
-				var a = Enumerable.Range(0, n).Select(_ => random.Next(0, n)).OrderBy(x => x).ToArray();
+				var a = RandomHelper.CreateData(n).OrderBy(x => x).ToArray();
 				for (int x = -2; x < n + 2; x++)
 				{
 					var actual = BinarySearch.FirstGt(a, x);
@@ -43,7 +42,7 @@ namespace UnitTest.Collections
 
 			void Test(int n)
 			{
-				var a = Enumerable.Range(0, n).Select(_ => random.Next(0, n)).OrderBy(x => -x).ToArray();
+				var a = RandomHelper.CreateData(n).OrderBy(x => -x).ToArray();
 				for (int x = -2; x < n + 2; x++)
 				{
 					var actual = BinarySearch.LastGt(a, x);
