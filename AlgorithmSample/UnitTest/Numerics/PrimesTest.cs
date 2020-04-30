@@ -112,5 +112,29 @@ namespace UnitTest.Numerics
 				CollectionAssert.AreEqual(Primes.GetPrimes(M), Primes.GetPrimes(1, M));
 			}
 		}
+
+		[TestMethod]
+		public void Sample()
+		{
+			// 素因数分解
+			Console.WriteLine(string.Join(" * ", Primes.Factorize(2020)));
+			// 2 * 2 * 5 * 101
+
+			// 約数の列挙
+			Console.WriteLine(string.Join(" ", Primes.Divisors(2020)));
+			// 1 2 4 5 10 20 101 202 404 505 1010 2020
+
+			// 素数判定
+			Console.WriteLine(Primes.IsPrime(1000000007));
+			// True
+
+			// n 以下の素数の列挙
+			Console.WriteLine(string.Join(" ", Primes.GetPrimes(100)));
+			// 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
+
+			// m 以上 M 以下の素数の列挙
+			Console.WriteLine(string.Join(" ", Primes.GetPrimes(1000000000, 1000000100)));
+			// 1000000007 1000000009 1000000021 1000000033 1000000087 1000000093 1000000097
+		}
 	}
 }
