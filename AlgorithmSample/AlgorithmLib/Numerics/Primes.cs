@@ -57,7 +57,7 @@ namespace AlgorithmLib.Numerics
 		}
 
 		/// <summary>
-		/// 指定された自然数以下の素数をすべて求めます。O(n)?
+		/// 指定された自然数以下の素数をすべて求めます。およそ O(n)
 		/// </summary>
 		/// <param name="n">自然数。</param>
 		/// <returns>素数のコレクション。</returns>
@@ -75,7 +75,7 @@ namespace AlgorithmLib.Numerics
 		}
 
 		/// <summary>
-		/// 指定された範囲内の素数をすべて求めます。O(√M)? or O(M - m)?
+		/// 指定された範囲内の素数をすべて求めます。およそ O(max(√M, M - m))
 		/// </summary>
 		/// <param name="m">最小値。</param>
 		/// <param name="M">最大値。</param>
