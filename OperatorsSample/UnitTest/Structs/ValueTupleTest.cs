@@ -11,6 +11,7 @@ namespace UnitTest.Structs
 		[TestMethod]
 		public void Equals()
 		{
+			// == 演算子が使えます。(C# 7.3 以降)
 			var v1 = (3, 4);
 			var v2 = (3, 4);
 			var v3 = (4, 3);

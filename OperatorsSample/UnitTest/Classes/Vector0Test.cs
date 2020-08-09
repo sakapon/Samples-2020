@@ -12,6 +12,7 @@ namespace UnitTest.Classes
 		[TestMethod]
 		public void Equals()
 		{
+			// 各要素の比較はできません。
 			var v1 = new Vector0(3, 4);
 			var v2 = new Vector0(3, 4);
 			var v3 = new Vector0(4, 3);

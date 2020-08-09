@@ -11,6 +11,7 @@ namespace UnitTest.Classes
 		[TestMethod]
 		public void Equals()
 		{
+			// == 演算子は定義されていませんが、Equals で各要素を比較できます。
 			var v1 = Tuple.Create(3, 4);
 			var v2 = Tuple.Create(3, 4);
 			var v3 = Tuple.Create(4, 3);

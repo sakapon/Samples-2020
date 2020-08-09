@@ -12,6 +12,7 @@ namespace UnitTest.Structs
 		[TestMethod]
 		public void Equals()
 		{
+			// == 演算子は定義されていませんが、Equals で各要素を比較できます。
 			var v1 = new Vector0(3, 4);
 			var v2 = new Vector0(3, 4);
 			var v3 = new Vector0(4, 3);
