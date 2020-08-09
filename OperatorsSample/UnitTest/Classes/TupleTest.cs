@@ -40,5 +40,27 @@ namespace UnitTest.Classes
 			Assert.AreEqual(1, vs.Distinct().Count());
 			Assert.AreEqual(1, vs.ToHashSet().Count);
 		}
+
+		[TestMethod]
+		public void Sort()
+		{
+			var titles = new[]
+			{
+				Tuple.Create("Book", 22),
+				Tuple.Create("Book", 3),
+				Tuple.Create("article", 111),
+				Tuple.Create("Article", 22),
+				Tuple.Create(default(string), -1),
+				Tuple.Create("book", 111),
+				Tuple.Create("article", 3),
+			};
+
+			var titles2 = titles.OrderBy(x => x).ToArray();
+			Array.Sort(titles);
+			CollectionAssert.AreEqual(titles, titles2);
+
+			foreach (var (name, number) in titles)
+				Console.WriteLine($"{name} #{number}");
+		}
 	}
 }

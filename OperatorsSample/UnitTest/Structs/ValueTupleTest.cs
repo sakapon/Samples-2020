@@ -43,5 +43,27 @@ namespace UnitTest.Structs
 			Assert.AreEqual(1, vs.Distinct().Count());
 			Assert.AreEqual(1, vs.ToHashSet().Count);
 		}
+
+		[TestMethod]
+		public void Sort()
+		{
+			var titles = new[]
+			{
+				("Book", 22),
+				("Book", 3),
+				("article", 111),
+				("Article", 22),
+				(null, -1),
+				("book", 111),
+				("article", 3),
+			};
+
+			var titles2 = titles.OrderBy(x => x).ToArray();
+			Array.Sort(titles);
+			CollectionAssert.AreEqual(titles, titles2);
+
+			foreach (var (name, number) in titles)
+				Console.WriteLine($"{name} #{number}");
+		}
 	}
 }
