@@ -19,15 +19,20 @@ namespace UnitTest.Structs
 			Assert.IsFalse(ReferenceEquals(v1, v1));
 			Assert.IsTrue(Equals(v1, v1));
 			Assert.IsTrue(v1.Equals(v1));
-			// == 演算子は利用できません。
+			// ReferenceEquals と同じです。
+			Assert.IsFalse((object)v1 == (object)v1);
+			// コンパイル エラー。
+			//Assert.IsFalse(v1 == v1);
 
 			Assert.IsFalse(ReferenceEquals(v1, v2));
 			Assert.IsTrue(Equals(v1, v2));
 			Assert.IsTrue(v1.Equals(v2));
+			Assert.IsFalse((object)v1 == (object)v2);
 
 			Assert.IsFalse(ReferenceEquals(v1, v3));
 			Assert.IsFalse(Equals(v1, v3));
 			Assert.IsFalse(v1.Equals(v3));
+			Assert.IsFalse((object)v1 == (object)v3);
 		}
 
 		[TestMethod]
