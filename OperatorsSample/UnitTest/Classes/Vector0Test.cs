@@ -38,6 +38,7 @@ namespace UnitTest.Classes
 		public void Distinct()
 		{
 			var vs = Array.ConvertAll(new int[1000], _ => new Vector0(3, 4));
+			Assert.AreEqual(-1, Array.IndexOf(vs, new Vector0(3, 4)));
 			Assert.AreEqual(1000, vs.Distinct().Count());
 			Assert.AreEqual(1000, vs.ToHashSet().Count);
 		}

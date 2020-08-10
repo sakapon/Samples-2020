@@ -40,6 +40,7 @@ namespace UnitTest.Structs
 		public void Distinct()
 		{
 			var vs = Array.ConvertAll(new int[1000], _ => (3, 4));
+			Assert.AreEqual(0, Array.IndexOf(vs, (3, 4)));
 			Assert.AreEqual(1, vs.Distinct().Count());
 			Assert.AreEqual(1, vs.ToHashSet().Count);
 		}

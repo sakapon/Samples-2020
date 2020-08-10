@@ -37,6 +37,7 @@ namespace UnitTest.Classes
 		public void Distinct()
 		{
 			var vs = Array.ConvertAll(new int[1000], _ => Tuple.Create(3, 4));
+			Assert.AreEqual(0, Array.IndexOf(vs, Tuple.Create(3, 4)));
 			Assert.AreEqual(1, vs.Distinct().Count());
 			Assert.AreEqual(1, vs.ToHashSet().Count);
 		}
