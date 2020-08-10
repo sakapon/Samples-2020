@@ -42,5 +42,18 @@ namespace UnitTest.Classes
 			Assert.AreEqual(1000, vs.Distinct().Count());
 			Assert.AreEqual(1000, vs.ToHashSet().Count);
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidOperationException))]
+		public void Sort()
+		{
+			var titles = new[]
+			{
+				new Vector0(3, 4),
+				new Vector0(3, 4),
+			};
+
+			Array.Sort(titles);
+		}
 	}
 }
