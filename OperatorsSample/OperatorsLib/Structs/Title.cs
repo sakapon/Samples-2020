@@ -25,7 +25,7 @@ namespace OperatorsLib.Structs
 
 		public int CompareTo(Title other)
 		{
-			// 参照型の場合は null 値があるため、静的メソッドで実装されることが多いです。
+			// 参照型の場合は null 値があるため、静的メソッドが実装されることも多いです。
 			var c1 = string.Compare(Name, other.Name);
 			if (c1 != 0) return c1;
 			return Number.CompareTo(other.Number);
