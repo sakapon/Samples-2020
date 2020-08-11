@@ -37,6 +37,30 @@ namespace UnitTest.Structs
 		}
 
 		[TestMethod]
+		public void CompareTo()
+		{
+			var v1 = new Title("Book", 2);
+			var v2 = new Title("Book", 2);
+			var v3 = new Title("Article", 3);
+
+			Assert.IsTrue(v3 < v1);
+			Assert.IsFalse(v1 < v2);
+			Assert.IsFalse(v1 < v3);
+
+			Assert.IsFalse(v3 > v1);
+			Assert.IsFalse(v1 > v2);
+			Assert.IsTrue(v1 > v3);
+
+			Assert.IsTrue(v3 <= v1);
+			Assert.IsTrue(v1 <= v2);
+			Assert.IsFalse(v1 <= v3);
+
+			Assert.IsFalse(v3 >= v1);
+			Assert.IsTrue(v1 >= v2);
+			Assert.IsTrue(v1 >= v3);
+		}
+
+		[TestMethod]
 		public void Distinct()
 		{
 			var vs = Array.ConvertAll(new int[1000], _ => new Title("Book", 2));
