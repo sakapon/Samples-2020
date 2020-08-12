@@ -20,6 +20,7 @@ namespace OperatorsLib.Structs
 
 		public BitArray(int value) => Value = value;
 		public override string ToString() => Value.ToString();
+		public static BitArray Parse(string s) => int.Parse(s);
 
 		public static implicit operator BitArray(int v) => new BitArray(v);
 		public static explicit operator int(BitArray v) => v.Value;

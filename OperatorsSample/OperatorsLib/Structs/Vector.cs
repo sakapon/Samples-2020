@@ -41,5 +41,7 @@ namespace OperatorsLib.Structs
 
 		public static double operator *(Vector v1, Vector v2) => v1.X * v2.X + v1.Y * v2.Y;
 		#endregion
+
+		public static double Area(Vector v1, Vector v2) => Math.Abs(v1.X * v2.Y - v2.X * v1.Y) / 2;
 	}
 }

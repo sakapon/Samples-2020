@@ -39,5 +39,13 @@ namespace UnitTest.Structs
 			Assert.AreEqual(72, b);
 			Assert.AreEqual(72, b.Value);
 		}
+
+		[TestMethod]
+		public void Parse()
+		{
+			var b = BitArray.Parse("65535");
+			Assert.AreEqual(65535, b);
+			Assert.AreEqual("65535", b.ToString());
+		}
 	}
 }
