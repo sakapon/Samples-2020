@@ -13,10 +13,11 @@ namespace OperatorsLib.Classes
 
 		#region Equality Operators
 
-		public bool Equals(Title other) => other != null && Name == other.Name && Number == other.Number;
+		// other != null では無限ループ。
+		public bool Equals(Title other) => !(other is null) && Name == other.Name && Number == other.Number;
 
 		// 参照型の場合は null 値があるため、静的メソッドが実装されることも多いです。
-		public static bool Equals(Title v1, Title v2) => v1?.Equals(v2) ?? (v2 == null);
+		public static bool Equals(Title v1, Title v2) => v1?.Equals(v2) ?? (v2 is null);
 
 		public static bool operator ==(Title v1, Title v2) => Equals(v1, v2);
 		public static bool operator !=(Title v1, Title v2) => !Equals(v1, v2);
@@ -28,7 +29,7 @@ namespace OperatorsLib.Classes
 
 		public int CompareTo(Title other)
 		{
-			if (other == null) return 1;
+			if (other is null) return 1;
 
 			var c1 = string.Compare(Name, other.Name);
 			if (c1 != 0) return c1;
@@ -36,7 +37,7 @@ namespace OperatorsLib.Classes
 		}
 
 		// 参照型の場合は null 値があるため、静的メソッドが実装されることも多いです。
-		public static int Compare(Title v1, Title v2) => v1?.CompareTo(v2) ?? (v2 == null ? 0 : -1);
+		public static int Compare(Title v1, Title v2) => v1?.CompareTo(v2) ?? (v2 is null ? 0 : -1);
 
 		public static bool operator <(Title v1, Title v2) => Compare(v1, v2) < 0;
 		public static bool operator >(Title v1, Title v2) => Compare(v1, v2) > 0;
