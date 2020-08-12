@@ -3,6 +3,7 @@ using System.Diagnostics;
 
 namespace OperatorsLib.Structs
 {
+	// デバッグ時の表示を ToString と異なるものにしたい場合、[DebuggerDisplay] を追加します。
 	[DebuggerDisplay(@"\{{Value.ToString(""X8"")}\}")]
 	public struct BitArray
 	{

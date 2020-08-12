@@ -2,7 +2,6 @@
 
 namespace OperatorsLib.Classes
 {
-	// デバッグ時の表示を ToString と異なるものにしたい場合、[DebuggerDisplay] を追加します。
 	public class Title : IEquatable<Title>, IComparable<Title>
 	{
 		public string Name { get; }

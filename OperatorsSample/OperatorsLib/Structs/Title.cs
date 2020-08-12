@@ -2,7 +2,6 @@
 
 namespace OperatorsLib.Structs
 {
-	// デバッグ時の表示を ToString と異なるものにしたい場合、[DebuggerDisplay] を追加します。
 	public struct Title : IEquatable<Title>, IComparable<Title>
 	{
 		public string Name { get; }
