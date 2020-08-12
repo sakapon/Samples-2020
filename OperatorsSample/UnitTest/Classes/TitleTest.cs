@@ -61,6 +61,40 @@ namespace UnitTest.Classes
 		}
 
 		[TestMethod]
+		public void Equals_Null()
+		{
+			var v0 = default(Title);
+			var v1 = new Title("Book", 2);
+
+			Assert.IsTrue(Title.Equals(v0, v0));
+			Assert.IsFalse(Title.Equals(v0, v1));
+			Assert.IsFalse(Title.Equals(v1, v0));
+
+			Assert.IsTrue(v0 == v0);
+			Assert.IsFalse(v0 == v1);
+			Assert.IsFalse(v1 == v0);
+		}
+
+		[TestMethod]
+		public void CompareTo_Null()
+		{
+			var v0 = default(Title);
+			var v1 = new Title("Book", 2);
+
+			Assert.AreEqual(0, Title.Compare(v0, v0));
+			Assert.AreEqual(-1, Title.Compare(v0, v1));
+			Assert.AreEqual(1, Title.Compare(v1, v0));
+
+			Assert.IsFalse(v0 < v0);
+			Assert.IsTrue(v0 < v1);
+			Assert.IsFalse(v1 < v0);
+
+			Assert.IsTrue(v0 <= v0);
+			Assert.IsTrue(v0 <= v1);
+			Assert.IsFalse(v1 <= v0);
+		}
+
+		[TestMethod]
 		public void Distinct()
 		{
 			var vs = Array.ConvertAll(new int[1000], _ => new Title("Book", 2));
