@@ -11,10 +11,19 @@ namespace OperatorsLib.Classes
 
 		public double X { get; }
 		public double Y { get; }
-		public double Norm => Math.Sqrt(X * X + Y * Y);
-		public double Angle => Math.Atan2(Y, X);
 
-		public Vector(double x, double y) => (X, Y) = (x, y);
+		// 必要なときに計算してキャッシュしておく例。
+		Lazy<double> norm;
+		public double Norm => norm.Value;
+		Lazy<double> angle;
+		public double Angle => angle.Value;
+
+		public Vector(double x, double y)
+		{
+			(X, Y) = (x, y);
+			norm = new Lazy<double>(() => Math.Sqrt(X * X + Y * Y));
+			angle = new Lazy<double>(() => Math.Atan2(Y, X));
+		}
 		public override string ToString() => $"({X}, {Y})";
 
 		#region Equality Operators
