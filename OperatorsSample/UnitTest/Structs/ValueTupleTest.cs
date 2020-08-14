@@ -11,9 +11,10 @@ namespace UnitTest.Structs
 		[TestMethod]
 		public void Equals()
 		{
-			// == 演算子が使えます。(C# 7.3 以降)
-			var v1 = (3, 4);
-			var v2 = (3, 4);
+			// == および != 演算子が使えます。(C# 7.3 以降)
+			// フィールド名は無視されます。
+			var v1 = (x: 3, y: 4);
+			var v2 = (y: 3, x: 4);
 			var v3 = (4, 3);
 
 			Assert.IsFalse(ReferenceEquals(v1, v1));
