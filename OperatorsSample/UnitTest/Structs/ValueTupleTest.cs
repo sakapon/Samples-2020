@@ -16,10 +16,12 @@ namespace UnitTest.Structs
 			var v1 = (x: 3, y: 4);
 			var v2 = (y: 3, x: 4);
 			var v3 = (4, 3);
+			var ec = EqualityComparer<(int, int)>.Default;
 
 			Assert.IsFalse(ReferenceEquals(v1, v1));
 			Assert.IsTrue(Equals(v1, v1));
 			Assert.IsTrue(v1.Equals(v1));
+			Assert.IsTrue(ec.Equals(v1, v1));
 			// ReferenceEquals と同じです。
 			Assert.IsFalse((object)v1 == (object)v1);
 			Assert.IsTrue(v1 == v1);
@@ -27,12 +29,14 @@ namespace UnitTest.Structs
 			Assert.IsFalse(ReferenceEquals(v1, v2));
 			Assert.IsTrue(Equals(v1, v2));
 			Assert.IsTrue(v1.Equals(v2));
+			Assert.IsTrue(ec.Equals(v1, v2));
 			Assert.IsFalse((object)v1 == (object)v2);
 			Assert.IsTrue(v1 == v2);
 
 			Assert.IsFalse(ReferenceEquals(v1, v3));
 			Assert.IsFalse(Equals(v1, v3));
 			Assert.IsFalse(v1.Equals(v3));
+			Assert.IsFalse(ec.Equals(v1, v3));
 			Assert.IsFalse((object)v1 == (object)v3);
 			Assert.IsFalse(v1 == v3);
 		}

@@ -15,21 +15,25 @@ namespace UnitTest.Classes
 			var v1 = Tuple.Create(3, 4);
 			var v2 = Tuple.Create(3, 4);
 			var v3 = Tuple.Create(4, 3);
+			var ec = EqualityComparer<Tuple<int, int>>.Default;
 
 			Assert.IsTrue(ReferenceEquals(v1, v1));
 			Assert.IsTrue(Equals(v1, v1));
 			Assert.IsTrue(v1.Equals(v1));
+			Assert.IsTrue(ec.Equals(v1, v1));
 			// ReferenceEquals と同じです。
 			Assert.IsTrue(v1 == v1);
 
 			Assert.IsFalse(ReferenceEquals(v1, v2));
 			Assert.IsTrue(Equals(v1, v2));
 			Assert.IsTrue(v1.Equals(v2));
+			Assert.IsTrue(ec.Equals(v1, v2));
 			Assert.IsFalse(v1 == v2);
 
 			Assert.IsFalse(ReferenceEquals(v1, v3));
 			Assert.IsFalse(Equals(v1, v3));
 			Assert.IsFalse(v1.Equals(v3));
+			Assert.IsFalse(ec.Equals(v1, v3));
 			Assert.IsFalse(v1 == v3);
 		}
 
