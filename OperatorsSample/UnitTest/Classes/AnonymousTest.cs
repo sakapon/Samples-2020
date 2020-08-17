@@ -19,23 +19,23 @@ namespace UnitTest.Classes
 			var ec = GetEqualityComparer(v1);
 
 			Assert.IsTrue(ReferenceEquals(v1, v1));
+			// ReferenceEquals と同じです。
+			Assert.IsTrue(v1 == v1);
 			Assert.IsTrue(Equals(v1, v1));
 			Assert.IsTrue(v1.Equals(v1));
 			Assert.IsTrue(ec.Equals(v1, v1));
-			// ReferenceEquals と同じです。
-			Assert.IsTrue(v1 == v1);
 
 			Assert.IsFalse(ReferenceEquals(v1, v2));
+			Assert.IsFalse(v1 == v2);
 			Assert.IsTrue(Equals(v1, v2));
 			Assert.IsTrue(v1.Equals(v2));
 			Assert.IsTrue(ec.Equals(v1, v2));
-			Assert.IsFalse(v1 == v2);
 
 			Assert.IsFalse(ReferenceEquals(v1, v3));
+			Assert.IsFalse(v1 == v3);
 			Assert.IsFalse(Equals(v1, v3));
 			Assert.IsFalse(v1.Equals(v3));
 			Assert.IsFalse(ec.Equals(v1, v3));
-			Assert.IsFalse(v1 == v3);
 		}
 
 		[TestMethod]
