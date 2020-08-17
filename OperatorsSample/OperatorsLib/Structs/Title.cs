@@ -18,6 +18,9 @@ namespace OperatorsLib.Structs
 		public static bool operator !=(Title v1, Title v2) => !v1.Equals(v2);
 		public override bool Equals(object obj) => obj is Title v && Equals(v);
 		public override int GetHashCode() => HashCode.Combine(Name, Number);
+
+		// HashCode.Combine を利用できない場合
+		//public override int GetHashCode() => (Name?.GetHashCode() ?? 0) ^ Number;
 		#endregion
 
 		#region Comparison Operators
