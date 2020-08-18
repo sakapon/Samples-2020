@@ -20,7 +20,7 @@ namespace OperatorsLib.Classes
 
 		public static bool operator ==(Title v1, Title v2) => Equals(v1, v2);
 		public static bool operator !=(Title v1, Title v2) => !Equals(v1, v2);
-		public override bool Equals(object obj) => obj is Title v && Equals(v);
+		public override bool Equals(object obj) => Equals(obj as Title);
 		public override int GetHashCode() => HashCode.Combine(Name, Number);
 		#endregion
 

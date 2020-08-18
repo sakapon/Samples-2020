@@ -34,7 +34,7 @@ namespace OperatorsLib.Classes
 
 		public static bool operator ==(Vector v1, Vector v2) => Equals(v1, v2);
 		public static bool operator !=(Vector v1, Vector v2) => !Equals(v1, v2);
-		public override bool Equals(object obj) => obj is Vector v && Equals(v);
+		public override bool Equals(object obj) => Equals(obj as Vector);
 		public override int GetHashCode() => HashCode.Combine(X, Y);
 		#endregion
 
