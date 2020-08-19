@@ -47,5 +47,23 @@ namespace UnitTest.Structs
 			Assert.AreEqual(65535, b);
 			Assert.AreEqual("65535", b.ToString());
 		}
+
+		[TestMethod]
+		public void BitSwitches()
+		{
+			var n = 8;
+			var n2 = 1 << n;
+
+			// bit 全探索
+			for (BitArray b = 0; b.Value < n2; b++)
+			{
+				for (int i = 0; i < n; i++)
+				{
+					// b[i] の真偽による何らかの処理
+					Console.Write(b[i] ? 1 : 0);
+				}
+				Console.WriteLine();
+			}
+		}
 	}
 }
