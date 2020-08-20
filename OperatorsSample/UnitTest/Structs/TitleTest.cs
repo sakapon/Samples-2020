@@ -15,24 +15,28 @@ namespace UnitTest.Structs
 			var v1 = new Title("Book", 2);
 			var v2 = new Title("Book", 2);
 			var v3 = new Title("Article", 3);
+			var ec = EqualityComparer<Title>.Default;
 
 			Assert.IsFalse(ReferenceEquals(v1, v1));
-			Assert.IsTrue(Equals(v1, v1));
-			Assert.IsTrue(v1.Equals(v1));
 			// ReferenceEquals と同じです。
 			Assert.IsFalse((object)v1 == (object)v1);
+			Assert.IsTrue(Equals(v1, v1));
+			Assert.IsTrue(v1.Equals(v1));
+			Assert.IsTrue(ec.Equals(v1, v1));
 			Assert.IsTrue(v1 == v1);
 
 			Assert.IsFalse(ReferenceEquals(v1, v2));
+			Assert.IsFalse((object)v1 == (object)v2);
 			Assert.IsTrue(Equals(v1, v2));
 			Assert.IsTrue(v1.Equals(v2));
-			Assert.IsFalse((object)v1 == (object)v2);
+			Assert.IsTrue(ec.Equals(v1, v2));
 			Assert.IsTrue(v1 == v2);
 
 			Assert.IsFalse(ReferenceEquals(v1, v3));
+			Assert.IsFalse((object)v1 == (object)v3);
 			Assert.IsFalse(Equals(v1, v3));
 			Assert.IsFalse(v1.Equals(v3));
-			Assert.IsFalse((object)v1 == (object)v3);
+			Assert.IsFalse(ec.Equals(v1, v3));
 			Assert.IsFalse(v1 == v3);
 		}
 

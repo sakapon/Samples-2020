@@ -11,28 +11,33 @@ namespace UnitTest.Structs
 		[TestMethod]
 		public void Equals()
 		{
-			// == 演算子が使えます。(C# 7.3 以降)
-			var v1 = (3, 4);
-			var v2 = (3, 4);
+			// == および != 演算子が使えます。(C# 7.3 以降)
+			// フィールド名は無視されます。
+			var v1 = (x: 3, y: 4);
+			var v2 = (y: 3, x: 4);
 			var v3 = (4, 3);
+			var ec = EqualityComparer<(int, int)>.Default;
 
 			Assert.IsFalse(ReferenceEquals(v1, v1));
-			Assert.IsTrue(Equals(v1, v1));
-			Assert.IsTrue(v1.Equals(v1));
 			// ReferenceEquals と同じです。
 			Assert.IsFalse((object)v1 == (object)v1);
+			Assert.IsTrue(Equals(v1, v1));
+			Assert.IsTrue(v1.Equals(v1));
+			Assert.IsTrue(ec.Equals(v1, v1));
 			Assert.IsTrue(v1 == v1);
 
 			Assert.IsFalse(ReferenceEquals(v1, v2));
+			Assert.IsFalse((object)v1 == (object)v2);
 			Assert.IsTrue(Equals(v1, v2));
 			Assert.IsTrue(v1.Equals(v2));
-			Assert.IsFalse((object)v1 == (object)v2);
+			Assert.IsTrue(ec.Equals(v1, v2));
 			Assert.IsTrue(v1 == v2);
 
 			Assert.IsFalse(ReferenceEquals(v1, v3));
+			Assert.IsFalse((object)v1 == (object)v3);
 			Assert.IsFalse(Equals(v1, v3));
 			Assert.IsFalse(v1.Equals(v3));
-			Assert.IsFalse((object)v1 == (object)v3);
+			Assert.IsFalse(ec.Equals(v1, v3));
 			Assert.IsFalse(v1 == v3);
 		}
 

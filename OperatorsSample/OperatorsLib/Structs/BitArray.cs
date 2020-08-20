@@ -19,11 +19,20 @@ namespace OperatorsLib.Structs
 			}
 		}
 
+		public bool this[Index index]
+		{
+			get => this[index.GetOffset(32)];
+			set => this[index.GetOffset(32)] = value;
+		}
+
 		public BitArray(int value) => Value = value;
 		public override string ToString() => Value.ToString();
 		public static BitArray Parse(string s) => int.Parse(s);
 
 		public static implicit operator BitArray(int v) => new BitArray(v);
 		public static explicit operator int(BitArray v) => v.Value;
+
+		public static BitArray operator ++(BitArray v) => v.Value + 1;
+		public static BitArray operator --(BitArray v) => v.Value - 1;
 	}
 }
