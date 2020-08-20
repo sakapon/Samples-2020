@@ -51,6 +51,8 @@ namespace OperatorsLib.Classes
 		public static Vector operator *(Vector v, double c) => new Vector(v.X * c, v.Y * c);
 		public static Vector operator /(Vector v, double c) => new Vector(v.X / c, v.Y / c);
 
+		// ドット積 (dot product)、内積 (inner product)
+		// 実際には静的メソッドとして定義することが多いです。
 		public static double operator *(Vector v1, Vector v2) => v1.X * v2.X + v1.Y * v2.Y;
 		#endregion
 
