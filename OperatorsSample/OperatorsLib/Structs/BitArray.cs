@@ -19,6 +19,12 @@ namespace OperatorsLib.Structs
 			}
 		}
 
+		public bool this[Index index]
+		{
+			get => this[index.GetOffset(32)];
+			set => this[index.GetOffset(32)] = value;
+		}
+
 		public BitArray(int value) => Value = value;
 		public override string ToString() => Value.ToString();
 		public static BitArray Parse(string s) => int.Parse(s);
