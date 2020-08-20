@@ -13,10 +13,12 @@ namespace UnitTest.Classes
 		{
 			var v1 = new Vector(2, 2);
 			var v2 = new Vector(3, 4);
+			var v3 = new Vector(18, 24);
 
 			Assert.AreEqual(new Vector(5, 6), v1 + v2);
 			Assert.AreEqual(-new Vector(1, 2), v1 - v2);
-			Assert.AreEqual(new Vector(18, 24) / 3, 2 * v2);
+			Assert.AreEqual(new Vector(6, 8), 2 * v2);
+			Assert.AreEqual(new Vector(6, 8), v3 / 3);
 			Assert.AreEqual(14, v1 * v2);
 		}
 
