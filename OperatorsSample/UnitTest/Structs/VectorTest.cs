@@ -9,7 +9,7 @@ namespace UnitTest.Structs
 	public class VectorTest
 	{
 		[TestMethod]
-		public void Operators()
+		public void Arithmetic()
 		{
 			var v1 = new Vector(2, 2);
 			var v2 = new Vector(3, 4);
