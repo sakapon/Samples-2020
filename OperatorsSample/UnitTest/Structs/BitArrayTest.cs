@@ -9,6 +9,17 @@ namespace UnitTest.Structs
 	public class BitArrayTest
 	{
 		[TestMethod]
+		public void Parse()
+		{
+			BitArray b1 = 65535;
+			Assert.AreEqual("65535", b1.ToString());
+
+			var b2 = BitArray.Parse(b1.ToString());
+			Assert.AreEqual(65535, (int)b2);
+			Assert.AreEqual(b1, b2);
+		}
+
+		[TestMethod]
 		public void Indexer()
 		{
 			BitArray b = 10;
@@ -50,14 +61,6 @@ namespace UnitTest.Structs
 			Assert.AreEqual(false, b[7]);
 			Assert.AreEqual(72, b);
 			Assert.AreEqual(72, b.Value);
-		}
-
-		[TestMethod]
-		public void Parse()
-		{
-			var b = BitArray.Parse("65535");
-			Assert.AreEqual(65535, b);
-			Assert.AreEqual("65535", b.ToString());
 		}
 
 		[TestMethod]
