@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OperatorsLib.Structs;
+using BArray = System.Collections.BitArray;
 
 namespace UnitTest.Structs
 {
@@ -64,7 +66,7 @@ namespace UnitTest.Structs
 		}
 
 		[TestMethod]
-		public void BitSwitches()
+		public void BitSearch()
 		{
 			var n = 8;
 			var n2 = 1 << n;
@@ -76,6 +78,40 @@ namespace UnitTest.Structs
 				{
 					// b[i] の真偽による何らかの処理
 					Console.Write(b[i] ? 1 : 0);
+				}
+				Console.WriteLine();
+			}
+		}
+
+		[TestMethod]
+		public void BitSearch_BitArray()
+		{
+			var n = 8;
+			var n2 = 1 << n;
+
+			for (int x = 0; x < n2; x++)
+			{
+				var b = new BArray(new[] { x });
+				for (int i = 0; i < n; i++)
+				{
+					Console.Write(b[i] ? 1 : 0);
+				}
+				Console.WriteLine();
+			}
+		}
+
+		[TestMethod]
+		public void BitSearch_BitVector32()
+		{
+			var n = 8;
+			var n2 = 1 << n;
+
+			for (int x = 0; x < n2; x++)
+			{
+				var b = new BitVector32(x);
+				for (int i = 0; i < n; i++)
+				{
+					Console.Write(b[1 << i] ? 1 : 0);
 				}
 				Console.WriteLine();
 			}
