@@ -52,6 +52,9 @@ namespace UnitTest.Structs
 					Assert.AreEqual(b[i].Value & b[j].Value, (b[i] & b[j]).Value);
 					Assert.AreEqual(b[i].Value ^ b[j].Value, (b[i] ^ b[j]).Value);
 					Assert.AreEqual(b[i].Value | b[j].Value, (b[i] | b[j]).Value);
+
+					Assert.AreEqual(!(b[i].Value ^ b[j].Value), (b[i] == b[j]).Value);
+					Assert.AreEqual(b[i].Value ^ b[j].Value, (b[i] != b[j]).Value);
 				}
 
 			// bool? で && および || は利用できません。

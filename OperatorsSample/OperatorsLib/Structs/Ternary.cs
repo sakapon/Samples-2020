@@ -21,5 +21,12 @@
 		public static Ternary operator &(Ternary v1, Ternary v2) => v1.Value & v2.Value;
 		public static Ternary operator ^(Ternary v1, Ternary v2) => v1.Value ^ v2.Value;
 		public static Ternary operator |(Ternary v1, Ternary v2) => v1.Value | v2.Value;
+
+		#region Equality Operators
+		public static Ternary operator ==(Ternary v1, Ternary v2) => !(v1 != v2);
+		public static Ternary operator !=(Ternary v1, Ternary v2) => v1 ^ v2;
+		public override bool Equals(object obj) => base.Equals(obj);
+		public override int GetHashCode() => base.GetHashCode();
+		#endregion
 	}
 }
