@@ -63,5 +63,33 @@ namespace UnitTest.Structs
 					Assert.AreEqual(b[i] | b[j], (bool?)(s[i] || s[j]));
 				}
 		}
+
+		[TestMethod]
+		public void Tables()
+		{
+			StringBool t = "true";
+			StringBool n = "force";
+			StringBool f = "false";
+			var s = new[] { t, n, f };
+
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					Console.Write($"{s[i] && s[j],-8}");
+				}
+				Console.WriteLine();
+			}
+			Console.WriteLine();
+
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					Console.Write($"{s[i] || s[j],-8}");
+				}
+				Console.WriteLine();
+			}
+		}
 	}
 }

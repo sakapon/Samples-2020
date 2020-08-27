@@ -14,7 +14,7 @@
 		public bool IsUnknown => !bool.TryParse(Value, out var _);
 
 		public StringBool(string value) => Value = value;
-		public override string ToString() => Value ?? "Null";
+		public override string ToString() => Value ?? "Unknown";
 
 		public static implicit operator StringBool(string v) => new StringBool(v);
 		public static explicit operator bool?(StringBool v) => v.IsUnknown ? default(bool?) : v.IsTrue;
