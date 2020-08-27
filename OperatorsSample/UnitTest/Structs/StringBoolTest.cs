@@ -41,25 +41,26 @@ namespace UnitTest.Structs
 			StringBool t = "true";
 			StringBool n = "force";
 			StringBool f = "false";
-			var b = new[] { t, n, f };
+			var s = new[] { t, n, f };
+			var b = new bool?[] { true, null, false };
 
 			for (int i = 0; i < 3; i++)
-				Assert.AreEqual(!(bool?)b[i], (bool?)!b[i]);
+				Assert.AreEqual(!b[i], (bool?)!s[i]);
 
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < 3; j++)
 				{
-					Assert.AreEqual((bool?)b[i] & (bool?)b[j], (bool?)(b[i] & b[j]));
-					Assert.AreEqual((bool?)b[i] ^ (bool?)b[j], (bool?)(b[i] ^ b[j]));
-					Assert.AreEqual((bool?)b[i] | (bool?)b[j], (bool?)(b[i] | b[j]));
+					Assert.AreEqual(b[i] & b[j], (bool?)(s[i] & s[j]));
+					Assert.AreEqual(b[i] ^ b[j], (bool?)(s[i] ^ s[j]));
+					Assert.AreEqual(b[i] | b[j], (bool?)(s[i] | s[j]));
 				}
 
 			// bool? で && および || は利用できません。
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < 3; j++)
 				{
-					Assert.AreEqual((bool?)b[i] & (bool?)b[j], (bool?)(b[i] && b[j]));
-					Assert.AreEqual((bool?)b[i] | (bool?)b[j], (bool?)(b[i] || b[j]));
+					Assert.AreEqual(b[i] & b[j], (bool?)(s[i] && s[j]));
+					Assert.AreEqual(b[i] | b[j], (bool?)(s[i] || s[j]));
 				}
 		}
 	}
