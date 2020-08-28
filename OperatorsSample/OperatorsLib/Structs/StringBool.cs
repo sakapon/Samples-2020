@@ -7,6 +7,7 @@
 		public static StringBool Unknown { get; } = null;
 
 		// bool? として持つこともできますが、この例ではあえて論理演算を自作します。
+		// Ternary 構造体では bool? としています。
 		public string Value { get; }
 
 		public bool IsTrue => bool.TryParse(Value, out var b) && b;
