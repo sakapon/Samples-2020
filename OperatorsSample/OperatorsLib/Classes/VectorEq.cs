@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace OperatorsLib.Classes
 {
-	public class EquatableObject
+	public abstract class EquatableObject
 	{
 		// ValueType と同様に、すべてのフィールドで等値性を評価します。
 		public override bool Equals(object obj)
@@ -18,7 +18,7 @@ namespace OperatorsLib.Classes
 
 		public override int GetHashCode()
 		{
-			var hc = default(HashCode);
+			HashCode hc = default;
 			foreach (var field in GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
 				hc.Add(field.GetValue(this));
 			return hc.ToHashCode();
