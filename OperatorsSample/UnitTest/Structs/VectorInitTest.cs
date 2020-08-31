@@ -11,6 +11,7 @@ namespace UnitTest.Structs
 		[TestMethod]
 		public void Calculations()
 		{
+			// IL で default(T) と new T() は同一になるようです。
 			Assert.AreEqual(new VectorInit(0, 0), default);
 			Assert.AreEqual(new VectorInit(0, 0), new VectorInit());
 
