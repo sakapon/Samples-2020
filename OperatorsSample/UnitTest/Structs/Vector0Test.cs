@@ -61,5 +61,13 @@ namespace UnitTest.Structs
 
 			Array.Sort(titles);
 		}
+
+		[TestMethod]
+		public void KeyValuePair_Deconstruct()
+		{
+			var d = Enumerable.Range(1, 100).ToDictionary(i => i, i => i / 2.0);
+			foreach (var (i, value) in d)
+				Console.WriteLine($"{i} {value}");
+		}
 	}
 }
