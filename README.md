@@ -7,3 +7,5 @@ Sample programs, mainly used for [the blog (Do Design Space)](https://sakapon.wo
 - [C# で演算子を実装する (2)](https://sakapon.wordpress.com/2020/08/18/csharp-operators-2/)
 - [C# で演算子を実装する (3)](https://sakapon.wordpress.com/2020/08/21/csharp-operators-3/)
 - [C# で演算子を実装する (4)](https://sakapon.wordpress.com/2020/08/25/csharp-operators-4/)
+- [C# で演算子を実装する (5)](https://sakapon.wordpress.com/2020/08/28/csharp-operators-5/)
+- [C# で演算子を実装する (6)](https://sakapon.wordpress.com/2020/08/31/csharp-operators-6/)
