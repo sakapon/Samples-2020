@@ -23,7 +23,7 @@ namespace UnitTest.Structs
 		}
 
 		[TestMethod]
-		public void Others()
+		public void Calculations()
 		{
 			var v1 = new Vector(2, 2);
 			var v2 = new Vector(3, 4);
