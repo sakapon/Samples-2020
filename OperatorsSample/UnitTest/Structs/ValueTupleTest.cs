@@ -12,7 +12,7 @@ namespace UnitTest.Structs
 		public void Equals()
 		{
 			// == および != 演算子が使えます。(C# 7.3 以降)
-			// フィールド名は無視されます。
+			// 内部でフィールド名は無視されます。
 			var v1 = (x: 3, y: 4);
 			var v2 = (y: 3, x: 4);
 			var v3 = (4, 3);
