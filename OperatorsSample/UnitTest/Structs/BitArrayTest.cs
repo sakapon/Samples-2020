@@ -116,5 +116,14 @@ namespace UnitTest.Structs
 				Console.WriteLine();
 			}
 		}
+
+		[TestMethod]
+		public void Precedence()
+		{
+			// 括弧を省略できる例。
+			var x = ~(~(-2) + 1);
+			x += (1 << 3);
+			Assert.AreEqual(5, x);
+		}
 	}
 }

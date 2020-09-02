@@ -13,6 +13,7 @@ namespace OperatorsLib.Classes
 		public double Y { get; }
 
 		// 必要なときに計算してキャッシュしておく例。
+		// 構造体の場合は、既定のコンストラクターとの整合性を考慮します。
 		Lazy<double> norm;
 		public double Norm => norm.Value;
 		Lazy<double> angle;

@@ -25,6 +25,7 @@
 		#region Equality Operators
 		public static Ternary operator ==(Ternary v1, Ternary v2) => !(v1 != v2);
 		public static Ternary operator !=(Ternary v1, Ternary v2) => v1 ^ v2;
+		// 下の 2 つは原理上は不要ですが、警告が出るためオーバーライドします。
 		public override bool Equals(object obj) => base.Equals(obj);
 		public override int GetHashCode() => base.GetHashCode();
 		#endregion

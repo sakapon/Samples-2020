@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace OperatorsLib.Classes
 {
-	public class EquatableObject
+	public abstract class EquatableObject
 	{
-		// ValueType と同様に、すべてのフィールドで等値性を評価します。
+		// ValueType と同様に、すべてのフィールドで等価性を評価します。
 		public override bool Equals(object obj)
 		{
 			var type = GetType();
@@ -18,7 +18,7 @@ namespace OperatorsLib.Classes
 
 		public override int GetHashCode()
 		{
-			var hc = default(HashCode);
+			HashCode hc = default;
 			foreach (var field in GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
 				hc.Add(field.GetValue(this));
 			return hc.ToHashCode();
@@ -31,7 +31,7 @@ namespace OperatorsLib.Classes
 		public double Y { get; }
 
 		// 必要なときに計算してキャッシュしておく例。
-		// しかし、すべてのフィールドで等値性が評価されるため、この実装方法では途中でその評価結果が変わる可能性があります。
+		// しかし、すべてのフィールドで等価性が評価されるため、この実装方法では途中でその評価結果が変わる可能性があります。
 		double norm = double.NaN;
 		public double Norm => double.IsNaN(norm) ? (norm = Math.Sqrt(X * X + Y * Y)) : norm;
 		double angle = double.NaN;

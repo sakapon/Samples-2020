@@ -9,6 +9,6 @@
 		public void Deconstruct(out double x, out double y) => (x, y) = (X, Y);
 
 		public static implicit operator Vector2((double x, double y) v) => new Vector2(v.x, v.y);
-		public static explicit operator (double x, double y)(Vector2 v) => (v.X, v.Y);
+		public static explicit operator (double, double)(Vector2 v) => (v.X, v.Y);
 	}
 }
