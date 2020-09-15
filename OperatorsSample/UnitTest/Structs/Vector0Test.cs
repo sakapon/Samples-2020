@@ -18,6 +18,7 @@ namespace UnitTest.Structs
 			var v3 = new Vector0(4, 3);
 			var ec = EqualityComparer<Vector0>.Default;
 
+			// 値型では、参照としての比較結果はつねに false です。
 			Assert.IsFalse(ReferenceEquals(v1, v1));
 			// ReferenceEquals と同じです。
 			Assert.IsFalse((object)v1 == (object)v1);
