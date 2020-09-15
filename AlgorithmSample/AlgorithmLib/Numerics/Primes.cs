@@ -75,7 +75,7 @@ namespace AlgorithmLib.Numerics
 		}
 
 		/// <summary>
-		/// 指定された範囲内の素数をすべて求めます。およそ O(max(√M, M - m))
+		/// 指定された範囲内の素数をすべて求めます。およそ O(√M + (M - m))
 		/// </summary>
 		/// <param name="m">最小値。</param>
 		/// <param name="M">最大値。</param>
