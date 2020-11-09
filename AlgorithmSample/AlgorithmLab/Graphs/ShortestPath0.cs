@@ -37,7 +37,7 @@ namespace AlgorithmLab.Graphs
 
 			var costs = Enumerable.Repeat(long.MaxValue, vertexesCount).ToArray();
 			var inEdges = new int[vertexesCount][];
-			var q = Heap.CreateWithKey<int, long>(v => costs[v]);
+			var q = Heap<int>.CreateWithKey(v => costs[v]);
 			costs[startVertexId] = 0;
 			q.Push(startVertexId);
 

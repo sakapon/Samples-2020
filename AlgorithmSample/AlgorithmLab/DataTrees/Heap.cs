@@ -3,35 +3,6 @@ using System.Collections.Generic;
 
 namespace AlgorithmLab.DataTrees
 {
-	public static class Heap
-	{
-		public static Heap<T> Create<T>(bool descending = false)
-		{
-			var c = Comparer<T>.Default;
-			return descending ?
-				new Heap<T>((x, y) => c.Compare(y, x)) :
-				new Heap<T>(c.Compare);
-		}
-
-		public static Heap<T> Create<T, TKey>(Func<T, TKey> keySelector, bool descending = false)
-		{
-			if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-
-			var c = Comparer<TKey>.Default;
-			return descending ?
-				new Heap<T>((x, y) => c.Compare(keySelector(y), keySelector(x))) :
-				new Heap<T>((x, y) => c.Compare(keySelector(x), keySelector(y)));
-		}
-
-		public static Heap<T, TKey> CreateWithKey<T, TKey>(Func<T, TKey> keySelector, bool descending = false)
-		{
-			var c = Comparer<TKey>.Default;
-			return descending ?
-				new Heap<T, TKey>(keySelector, (x, y) => c.Compare(y.key, x.key)) :
-				new Heap<T, TKey>(keySelector, (x, y) => c.Compare(x.key, y.key));
-		}
-	}
-
 	/// <summary>
 	/// Represents a binary heap.
 	/// </summary>
@@ -42,6 +13,32 @@ namespace AlgorithmLab.DataTrees
 	/// </remarks>
 	public class Heap<T>
 	{
+		public static Heap<T> Create(bool descending = false)
+		{
+			var c = Comparer<T>.Default;
+			return descending ?
+				new Heap<T>((x, y) => c.Compare(y, x)) :
+				new Heap<T>(c.Compare);
+		}
+
+		public static Heap<T> Create<TKey>(Func<T, TKey> keySelector, bool descending = false)
+		{
+			if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+			var c = Comparer<TKey>.Default;
+			return descending ?
+				new Heap<T>((x, y) => c.Compare(keySelector(y), keySelector(x))) :
+				new Heap<T>((x, y) => c.Compare(keySelector(x), keySelector(y)));
+		}
+
+		public static Heap<T, TKey> CreateWithKey<TKey>(Func<T, TKey> keySelector, bool descending = false)
+		{
+			var c = Comparer<TKey>.Default;
+			return descending ?
+				new Heap<T, TKey>(keySelector, (x, y) => c.Compare(y.key, x.key)) :
+				new Heap<T, TKey>(keySelector, (x, y) => c.Compare(x.key, y.key));
+		}
+
 		List<T> l = new List<T> { default };
 		Comparison<T> c;
 
