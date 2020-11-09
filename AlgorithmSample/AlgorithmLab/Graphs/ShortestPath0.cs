@@ -59,6 +59,39 @@ namespace AlgorithmLab.Graphs
 			return (costs, inEdges);
 		}
 
+		// priority queue ではなく、queue を使うほうが速いことがあります。
+		[Obsolete("最悪計算量は O(V^2) です。")]
+		public static (long[] minCosts, int[][] inEdges) Dijklmna(int vertexesCount, int[][] edges, bool directed, int startVertexId, int endVertexId = -1)
+		{
+			var map = Array.ConvertAll(new bool[vertexesCount], _ => new List<int[]>());
+			foreach (var e in edges)
+			{
+				map[e[0]].Add(new[] { e[0], e[1], e[2] });
+				if (!directed) map[e[1]].Add(new[] { e[1], e[0], e[2] });
+			}
+
+			var costs = Enumerable.Repeat(long.MaxValue, vertexesCount).ToArray();
+			var inEdges = new int[vertexesCount][];
+			var q = new Queue<int>();
+			costs[startVertexId] = 0;
+			q.Enqueue(startVertexId);
+
+			while (q.Any())
+			{
+				var v = q.Dequeue();
+
+				foreach (var e in map[v])
+				{
+					var nc = costs[v] + e[2];
+					if (costs[e[1]] <= nc) continue;
+					costs[e[1]] = nc;
+					inEdges[e[1]] = e;
+					q.Enqueue(e[1]);
+				}
+			}
+			return (costs, inEdges);
+		}
+
 		public static int[] GetPathVertexes(int[][] inEdges, int endVertexId)
 		{
 			var path = new Stack<int>();
