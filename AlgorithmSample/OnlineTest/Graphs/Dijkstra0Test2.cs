@@ -5,7 +5,7 @@ using AlgorithmLab.Graphs;
 namespace OnlineTest.Graphs
 {
 	// Test: https://codeforces.com/contest/20/problem/C
-	class ShortestPath0Test02
+	class Dijkstra0Test2
 	{
 		static int[] Read() => Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
 		static void Main()

@@ -6,7 +6,7 @@ using AlgorithmLab.Graphs;
 namespace OnlineTest.Graphs
 {
 	// Test: https://judge.yosupo.jp/problem/shortest_path
-	class ShortestPath0Test01
+	class Dijkstra0Test1
 	{
 		static int[] Read() => Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
 		static void Main()
