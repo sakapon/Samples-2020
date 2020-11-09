@@ -2,7 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <StartupObject>OnlineTest.Program</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlgorithmLab\AlgorithmLab.csproj" />
+    <ProjectReference Include="..\AlgorithmLib\AlgorithmLib.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AlgorithmLab.Graphs;
 
-namespace UnitTest.Graphs
+namespace OnlineTest.Graphs
 {
 	// Test: https://codeforces.com/contest/20/problem/C
 	class ShortestPath0Test02
