@@ -59,7 +59,7 @@ namespace AlgorithmLab.Graphs
 		}
 
 		// priority queue ではなく、queue を使うほうが速いことがあります。
-		[Obsolete("最悪計算量は O(E^2) です。")]
+		[Obsolete("最悪計算量は O(VE) です。")]
 		public static (long[] minCosts, int[][] inEdges) Dijklmna(int vertexesCount, int[][] edges, bool directed, int startVertexId, int endVertexId = -1)
 		{
 			var map = Array.ConvertAll(new bool[vertexesCount], _ => new List<int[]>());
