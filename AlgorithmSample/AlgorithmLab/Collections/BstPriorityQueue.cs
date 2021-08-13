@@ -36,12 +36,6 @@ namespace AlgorithmLab.Collections
 			return this.First().Key;
 		}
 
-		public void Push(T item)
-		{
-			TryGetValue(item, out var count);
-			this[item] = count + 1;
-		}
-
 		public T Pop()
 		{
 			if (Count == 0) throw new InvalidOperationException("The container is empty.");
@@ -50,6 +44,59 @@ namespace AlgorithmLab.Collections
 			if (count == 1) Remove(item);
 			else this[item] = count - 1;
 			return item;
+		}
+
+		public void Push(T item)
+		{
+			TryGetValue(item, out var count);
+			this[item] = count + 1;
+		}
+	}
+
+	// キーと値が一対一に対応しない場合にも使えます。
+	// Count プロパティの値は正確ではありません。
+	public class ProjectedPriorityQueue<T, TKey> : SortedDictionary<TKey, Queue<T>>
+	{
+		Func<T, TKey> keySelector;
+
+		public ProjectedPriorityQueue(Func<T, TKey> keySelector)
+		{
+			this.keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
+		}
+		public ProjectedPriorityQueue(Func<T, TKey> keySelector, IComparer<TKey> comparer) : base(comparer)
+		{
+			this.keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
+		}
+
+		public T Peek()
+		{
+			if (Count == 0) throw new InvalidOperationException("The container is empty.");
+
+			return this.First().Value.First;
+		}
+
+		public T Pop()
+		{
+			if (Count == 0) throw new InvalidOperationException("The container is empty.");
+
+			var (key, q) = this.First();
+			if (q.Length == 1) Remove(key);
+			return q.Pop();
+		}
+
+		public void Push(T item)
+		{
+			var key = keySelector(item);
+			if (TryGetValue(key, out var q))
+			{
+				q.Push(item);
+			}
+			else
+			{
+				q = new Queue<T>(99);
+				q.Push(item);
+				this[key] = q;
+			}
 		}
 	}
 }
