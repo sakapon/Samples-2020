@@ -3,22 +3,23 @@ using System.Collections.Generic;
 
 namespace AlgorithmLab.Collections
 {
-	public static class ComparerHelper
+	// クラスに型引数を指定することで、Create メソッドを呼び出すときに型引数 <T, Tkey> の指定を省略できます。
+	public static class Comparer2<T>
 	{
-		static IComparer<T> GetDefault<T>()
+		static IComparer<TKey> GetDefault<TKey>()
 		{
-			if (typeof(T) == typeof(string)) return (IComparer<T>)StringComparer.Ordinal;
-			return Comparer<T>.Default;
+			if (typeof(TKey) == typeof(string)) return (IComparer<TKey>)StringComparer.Ordinal;
+			return Comparer<TKey>.Default;
 		}
 
-		public static IComparer<T> Create<T>(bool descending = false)
+		public static IComparer<T> Create(bool descending = false)
 		{
 			var c = GetDefault<T>();
 			if (descending) return Comparer<T>.Create((x, y) => c.Compare(y, x));
 			else return c;
 		}
 
-		public static IComparer<T> Create<T, TKey>(Func<T, TKey> keySelector, bool descending = false)
+		public static IComparer<T> Create<TKey>(Func<T, TKey> keySelector, bool descending = false)
 		{
 			if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 			var c = GetDefault<TKey>();
@@ -26,7 +27,7 @@ namespace AlgorithmLab.Collections
 			else return Comparer<T>.Create((x, y) => c.Compare(keySelector(x), keySelector(y)));
 		}
 
-		public static IComparer<T> Create<T, TKey1, TKey2>(Func<T, TKey1> keySelector1, Func<T, TKey2> keySelector2)
+		public static IComparer<T> Create<TKey1, TKey2>(Func<T, TKey1> keySelector1, Func<T, TKey2> keySelector2)
 		{
 			if (keySelector1 == null) throw new ArgumentNullException(nameof(keySelector1));
 			if (keySelector2 == null) throw new ArgumentNullException(nameof(keySelector2));
