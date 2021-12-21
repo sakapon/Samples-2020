@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace AlgorithmLab.Collections
 {
 	// クラスに型引数を指定することで、Create メソッドを呼び出すときに型引数 <T, Tkey> の指定を省略できます。
-	public static class Comparer2<T>
+	public static class ComparerHelper<T>
 	{
 		static IComparer<TKey> GetDefault<TKey>()
 		{
