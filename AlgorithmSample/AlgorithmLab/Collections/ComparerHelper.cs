@@ -25,24 +25,22 @@ namespace AlgorithmLab.Collections
 		public static IComparer<T> Create(bool descending = false)
 		{
 			var c = ComparerHelper.GetDefault<T>();
-			if (descending) return c.ToDescending();
-			else return c;
+			return descending ? c.ToDescending() : c;
 		}
 
 		public static IComparer<T> Create<TKey>(Func<T, TKey> keySelector, bool descending = false)
 		{
 			if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-			var c = ComparerHelper.GetDefault<TKey>();
-			if (descending) return Comparer<T>.Create((x, y) => c.Compare(keySelector(y), keySelector(x)));
-			else return Comparer<T>.Create((x, y) => c.Compare(keySelector(x), keySelector(y)));
+			var c = ComparerHelper<TKey>.Create(descending);
+			return Comparer<T>.Create((x, y) => c.Compare(keySelector(x), keySelector(y)));
 		}
 
-		public static IComparer<T> Create<TKey1, TKey2>(Func<T, TKey1> keySelector1, Func<T, TKey2> keySelector2)
+		public static IComparer<T> Create<TKey1, TKey2>(Func<T, TKey1> keySelector1, bool descending1, Func<T, TKey2> keySelector2, bool descending2)
 		{
 			if (keySelector1 == null) throw new ArgumentNullException(nameof(keySelector1));
 			if (keySelector2 == null) throw new ArgumentNullException(nameof(keySelector2));
-			var c1 = ComparerHelper.GetDefault<TKey1>();
-			var c2 = ComparerHelper.GetDefault<TKey2>();
+			var c1 = ComparerHelper<TKey1>.Create(descending1);
+			var c2 = ComparerHelper<TKey2>.Create(descending2);
 			return Comparer<T>.Create((x, y) =>
 			{
 				var d = c1.Compare(keySelector1(x), keySelector1(y));
