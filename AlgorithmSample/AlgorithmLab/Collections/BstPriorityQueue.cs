@@ -4,22 +4,34 @@ using System.Linq;
 
 namespace AlgorithmLab.Collections
 {
-	// キーが重複しない (すべての値の順序が異なる) 場合に使えます。
-	// Peek: Min
-	// Push: Add
-	public class DistinctPriorityQueue<T> : SortedSet<T>
+	// 要素が重複しない (すべての値の順序が異なる) 場合に利用できます。
+	public class DistinctPriorityQueue<T>
 	{
-		public DistinctPriorityQueue() { }
-		public DistinctPriorityQueue(IComparer<T> comparer) : base(comparer) { }
+		// 要素をそのままキーとして使用します。
+		SortedSet<T> ss;
+
+		public DistinctPriorityQueue() => ss = new SortedSet<T>();
+		public DistinctPriorityQueue(IComparer<T> comparer) => ss = new SortedSet<T>(comparer);
+
+		public int Count => ss.Count;
+
+		public T Peek()
+		{
+			if (ss.Count == 0) throw new InvalidOperationException("The container is empty.");
+
+			return ss.Min;
+		}
 
 		public T Pop()
 		{
-			if (Count == 0) throw new InvalidOperationException("The container is empty.");
+			if (ss.Count == 0) throw new InvalidOperationException("The container is empty.");
 
-			var item = Min;
-			Remove(item);
+			var item = ss.Min;
+			ss.Remove(item);
 			return item;
 		}
+
+		public bool Push(T item) => ss.Add(item);
 	}
 
 	// キーと値が一対一に対応する場合に使えます。値の重複は可能です。
