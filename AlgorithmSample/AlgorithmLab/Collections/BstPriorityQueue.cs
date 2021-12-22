@@ -55,15 +55,15 @@ namespace AlgorithmLab.Collections
 
 	// キーと値が一対一に対応しない場合にも使えます。
 	// Count プロパティの値は正確ではありません。
-	public class ProjectedPriorityQueue<T, TKey> : SortedDictionary<TKey, Queue<T>>
+	public class KeyedPriorityQueue<T, TKey> : SortedDictionary<TKey, Queue<T>>
 	{
 		Func<T, TKey> keySelector;
 
-		public ProjectedPriorityQueue(Func<T, TKey> keySelector)
+		public KeyedPriorityQueue(Func<T, TKey> keySelector)
 		{
 			this.keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
 		}
-		public ProjectedPriorityQueue(Func<T, TKey> keySelector, IComparer<TKey> comparer) : base(comparer)
+		public KeyedPriorityQueue(Func<T, TKey> keySelector, IComparer<TKey> comparer) : base(comparer)
 		{
 			this.keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
 		}
