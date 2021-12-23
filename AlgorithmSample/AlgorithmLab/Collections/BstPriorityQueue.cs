@@ -71,50 +71,45 @@ namespace AlgorithmLab.Collections
 		}
 	}
 
-	// キーと値が一対一に対応しない場合にも使えます。
-	// Count プロパティの値は正確ではありません。
-	public class KeyedPriorityQueue<T, TKey> : SortedDictionary<TKey, Queue<T>>
+	// 要素に対してソート キーを指定する場合に利用します。
+	public class KeyedPriorityQueue<T, TKey>
 	{
+		SortedDictionary<TKey, Queue<T>> sd;
 		Func<T, TKey> keySelector;
 
-		public KeyedPriorityQueue(Func<T, TKey> keySelector)
+		public KeyedPriorityQueue(Func<T, TKey> keySelector) : this(keySelector, Comparer<TKey>.Default) { }
+		public KeyedPriorityQueue(Func<T, TKey> keySelector, IComparer<TKey> comparer)
 		{
 			this.keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
+			sd = new SortedDictionary<TKey, Queue<T>>(comparer);
 		}
-		public KeyedPriorityQueue(Func<T, TKey> keySelector, IComparer<TKey> comparer) : base(comparer)
-		{
-			this.keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
-		}
+
+		public int Count { get; private set; }
 
 		public T Peek()
 		{
 			if (Count == 0) throw new InvalidOperationException("The container is empty.");
 
-			return this.First().Value.First;
+			return sd.First().Value.First;
 		}
 
 		public T Pop()
 		{
 			if (Count == 0) throw new InvalidOperationException("The container is empty.");
 
-			var (key, q) = this.First();
-			if (q.Length == 1) Remove(key);
+			Count--;
+			var (key, q) = sd.First();
+			if (q.Length == 1) sd.Remove(key);
 			return q.Pop();
 		}
 
 		public void Push(T item)
 		{
+			Count++;
 			var key = keySelector(item);
-			if (TryGetValue(key, out var q))
-			{
-				q.Push(item);
-			}
-			else
-			{
-				q = new Queue<T>(99);
-				q.Push(item);
-				this[key] = q;
-			}
+			Queue<T> q;
+			if (!sd.TryGetValue(key, out q)) sd[key] = q = new Queue<T>(99);
+			q.Push(item);
 		}
 	}
 }
