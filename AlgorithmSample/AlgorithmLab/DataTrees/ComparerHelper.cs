@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlgorithmLab.Collections
+namespace AlgorithmLab.DataTrees
 {
 	public static class ComparerHelper
 	{

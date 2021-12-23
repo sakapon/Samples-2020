@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlgorithmLab.Collections;
+using AlgorithmLab.DataTrees;
 using KLibrary.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTest.Collections
+namespace UnitTest.DataTrees
 {
 	[TestClass]
 	public class ComparerHelperTest
