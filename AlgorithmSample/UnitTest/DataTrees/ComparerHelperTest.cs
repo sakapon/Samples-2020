@@ -13,7 +13,7 @@ namespace UnitTest.DataTrees
 		[TestMethod]
 		public void Create()
 		{
-			var n = 10000;
+			var n = 100000;
 			var expected = RandomHelper.CreateData(n);
 			var actual = (int[])expected.Clone();
 
@@ -29,7 +29,7 @@ namespace UnitTest.DataTrees
 		[TestMethod]
 		public void Create_Key1()
 		{
-			var n = 10000;
+			var n = 100000;
 			var a = RandomHelper.CreateData(n);
 			var actual = (int[])a.Clone();
 
@@ -45,7 +45,7 @@ namespace UnitTest.DataTrees
 		[TestMethod]
 		public void Create_Key2()
 		{
-			var n = 10000;
+			var n = 100000;
 			var a = RandomHelper.CreateData(n);
 			var actual = (int[])a.Clone();
 
