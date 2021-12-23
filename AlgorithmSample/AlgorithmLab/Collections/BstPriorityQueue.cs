@@ -10,7 +10,7 @@ namespace AlgorithmLab.Collections
 		// 要素をそのままキーとして使用します。
 		SortedSet<T> ss;
 
-		public DistinctPriorityQueue() => ss = new SortedSet<T>();
+		public DistinctPriorityQueue() : this(Comparer<T>.Default) { }
 		public DistinctPriorityQueue(IComparer<T> comparer) => ss = new SortedSet<T>(comparer);
 
 		public int Count => ss.Count;
@@ -34,34 +34,40 @@ namespace AlgorithmLab.Collections
 		public bool Push(T item) => ss.Add(item);
 	}
 
-	// キーと値が一対一に対応する場合に使えます。値の重複は可能です。
-	// Count プロパティの値は正確ではありません。
-	public class BstPriorityQueue<T> : SortedDictionary<T, int>
+	// 要素が重複する場合も利用できます。
+	public class BstPriorityQueue<T>
 	{
-		public BstPriorityQueue() { }
-		public BstPriorityQueue(IComparer<T> comparer) : base(comparer) { }
+		// 要素をそのままキーとして使用します。
+		SortedDictionary<T, int> sd;
+
+		public BstPriorityQueue() : this(Comparer<T>.Default) { }
+		public BstPriorityQueue(IComparer<T> comparer) => sd = new SortedDictionary<T, int>(comparer);
+
+		public int Count { get; private set; }
 
 		public T Peek()
 		{
 			if (Count == 0) throw new InvalidOperationException("The container is empty.");
 
-			return this.First().Key;
+			return sd.First().Key;
 		}
 
 		public T Pop()
 		{
 			if (Count == 0) throw new InvalidOperationException("The container is empty.");
 
-			var (item, count) = this.First();
-			if (count == 1) Remove(item);
-			else this[item] = count - 1;
+			Count--;
+			var (item, count) = sd.First();
+			if (count == 1) sd.Remove(item);
+			else sd[item] = count - 1;
 			return item;
 		}
 
 		public void Push(T item)
 		{
-			TryGetValue(item, out var count);
-			this[item] = count + 1;
+			Count++;
+			sd.TryGetValue(item, out var count);
+			sd[item] = count + 1;
 		}
 	}
 
