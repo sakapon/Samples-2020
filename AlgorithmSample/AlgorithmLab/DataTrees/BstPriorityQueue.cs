@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AlgorithmLab.Collections
+namespace AlgorithmLab.DataTrees
 {
 	// 要素が重複しない (すべての値の順序が異なる) 場合に利用できます。
 	public class DistinctPriorityQueue<T>
@@ -90,7 +90,7 @@ namespace AlgorithmLab.Collections
 		{
 			if (Count == 0) throw new InvalidOperationException("The container is empty.");
 
-			return sd.First().Value.First;
+			return sd.First().Value.Peek();
 		}
 
 		public T Pop()
@@ -99,8 +99,8 @@ namespace AlgorithmLab.Collections
 
 			Count--;
 			var (key, q) = sd.First();
-			if (q.Length == 1) sd.Remove(key);
-			return q.Pop();
+			if (q.Count == 1) sd.Remove(key);
+			return q.Dequeue();
 		}
 
 		public void Push(T item)
@@ -108,8 +108,8 @@ namespace AlgorithmLab.Collections
 			Count++;
 			var key = keySelector(item);
 			Queue<T> q;
-			if (!sd.TryGetValue(key, out q)) sd[key] = q = new Queue<T>(99);
-			q.Push(item);
+			if (!sd.TryGetValue(key, out q)) sd[key] = q = new Queue<T>();
+			q.Enqueue(item);
 		}
 	}
 }

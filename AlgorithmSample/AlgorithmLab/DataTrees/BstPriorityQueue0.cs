@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Col = AlgorithmLab.Collections;
 
-namespace AlgorithmLab.Collections
+namespace AlgorithmLab.DataTrees
 {
 	// キーが重複しない (すべての値の順序が異なる) 場合に使えます。
 	// Peek: Min
@@ -55,7 +56,7 @@ namespace AlgorithmLab.Collections
 
 	// キーと値が一対一に対応しない場合にも使えます。
 	// Count プロパティの値は正確ではありません。
-	public class KeyedPriorityQueue0<T, TKey> : SortedDictionary<TKey, Queue<T>>
+	public class KeyedPriorityQueue0<T, TKey> : SortedDictionary<TKey, Col.Queue<T>>
 	{
 		Func<T, TKey> keySelector;
 
@@ -93,7 +94,7 @@ namespace AlgorithmLab.Collections
 			}
 			else
 			{
-				q = new Queue<T>(99);
+				q = new Col.Queue<T>(99);
 				q.Push(item);
 				this[key] = q;
 			}
