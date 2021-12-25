@@ -34,7 +34,7 @@ namespace AlgorithmLab.DataTrees
 		public bool Push(T item) => ss.Add(item);
 	}
 
-	// 要素が重複する場合も利用できます。
+	// 要素が重複する場合も利用できます (一般的な優先度付きキュー)。
 	public class BstPriorityQueue<T>
 	{
 		// 要素をそのままキーとして使用します。
@@ -71,7 +71,7 @@ namespace AlgorithmLab.DataTrees
 		}
 	}
 
-	// 要素に対してソート キーを指定する場合に利用します。
+	// 要素に対して優先度を表すキーを指定する場合に利用します。
 	public class KeyedPriorityQueue<T, TKey>
 	{
 		SortedDictionary<TKey, Queue<T>> sd;
