@@ -5,13 +5,12 @@ using Col = AlgorithmLab.Collections;
 
 namespace AlgorithmLab.DataTrees
 {
-	// キーが重複しない (すべての値の順序が異なる) 場合に使えます。
+	// 要素が重複しない (すべての値の順序が異なる) 場合に利用できます。
 	// Peek: Min
 	// Push: Add
 	public class DistinctPriorityQueue0<T> : SortedSet<T>
 	{
-		public DistinctPriorityQueue0() { }
-		public DistinctPriorityQueue0(IComparer<T> comparer) : base(comparer) { }
+		public DistinctPriorityQueue0(IComparer<T> comparer = null) : base(comparer ?? Comparer<T>.Default) { }
 
 		public T Pop()
 		{
@@ -23,12 +22,11 @@ namespace AlgorithmLab.DataTrees
 		}
 	}
 
-	// キーと値が一対一に対応する場合に使えます。値の重複は可能です。
+	// 要素が重複する場合も利用できます (一般的な優先度付きキュー)。
 	// Count プロパティの値は正確ではありません。
 	public class BstPriorityQueue0<T> : SortedDictionary<T, int>
 	{
-		public BstPriorityQueue0() { }
-		public BstPriorityQueue0(IComparer<T> comparer) : base(comparer) { }
+		public BstPriorityQueue0(IComparer<T> comparer = null) : base(comparer ?? Comparer<T>.Default) { }
 
 		public T Peek()
 		{
@@ -54,17 +52,13 @@ namespace AlgorithmLab.DataTrees
 		}
 	}
 
-	// キーと値が一対一に対応しない場合にも使えます。
+	// 要素に対して優先度を表すキーを指定する場合に利用します。
 	// Count プロパティの値は正確ではありません。
 	public class KeyedPriorityQueue0<T, TKey> : SortedDictionary<TKey, Col.Queue<T>>
 	{
 		Func<T, TKey> keySelector;
 
-		public KeyedPriorityQueue0(Func<T, TKey> keySelector)
-		{
-			this.keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
-		}
-		public KeyedPriorityQueue0(Func<T, TKey> keySelector, IComparer<TKey> comparer) : base(comparer)
+		public KeyedPriorityQueue0(Func<T, TKey> keySelector, IComparer<TKey> comparer = null) : base(comparer ?? Comparer<TKey>.Default)
 		{
 			this.keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
 		}
@@ -88,16 +82,8 @@ namespace AlgorithmLab.DataTrees
 		public void Push(T item)
 		{
 			var key = keySelector(item);
-			if (TryGetValue(key, out var q))
-			{
-				q.Push(item);
-			}
-			else
-			{
-				q = new Col.Queue<T>(99);
-				q.Push(item);
-				this[key] = q;
-			}
+			if (!TryGetValue(key, out var q)) this[key] = q = new Col.Queue<T>(99);
+			q.Push(item);
 		}
 	}
 }
