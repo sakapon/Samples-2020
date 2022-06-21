@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace AlgorithmLab.DataTrees.UF
+namespace AlgorithmLab.DataTrees.UF101
 {
 	// union by size
 	// O(log n)
-	public class UnionFind101
+	public class UnionFind
 	{
 		int[] parents, sizes;
 
-		public UnionFind101(int n)
+		public UnionFind(int n)
 		{
 			parents = new int[n];
 			Array.Fill(parents, -1);

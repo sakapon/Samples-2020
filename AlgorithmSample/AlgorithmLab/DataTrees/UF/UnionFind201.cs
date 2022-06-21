@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace AlgorithmLab.DataTrees.UF
+namespace AlgorithmLab.DataTrees.UF201
 {
 	// path compression
 	// O(α(n))
-	public class UnionFind201
+	public class UnionFind
 	{
 		int[] parents;
 
-		public UnionFind201(int n)
+		public UnionFind(int n)
 		{
 			parents = new int[n];
 			Array.Fill(parents, -1);

@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace AlgorithmLab.DataTrees.UF
+namespace AlgorithmLab.DataTrees.UF001
 {
 	// O(n)
-	public class UnionFind001
+	public class UnionFind
 	{
 		int[] parents;
 
-		public UnionFind001(int n)
+		public UnionFind(int n)
 		{
 			parents = new int[n];
 			Array.Fill(parents, -1);
