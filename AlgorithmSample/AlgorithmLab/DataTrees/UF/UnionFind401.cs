@@ -3,8 +3,7 @@ using System.Linq;
 
 namespace AlgorithmLab.DataTrees.UF401
 {
-	// union by size, path compression
-	// O(α(n))
+	// Int32 vertexes
 	public class UnionFind
 	{
 		int[] parents, sizes;
