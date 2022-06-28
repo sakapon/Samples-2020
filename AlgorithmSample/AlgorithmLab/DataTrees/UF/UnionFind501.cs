@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AlgorithmLab.DataTrees.UF501
 {
-	// Int32 vertexes
+	// Int32 vertexes, data augmentation
 	public class UnionFind<TValue>
 	{
 		int[] parents, sizes;

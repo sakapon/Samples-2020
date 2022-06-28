@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AlgorithmLab.DataTrees.UF502
 {
-	// typed vertexes
+	// typed vertexes, data augmentation
 	// 頂点を動的に追加できる方式
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}, GroupsCount = {GroupsCount}")]
 	public class UnionFind<TVertex, TValue>
