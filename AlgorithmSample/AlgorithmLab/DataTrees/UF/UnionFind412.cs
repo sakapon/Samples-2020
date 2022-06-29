@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace AlgorithmLab.DataTrees.UF412
 {
 	// Int32 vertexes
+	// グループ取得操作が多い場合に有利
 	public class UnionFind
 	{
 		List<int>[] gMap;

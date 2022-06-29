@@ -5,6 +5,7 @@ namespace AlgorithmLab.DataTrees.UF111
 {
 	// Quick Find
 	// O(log n)
+	// Find 操作が多い場合に有利
 	public class UnionFind
 	{
 		List<int>[] groups;
