@@ -6,10 +6,10 @@ namespace AlgorithmLab.Collections.Arrays.ArrayQueue101
 	{
 		readonly T[] a;
 		int fi, li;
-		public int Count => li - fi;
 
 		public ArrayQueue(int capacity) => a = new T[capacity];
 
+		public int Count => li - fi;
 		public T this[int i]
 		{
 			get => a[fi + i];

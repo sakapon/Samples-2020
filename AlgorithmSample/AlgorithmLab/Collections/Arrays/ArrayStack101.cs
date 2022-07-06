@@ -6,10 +6,10 @@ namespace AlgorithmLab.Collections.Arrays.ArrayStack101
 	{
 		readonly T[] a;
 		int n;
-		public int Count => n;
 
 		public ArrayStack(int capacity) => a = new T[capacity];
 
+		public int Count => n;
 		public T this[int i]
 		{
 			get => a[n - 1 - i];

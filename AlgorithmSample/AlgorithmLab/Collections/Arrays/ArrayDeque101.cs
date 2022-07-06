@@ -6,10 +6,10 @@ namespace AlgorithmLab.Collections.Arrays.ArrayDeque101
 	{
 		readonly T[] a;
 		int fi, li;
-		public int Count => li - fi;
 
 		public ArrayDeque(int capacity) => a = new T[(fi = li = capacity) << 1];
 
+		public int Count => li - fi;
 		public T this[int i]
 		{
 			get => a[fi + i];
