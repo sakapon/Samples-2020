@@ -6,36 +6,24 @@ namespace AlgorithmLab.Collections.Arrays.ArrayList301
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayList<T> : IEnumerable<T>
 	{
-		const int DefaultCapacity = 2;
 		T[] a;
 		int n;
 
-		public ArrayList(int capacity = DefaultCapacity)
+		public ArrayList(int capacity = 2)
 		{
 			var c = 1;
 			while (c < capacity) c <<= 1;
 			a = new T[c];
 		}
 
+		public ArrayList(IEnumerable<T> items) : this() { foreach (var item in items) Add(item); }
+		public ArrayList(T[] items) => Initialize(items, items.Length);
 		public ArrayList(ArrayList<T> list) => Initialize(list.a, list.n);
-		public ArrayList(IEnumerable<T> items)
+		void Initialize(T[] a0, int c)
 		{
-			if (items is T[] a0)
-			{
-				Initialize(a0, a0.Length);
-			}
-			else
-			{
-				a = new T[DefaultCapacity];
-				foreach (var item in items) Add(item);
-			}
-		}
-
-		void Initialize(T[] a0, int n0)
-		{
-			n = n0;
-			while (n0 != (n0 & -n0)) n0 += n0 & -n0;
-			a = new T[n0];
+			n = c;
+			while (c != (c & -c)) c += c & -c;
+			a = new T[c];
 			Array.Copy(a0, a, n);
 		}
 
