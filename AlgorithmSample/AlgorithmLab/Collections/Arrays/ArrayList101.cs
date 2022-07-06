@@ -4,7 +4,7 @@ namespace AlgorithmLab.Collections.Arrays.ArrayList101
 {
 	public class ArrayList<T>
 	{
-		readonly T[] a;
+		T[] a;
 		int n;
 
 		public ArrayList(int capacity) => a = new T[capacity];

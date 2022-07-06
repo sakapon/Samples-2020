@@ -4,7 +4,7 @@ namespace AlgorithmLab.Collections.Arrays.ArrayStack101
 {
 	public class ArrayStack<T>
 	{
-		readonly T[] a;
+		T[] a;
 		int n;
 
 		public ArrayStack(int capacity) => a = new T[capacity];

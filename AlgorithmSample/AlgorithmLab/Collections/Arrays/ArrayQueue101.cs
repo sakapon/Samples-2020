@@ -4,7 +4,7 @@ namespace AlgorithmLab.Collections.Arrays.ArrayQueue101
 {
 	public class ArrayQueue<T>
 	{
-		readonly T[] a;
+		T[] a;
 		int fi, li;
 
 		public ArrayQueue(int capacity) => a = new T[capacity];

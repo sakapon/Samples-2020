@@ -4,7 +4,7 @@ namespace AlgorithmLab.Collections.Arrays.ArrayDeque101
 {
 	public class ArrayDeque<T>
 	{
-		readonly T[] a;
+		T[] a;
 		int fi, li;
 
 		public ArrayDeque(int capacity) => a = new T[(fi = li = capacity) << 1];
