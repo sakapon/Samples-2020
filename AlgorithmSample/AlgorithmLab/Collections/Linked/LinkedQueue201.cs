@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace AlgorithmLab.Collections.Linked.LinkedQueue201
 {
-	// singly linked list
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class LinkedQueue<T> : IEnumerable<T>
 	{

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace AlgorithmLab.Collections.Linked.LinkedStack201
 {
-	// singly linked list
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class LinkedStack<T> : IEnumerable<T>
 	{
