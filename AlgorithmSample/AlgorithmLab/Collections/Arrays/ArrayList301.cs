@@ -52,6 +52,20 @@ namespace AlgorithmLab.Collections.Arrays.ArrayList301
 		}
 		public T Pop() => a[--n];
 
+		public void Insert(int i, T item)
+		{
+			if (n == a.Length) Expand();
+			Array.Copy(a, i, a, i + 1, n++ - i);
+			a[i] = item;
+		}
+
+		public T RemoveAt(int i)
+		{
+			var item = a[i];
+			Array.Copy(a, i + 1, a, i, --n - i);
+			return item;
+		}
+
 		void Expand()
 		{
 			Array.Resize(ref a, a.Length << 1);
@@ -66,5 +80,7 @@ namespace AlgorithmLab.Collections.Arrays.ArrayList301
 			Array.Copy(a, r, n);
 			return r;
 		}
+
+		public void Reverse() => Array.Reverse(a, 0, n);
 	}
 }
