@@ -8,9 +8,9 @@ Properties
 Add/Remove Item
 - Clear
 - Add
-- Push
 - Insert
 - RemoveAt
+- Push
 - Pop, TryPop
 
 Get Items
@@ -23,4 +23,5 @@ Get Items
 For Range
 - GetRange
 - AddRange
+- InsertRange
 - RemoveRange
