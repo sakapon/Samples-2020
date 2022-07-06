@@ -5,6 +5,7 @@ using System.Collections.Generic;
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_A
 namespace AlgorithmLab.Collections.Arrays.ArrayList201
 {
+	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayList<T> : IEnumerable<T>
 	{
 		T[] a;
@@ -12,8 +13,6 @@ namespace AlgorithmLab.Collections.Arrays.ArrayList201
 
 		public ArrayList(int capacity = 2)
 		{
-			//var c = capacity;
-			//while (c != (c & -c)) c += c & -c;
 			var c = 1;
 			while (c < capacity) c <<= 1;
 			a = new T[c];

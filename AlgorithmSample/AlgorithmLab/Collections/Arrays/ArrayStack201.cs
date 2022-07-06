@@ -5,6 +5,7 @@ using System.Collections.Generic;
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_A
 namespace AlgorithmLab.Collections.Arrays.ArrayStack201
 {
+	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayStack<T> : IEnumerable<T>
 	{
 		T[] a;
