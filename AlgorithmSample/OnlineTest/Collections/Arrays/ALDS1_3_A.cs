@@ -10,24 +10,23 @@ namespace OnlineTest.Collections.Arrays
 		static void Main()
 		{
 			var es = Console.ReadLine().Split();
+
 			var s = new ArrayStack<int>();
+
+			var actions = new Dictionary<string, Action>();
+			actions["+"] = () => s.Push(s.Pop() + s.Pop());
+			actions["-"] = () => s.Push(-s.Pop() + s.Pop());
+			actions["*"] = () => s.Push(s.Pop() * s.Pop());
 
 			foreach (var e in es)
 			{
-				switch (e)
+				if (actions.ContainsKey(e))
 				{
-					case "+":
-						s.Push(s.Pop() + s.Pop());
-						break;
-					case "-":
-						s.Push(-s.Pop() + s.Pop());
-						break;
-					case "*":
-						s.Push(s.Pop() * s.Pop());
-						break;
-					default:
-						s.Push(int.Parse(e));
-						break;
+					actions[e]();
+				}
+				else
+				{
+					s.Push(int.Parse(e));
 				}
 			}
 			Console.WriteLine(s.Pop());
