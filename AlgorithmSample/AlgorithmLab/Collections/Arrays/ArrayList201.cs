@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_A
-// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_A
+// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_D
 namespace AlgorithmLab.Collections.Arrays.ArrayList201
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
