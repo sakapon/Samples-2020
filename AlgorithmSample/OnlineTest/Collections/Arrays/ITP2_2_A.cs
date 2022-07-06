@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AlgorithmLab.Collections.Arrays.ArrayStack201;
 
+// ArrayList201, ArrayStack201
 namespace OnlineTest.Collections.Arrays
 {
+	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_A
 	class ITP2_2_A
 	{
 		static int[] Read() => Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
@@ -13,7 +16,7 @@ namespace OnlineTest.Collections.Arrays
 			var (n, qc) = Read2();
 			var sb = new StringBuilder();
 
-			var qs = Array.ConvertAll(new bool[n], _ => new Stack<int>());
+			var qs = Array.ConvertAll(new bool[n], _ => new ArrayStack<int>());
 
 			while (qc-- > 0)
 			{
@@ -24,7 +27,7 @@ namespace OnlineTest.Collections.Arrays
 				}
 				else if (q[0] == 1)
 				{
-					if (qs[q[1]].Count > 0) sb.Append(qs[q[1]].Peek()).AppendLine();
+					if (qs[q[1]].Count > 0) sb.Append(qs[q[1]].First).AppendLine();
 				}
 				else
 				{
