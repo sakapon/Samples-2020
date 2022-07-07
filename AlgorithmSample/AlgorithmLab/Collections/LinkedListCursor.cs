@@ -8,6 +8,7 @@ namespace AlgorithmLab.Collections
 		public static LinkedListCursor<T> CreateCursor<T>(this LinkedList<T> list) => new LinkedListCursor<T>(list);
 	}
 
+	[System.Diagnostics.DebuggerDisplay(@"Index = {Index}, IsAtEnd = {IsAtEnd}")]
 	public class LinkedListCursor<T>
 	{
 		int i;
