@@ -15,15 +15,6 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque202
 			public T Item;
 			public Node Next, Previous;
 
-			public void AddNext(T item)
-			{
-				var node = new Node { Item = item };
-				Next.Previous = node;
-				node.Next = Next;
-				node.Previous = this;
-				Next = node;
-			}
-
 			public void AddPrevious(T item)
 			{
 				var node = new Node { Item = item };
@@ -40,7 +31,7 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque202
 			}
 		}
 
-		Node fn = new Node(), ln = new Node();
+		readonly Node fn = new Node(), ln = new Node();
 		int n;
 
 		public LinkedDeque() => Clear();
@@ -66,7 +57,7 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque202
 
 		public void AddFirst(T item)
 		{
-			fn.AddNext(item);
+			fn.Next.AddPrevious(item);
 			++n;
 		}
 
