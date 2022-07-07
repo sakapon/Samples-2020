@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_B
+// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_D
 namespace AlgorithmLab.Collections.Linked.LinkedDeque302
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
