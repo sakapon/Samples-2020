@@ -30,7 +30,7 @@ namespace OnlineTest.Collections.Linked
 				}
 				else
 				{
-					qs[q[2]].JoinLast(qs[q[1]]);
+					qs[q[2]].ConcatLast(qs[q[1]]);
 				}
 			}
 			Console.Write(sb);

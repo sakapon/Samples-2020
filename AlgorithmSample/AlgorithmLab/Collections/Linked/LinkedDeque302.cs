@@ -88,7 +88,7 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque302
 			return item;
 		}
 
-		public void JoinFirst(LinkedDeque<T> other)
+		public void ConcatFirst(LinkedDeque<T> other)
 		{
 			fn.Next.SetPrevious(other.ln.Previous);
 			other.fn.Next.SetPrevious(fn);
@@ -96,7 +96,7 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque302
 			other.Clear();
 		}
 
-		public void JoinLast(LinkedDeque<T> other)
+		public void ConcatLast(LinkedDeque<T> other)
 		{
 			other.fn.Next.SetPrevious(ln.Previous);
 			ln.SetPrevious(other.ln.Previous);
