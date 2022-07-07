@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_B
-// singly linked list
-namespace AlgorithmLab.Collections.Linked.LinkedQueue201
+// doubly linked list
+namespace AlgorithmLab.Collections.Linked.LinkedDeque201
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class LinkedQueue<T> : IEnumerable<T>
+	public class LinkedDeque<T> : IEnumerable<T>
 	{
 		[System.Diagnostics.DebuggerDisplay(@"\{{Item}\}")]
 		class Node
 		{
 			public T Item;
-			public Node Next;
+			public Node Next, Previous;
 		}
 
 		Node fn, ln;
@@ -24,6 +24,11 @@ namespace AlgorithmLab.Collections.Linked.LinkedQueue201
 			get => fn.Item;
 			set => fn.Item = value;
 		}
+		public T Last
+		{
+			get => ln.Item;
+			set => ln.Item = value;
+		}
 
 		public void Clear()
 		{
@@ -31,17 +36,32 @@ namespace AlgorithmLab.Collections.Linked.LinkedQueue201
 			n = 0;
 		}
 
-		public void Add(T item)
+		public void AddFirst(T item)
 		{
-			var node = new Node { Item = item };
+			var node = new Node { Item = item, Next = fn };
+			fn = (fn == null) ? (ln = node) : (fn.Previous = node);
+			++n;
+		}
+
+		public void AddLast(T item)
+		{
+			var node = new Node { Item = item, Previous = ln };
 			ln = (ln == null) ? (fn = node) : (ln.Next = node);
 			++n;
 		}
 
-		public T Pop()
+		public T PopFirst()
 		{
 			var item = fn.Item;
 			if ((fn = fn.Next) == null) ln = null;
+			--n;
+			return item;
+		}
+
+		public T PopLast()
+		{
+			var item = ln.Item;
+			if ((ln = ln.Previous) == null) fn = null;
 			--n;
 			return item;
 		}
