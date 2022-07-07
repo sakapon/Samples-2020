@@ -49,6 +49,7 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque101
 		{
 			var item = fn.Item;
 			if ((fn = fn.Next) == null) ln = null;
+			else fn.Previous = null;
 			--n;
 			return item;
 		}
@@ -57,6 +58,7 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque101
 		{
 			var item = ln.Item;
 			if ((ln = ln.Previous) == null) fn = null;
+			else ln.Next = null;
 			--n;
 			return item;
 		}
