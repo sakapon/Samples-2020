@@ -22,7 +22,7 @@ namespace OnlineTest.Collections.Arrays
 				var q = Read();
 				if (q[0] == 0)
 				{
-					qs[q[1]].Push(q[2]);
+					qs[q[1]].Add(q[2]);
 				}
 				else if (q[0] == 1)
 				{

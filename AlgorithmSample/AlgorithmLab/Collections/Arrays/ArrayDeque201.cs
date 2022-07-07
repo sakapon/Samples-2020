@@ -38,12 +38,12 @@ namespace AlgorithmLab.Collections.Arrays.ArrayDeque201
 		}
 
 		public void Clear() => fi = li = 0;
-		public void PushFirst(T item)
+		public void AddFirst(T item)
 		{
 			if (li - fi == a.Length) Expand();
 			a[--fi & f] = item;
 		}
-		public void PushLast(T item)
+		public void AddLast(T item)
 		{
 			if (li - fi == a.Length) Expand();
 			a[li++ & f] = item;

@@ -22,7 +22,7 @@ namespace AlgorithmLab.Collections.Arrays.ArrayStack101
 		}
 
 		public void Clear() => n = 0;
-		public void Push(T item) => a[n++] = item;
+		public void Add(T item) => a[n++] = item;
 		public T Pop() => a[--n];
 	}
 }

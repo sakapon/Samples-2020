@@ -31,7 +31,7 @@ namespace AlgorithmLab.Collections.Arrays.ArrayStack201
 		}
 
 		public void Clear() => n = 0;
-		public void Push(T item)
+		public void Add(T item)
 		{
 			if (n == a.Length) Expand();
 			a[n++] = item;

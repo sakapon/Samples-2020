@@ -19,7 +19,7 @@ namespace OnlineTest.Collections.Arrays
 			while (n-- > 0)
 			{
 				var p = Console.ReadLine().Split();
-				q.Push((p[0], int.Parse(p[1])));
+				q.Add((p[0], int.Parse(p[1])));
 			}
 			var t = 0;
 
@@ -33,7 +33,7 @@ namespace OnlineTest.Collections.Arrays
 				else
 				{
 					t += qt;
-					q.Push((name, time - qt));
+					q.Add((name, time - qt));
 				}
 			}
 			Console.Write(sb);

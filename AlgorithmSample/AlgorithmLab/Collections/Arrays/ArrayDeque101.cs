@@ -27,8 +27,8 @@ namespace AlgorithmLab.Collections.Arrays.ArrayDeque101
 		}
 
 		public void Clear() => fi = li = a.Length >> 1;
-		public void PushFirst(T item) => a[--fi] = item;
-		public void PushLast(T item) => a[li++] = item;
+		public void AddFirst(T item) => a[--fi] = item;
+		public void AddLast(T item) => a[li++] = item;
 		public T PopFirst() => a[fi++];
 		public T PopLast() => a[--li];
 	}

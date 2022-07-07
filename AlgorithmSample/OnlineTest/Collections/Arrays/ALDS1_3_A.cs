@@ -14,9 +14,9 @@ namespace OnlineTest.Collections.Arrays
 			var s = new ArrayStack<int>();
 
 			var actions = new Dictionary<string, Action>();
-			actions["+"] = () => s.Push(s.Pop() + s.Pop());
-			actions["-"] = () => s.Push(-s.Pop() + s.Pop());
-			actions["*"] = () => s.Push(s.Pop() * s.Pop());
+			actions["+"] = () => s.Add(s.Pop() + s.Pop());
+			actions["-"] = () => s.Add(-s.Pop() + s.Pop());
+			actions["*"] = () => s.Add(s.Pop() * s.Pop());
 
 			foreach (var e in es)
 			{
@@ -26,7 +26,7 @@ namespace OnlineTest.Collections.Arrays
 				}
 				else
 				{
-					s.Push(int.Parse(e));
+					s.Add(int.Parse(e));
 				}
 			}
 			Console.WriteLine(s.Pop());

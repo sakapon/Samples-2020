@@ -22,7 +22,7 @@ namespace AlgorithmLab.Collections.Arrays.ArrayQueue101
 		}
 
 		public void Clear() => fi = li = 0;
-		public void Push(T item) => a[li++] = item;
+		public void Add(T item) => a[li++] = item;
 		public T Pop() => a[fi++];
 	}
 }

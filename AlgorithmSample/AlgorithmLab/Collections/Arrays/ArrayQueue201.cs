@@ -33,7 +33,7 @@ namespace AlgorithmLab.Collections.Arrays.ArrayQueue201
 		}
 
 		public void Clear() => fi = li = 0;
-		public void Push(T item)
+		public void Add(T item)
 		{
 			if (li - fi == a.Length) Expand();
 			a[li++ & f] = item;

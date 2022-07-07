@@ -21,8 +21,8 @@ namespace OnlineTest.Collections.Arrays
 				var q = Read();
 				if (q[0] == 0)
 				{
-					if (q[1] == 0) dq.PushFirst(q[2]);
-					else dq.PushLast(q[2]);
+					if (q[1] == 0) dq.AddFirst(q[2]);
+					else dq.AddLast(q[2]);
 				}
 				else if (q[0] == 1)
 				{
