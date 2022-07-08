@@ -14,23 +14,23 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque302
 			public T Item;
 			public Node Next, Previous;
 
-			public void SetPrevious(Node node)
+			public static void Link(Node previous, Node next)
 			{
-				node.Next = this;
-				Previous = node;
+				previous.Next = next;
+				next.Previous = previous;
 			}
 
 			public Node AddPrevious(T item)
 			{
 				var node = new Node { Item = item };
-				node.SetPrevious(Previous);
-				SetPrevious(node);
+				Link(Previous, node);
+				Link(node, this);
 				return node;
 			}
 
 			public Node Remove()
 			{
-				Next.SetPrevious(Previous);
+				Link(Previous, Next);
 				return Next;
 			}
 		}
@@ -58,7 +58,7 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque302
 
 		public void Clear()
 		{
-			ln.SetPrevious(fn);
+			Node.Link(fn, ln);
 			n = 0;
 		}
 
@@ -92,16 +92,16 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque302
 
 		public void ConcatFirst(LinkedDeque<T> other)
 		{
-			fn.Next.SetPrevious(other.ln.Previous);
-			other.fn.Next.SetPrevious(fn);
+			Node.Link(other.ln.Previous, fn.Next);
+			Node.Link(fn, other.fn.Next);
 			n += other.n;
 			other.Clear();
 		}
 
 		public void ConcatLast(LinkedDeque<T> other)
 		{
-			other.fn.Next.SetPrevious(ln.Previous);
-			ln.SetPrevious(other.ln.Previous);
+			Node.Link(ln.Previous, other.fn.Next);
+			Node.Link(other.ln.Previous, ln);
 			n += other.n;
 			other.Clear();
 		}
