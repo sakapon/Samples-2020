@@ -16,8 +16,7 @@ namespace OnlineTest.Collections.Arrays
 			var a = Read();
 			var sb = new StringBuilder();
 
-			var dq = new ArrayDeque<int>();
-			foreach (var x in a) dq.AddLast(x);
+			var dq = new ArrayDeque<int>(a);
 
 			while (qc-- > 0)
 			{

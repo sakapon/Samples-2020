@@ -20,6 +20,17 @@ namespace AlgorithmLab.Collections.Arrays.ArrayDeque201
 			f = c - 1;
 		}
 
+		public ArrayDeque(IEnumerable<T> items) : this() { foreach (var item in items) AddLast(item); }
+		public ArrayDeque(T[] items) => Initialize(items, items.Length);
+		void Initialize(T[] a0, int c)
+		{
+			li = c;
+			while (c != (c & -c)) c += c & -c;
+			a = new T[c];
+			Array.Copy(a0, a, li);
+			f = c - 1;
+		}
+
 		public int Count => li - fi;
 		public T this[int i]
 		{
