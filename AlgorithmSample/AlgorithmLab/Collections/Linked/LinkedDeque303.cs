@@ -38,7 +38,7 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque303
 		}
 
 		internal readonly Node root = new Node();
-		internal int n;
+		int n;
 
 		public LinkedDeque(IEnumerable<T> items = null)
 		{
@@ -90,6 +90,20 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque303
 			root.Previous.Remove();
 			--n;
 			return item;
+		}
+
+		internal Node AddBefore(Node node, T item)
+		{
+			node = node.AddPrevious(item);
+			++n;
+			return node;
+		}
+
+		internal Node Remove(Node node)
+		{
+			node = node.Remove();
+			--n;
+			return node;
 		}
 
 		public void ConcatFirst(LinkedDeque<T> other)
@@ -187,31 +201,26 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque303
 		public void Repoint(int index = -1)
 		{
 			if (index == -1) index = i;
+			if (index < 0 || q.Count < index) throw new ArgumentOutOfRangeException(nameof(index));
 			if (index <= q.Count >> 1) JumpToFirst();
 			else JumpToEnd();
 			MoveOnly(index - i);
 		}
 
-		bool Jump(int index)
+		void Jump(int index)
 		{
-			if (index < 0 || q.Count < index) return false;
+			if (index < 0 || q.Count < index) throw new ArgumentOutOfRangeException(nameof(index));
 			if (index < i >> 1) JumpToFirst();
 			else if ((i + q.Count) >> 1 < index) JumpToEnd();
 			MoveOnly(index - i);
-			return true;
 		}
-		public bool MoveDelta(int delta) => Jump(i + delta);
+		public void MoveDelta(int delta) => Jump(i + delta);
 
-		public void Add(T item)
-		{
-			node = node.AddPrevious(item);
-			++q.n;
-		}
+		public void Add(T item) => node = q.AddBefore(node, item);
 		public bool Remove()
 		{
 			if (IsAtEnd) return false;
-			node = node.Remove();
-			--q.n;
+			node = q.Remove(node);
 			return true;
 		}
 	}

@@ -17,23 +17,24 @@ namespace OnlineTest.Collections.Linked
 			var ac = new Action<string[]>[1 << 7];
 			ac['n' + 6] = q =>
 			{
-				c.Index = 0;
+				c.JumpToFirst();
 				c.Add(int.Parse(q[1]));
 			};
 			ac['e' + 6] = q =>
 			{
 				var x = int.Parse(q[1]);
-				for (c.Index = 0; !c.IsAtEnd; c.MoveNext())
+				for (c.JumpToFirst(); !c.IsAtEnd; c.MoveNext())
 					if (c.Item == x) { c.Remove(); break; }
 			};
 			ac['e' + 11] = q =>
 			{
-				c.Index = 0;
+				c.JumpToFirst();
 				c.Remove();
 			};
 			ac['e' + 10] = q =>
 			{
-				c.Index = l.Count - 1;
+				c.JumpToEnd();
+				c.MovePrevious();
 				c.Remove();
 			};
 
