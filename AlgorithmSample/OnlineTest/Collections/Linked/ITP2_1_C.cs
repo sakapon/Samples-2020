@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AlgorithmLab.Collections.Linked.LinkedDeque303;
 
+// LinkedDeque
 namespace OnlineTest.Collections.Linked
 {
 	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_C

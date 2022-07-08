@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AlgorithmLab.Collections.Arrays.ArrayStack201;
 
+// Stack (ArrayList Deque)
 namespace OnlineTest.Collections.Arrays
 {
 	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_A

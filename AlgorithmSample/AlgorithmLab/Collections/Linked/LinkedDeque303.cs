@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_B
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_D
+// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/3/ALDS1_3_C
+// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_C
 // With a unique anchor.
 // Inserts and removes by cursors.
 namespace AlgorithmLab.Collections.Linked.LinkedDeque303

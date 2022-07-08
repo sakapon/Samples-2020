@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AlgorithmLab.Collections.Arrays.ArrayQueue201;
 
-// ArrayQueue201, ArrayDeque201
+// Queue (Deque)
 namespace OnlineTest.Collections.Arrays
 {
 	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_B

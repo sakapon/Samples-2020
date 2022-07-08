@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AlgorithmLab.Collections.Arrays.ArrayQueue201;
 
+// Queue
 namespace OnlineTest.Collections.Arrays
 {
 	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/3/ALDS1_3_B
