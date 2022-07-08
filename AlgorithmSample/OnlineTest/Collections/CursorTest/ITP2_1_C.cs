@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AlgorithmLab.Collections;
 
+// LinkedDeque
 namespace OnlineTest.Collections.CursorTest
 {
 	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_C
@@ -20,11 +21,11 @@ namespace OnlineTest.Collections.CursorTest
 				var q = Read();
 				if (q[0] == 0)
 				{
-					c.Insert(q[1]);
+					c.Add(q[1]);
 				}
 				else if (q[0] == 1)
 				{
-					c.Move(q[1]);
+					c.MoveDelta(q[1]);
 				}
 				else
 				{

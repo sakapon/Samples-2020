@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AlgorithmLab.Collections;
 
+// LinkedDeque
 namespace OnlineTest.Collections.CursorTest
 {
 	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/3/ALDS1_3_C
@@ -18,7 +19,7 @@ namespace OnlineTest.Collections.CursorTest
 			ac['n' + 6] = q =>
 			{
 				c.Repoint(0);
-				c.Insert(int.Parse(q[1]));
+				c.Add(int.Parse(q[1]));
 			};
 			ac['e' + 6] = q =>
 			{
