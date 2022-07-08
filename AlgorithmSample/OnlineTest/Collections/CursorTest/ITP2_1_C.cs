@@ -25,7 +25,7 @@ namespace OnlineTest.Collections.CursorTest
 				}
 				else if (q[0] == 1)
 				{
-					c.MoveDelta(q[1]);
+					c.Index += q[1];
 				}
 				else
 				{
