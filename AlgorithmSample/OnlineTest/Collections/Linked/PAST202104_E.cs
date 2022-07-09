@@ -38,8 +38,7 @@ namespace OnlineTest.Collections.Linked
 					if (k < dq.Count)
 					{
 						dc.Index = k;
-						sb.Append(dc.Item).AppendLine();
-						dc.Remove();
+						sb.Append(dc.Pop()).AppendLine();
 					}
 					else sb.AppendLine("ERROR");
 				}
@@ -49,8 +48,7 @@ namespace OnlineTest.Collections.Linked
 					if (k < dq.Count)
 					{
 						dc.Index = dq.Count - 1 - k;
-						sb.Append(dc.Item).AppendLine();
-						dc.Remove();
+						sb.Append(dc.Pop()).AppendLine();
 					}
 					else sb.AppendLine("ERROR");
 				}

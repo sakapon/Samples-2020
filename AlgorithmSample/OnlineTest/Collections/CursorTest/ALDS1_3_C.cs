@@ -25,18 +25,18 @@ namespace OnlineTest.Collections.CursorTest
 			{
 				var x = int.Parse(q[1]);
 				for (c.JumpToFirst(); !c.IsAtEnd; c.MoveNext())
-					if (c.Item == x) { c.Remove(); break; }
+					if (c.Item == x) { c.Pop(); break; }
 			};
 			ac['e' + 11] = q =>
 			{
 				c.JumpToFirst();
-				c.Remove();
+				c.Pop();
 			};
 			ac['e' + 10] = q =>
 			{
 				c.JumpToEnd();
 				c.MovePrevious();
-				c.Remove();
+				c.Pop();
 			};
 
 			while (n-- > 0)

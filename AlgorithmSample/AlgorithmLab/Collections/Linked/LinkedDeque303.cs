@@ -97,16 +97,14 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque303
 
 		internal Node AddBefore(Node node, T item)
 		{
-			node = node.AddPrevious(item);
 			++n;
-			return node;
+			return node.AddPrevious(item);
 		}
 
 		internal Node Remove(Node node)
 		{
-			node = node.Remove();
 			--n;
-			return node;
+			return node.Remove();
 		}
 
 		public void ConcatFirst(LinkedDeque<T> other)
@@ -220,11 +218,12 @@ namespace AlgorithmLab.Collections.Linked.LinkedDeque303
 		public void MoveDelta(int delta) => Jump(i + delta);
 
 		public void Add(T item) => node = q.AddBefore(node, item);
-		public bool Remove()
+		public T Pop()
 		{
-			if (IsAtEnd) return false;
+			if (IsAtEnd) throw new InvalidOperationException();
+			var item = node.Item;
 			node = q.Remove(node);
-			return true;
+			return item;
 		}
 	}
 }

@@ -29,7 +29,7 @@ namespace OnlineTest.Collections.CursorTest
 				}
 				else
 				{
-					c.Remove();
+					c.Pop();
 				}
 			}
 			Console.WriteLine(string.Join("\n", l));

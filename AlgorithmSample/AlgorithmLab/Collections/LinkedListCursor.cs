@@ -93,13 +93,13 @@ namespace AlgorithmLab.Collections
 		public void MoveDelta(int delta) => Jump(i + delta);
 
 		public void Add(T item) => node = IsAtEnd ? l.AddLast(item) : l.AddBefore(node, item);
-		public bool Remove()
+		public T Pop()
 		{
-			if (IsAtEnd) return false;
+			if (IsAtEnd) throw new InvalidOperationException();
 			var tn = node;
 			node = node.Next;
 			l.Remove(tn);
-			return true;
+			return tn.Value;
 		}
 	}
 }
