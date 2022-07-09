@@ -25,3 +25,8 @@ For Range
 - AddRange
 - InsertRange
 - RemoveRange
+
+## Practicable
+- ArrayDeque201
+- LinkedDeque303
+- LinkedListCursor
