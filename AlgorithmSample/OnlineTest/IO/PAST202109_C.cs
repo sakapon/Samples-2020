@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OnlineTest.IO
@@ -20,8 +21,9 @@ namespace OnlineTest.IO
 
 	class AsciiIO
 	{
+		static bool[] lf = new bool[1 << 7];
 		static bool[] sp = new bool[1 << 7];
-		static AsciiIO() => sp['\r'] = sp['\n'] = sp[' '] = true;
+		static AsciiIO() => lf['\r'] = lf['\n'] = sp['\r'] = sp['\n'] = sp[' '] = true;
 
 		System.IO.Stream si = new System.IO.BufferedStream(Console.OpenStandardInput(), 8192);
 		System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -78,6 +80,29 @@ namespace OnlineTest.IO
 			var r = new T[n];
 			for (var i = 0; i < n; ++i) r[i] = Read<T>();
 			return r;
+		}
+
+		public string StringLine()
+		{
+			int b;
+			while (sp[b = si.ReadByte()]) ;
+			do sb.Append((char)b); while (!lf[b = si.ReadByte()]);
+			var r = sb.ToString();
+			sb.Clear();
+			return r;
+		}
+
+		public IEnumerable<T> EnumerateLine<T>()
+		{
+			int b;
+			do
+			{
+				while (sp[b = si.ReadByte()]) ;
+				do sb.Append((char)b); while (!sp[b = si.ReadByte()]);
+				yield return (T)Convert.ChangeType(sb.ToString(), typeof(T));
+				sb.Clear();
+			}
+			while (!lf[b]);
 		}
 	}
 }
