@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/3/ALDS1_3_C
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_C
+// Test: https://atcoder.jp/contests/past202104-open/tasks/past202104_e
 namespace AlgorithmLab.Collections
 {
 	public static class LinkedListCursor

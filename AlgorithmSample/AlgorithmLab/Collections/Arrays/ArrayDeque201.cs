@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_B
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_B
+// Test: https://atcoder.jp/contests/typical90/tasks/typical90_ar
+// Test: https://atcoder.jp/contests/typical90/tasks/typical90_bi
 namespace AlgorithmLab.Collections.Arrays.ArrayDeque201
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
