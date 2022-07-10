@@ -14,7 +14,7 @@ namespace OnlineTest.IO
 		{
 			var n = io.Int();
 			var m = io.Int();
-			var s = io.Long(n);
+			var s = io.Long(n - 1);
 			var x = io.Long(m);
 
 			var a = new long[n];
