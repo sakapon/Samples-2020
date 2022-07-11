@@ -20,9 +20,9 @@ namespace OnlineTest.IO
 
 			while (qc-- > 0)
 			{
-				var q = io.Int(2);
-				var x = q[1];
-				if (q[0] == 1)
+				var t = io.Int();
+				var x = io.Int();
+				if (t == 1)
 				{
 					fi = (fi - x + n) % n;
 				}

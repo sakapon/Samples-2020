@@ -12,13 +12,12 @@ namespace OnlineTest.IO
 		static object Solve()
 		{
 			var n = io.Int();
-			var ps = io.Int(n, 3);
+			var ps = io.Read(n, () => io.IntTuple3());
 
 			var u = new bool[100000 + 1, 24];
 
-			foreach (var p in ps)
+			foreach (var (d, s, t) in ps)
 			{
-				var (d, s, t) = (p[0], p[1], p[2]);
 				for (int i = s; i < t; i++)
 				{
 					if (u[d, i]) return true;

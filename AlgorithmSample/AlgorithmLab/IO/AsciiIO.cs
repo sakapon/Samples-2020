@@ -19,13 +19,10 @@ namespace AlgorithmLab.IO
 		public char Char() { NextValid(); return (char)b; }
 
 		public int Int() => (int)Long();
-		public int[] Int(int n)
-		{
-			var r = new int[n];
-			for (var i = 0; i < n; ++i) r[i] = (int)Long();
-			return r;
-		}
-		public int[][] Int(int n, int m) => Array.ConvertAll(new bool[n], _ => Int(m));
+		public int[] Int(int n) => Read(n, () => Int());
+		public int[][] Int(int n, int m) => Read(n, () => Int(m));
+		public (int, int) IntTuple2() => (Int(), Int());
+		public (int, int, int) IntTuple3() => (Int(), Int(), Int());
 
 		public long Long()
 		{
@@ -35,13 +32,10 @@ namespace AlgorithmLab.IO
 			do r = r * 10 + (b & ~'0'); while (Next());
 			return s == '-' ? -r : r;
 		}
-		public long[] Long(int n)
-		{
-			var r = new long[n];
-			for (var i = 0; i < n; ++i) r[i] = Long();
-			return r;
-		}
-		public long[][] Long(int n, int m) => Array.ConvertAll(new bool[n], _ => Long(m));
+		public long[] Long(int n) => Read(n, () => Long());
+		public long[][] Long(int n, int m) => Read(n, () => Long(m));
+		public (long, long) LongTuple2() => (Long(), Long());
+		public (long, long, long) LongTuple3() => (Long(), Long(), Long());
 
 		public string String()
 		{
@@ -62,14 +56,9 @@ namespace AlgorithmLab.IO
 				Convert.ChangeType(String(), typeof(T));
 			return (T)o;
 		}
-		public T[] Read<T>(int n)
-		{
-			var r = new T[n];
-			for (var i = 0; i < n; ++i) r[i] = Read<T>();
-			return r;
-		}
-		public T[][] Read<T>(int n, int m) => Array.ConvertAll(new bool[n], _ => Read<T>(m));
-		public T[] Read<T>(int n, Converter<bool, T> f) => Array.ConvertAll(new bool[n], f);
+		public T[] Read<T>(int n, Func<T> f) { var r = new T[n]; for (var i = 0; i < n; ++i) r[i] = f(); return r; }
+		public T[] Read<T>(int n) => Read(n, () => Read<T>());
+		public T[][] Read<T>(int n, int m) => Read(n, () => Read<T>(m));
 
 		public (T1, T2) Tuple<T1, T2>() => (Read<T1>(), Read<T2>());
 		public (T1, T2, T3) Tuple<T1, T2, T3>() => (Read<T1>(), Read<T2>(), Read<T3>());
