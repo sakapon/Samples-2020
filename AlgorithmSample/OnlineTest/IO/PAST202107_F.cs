@@ -12,7 +12,7 @@ namespace OnlineTest.IO
 		static object Solve()
 		{
 			var n = io.Int();
-			var ps = io.IntMatrix(n, 3);
+			var ps = io.Int(n, 3);
 
 			var u = new bool[100000 + 1, 24];
 

@@ -25,12 +25,7 @@ namespace AlgorithmLab.IO
 			for (var i = 0; i < n; ++i) r[i] = (int)Long();
 			return r;
 		}
-		public int[][] IntMatrix(int n, int m)
-		{
-			var r = new int[n][];
-			for (var i = 0; i < n; ++i) r[i] = Int(m);
-			return r;
-		}
+		public int[][] Int(int n, int m) => Array.ConvertAll(new bool[n], _ => Int(m));
 
 		public long Long()
 		{
@@ -46,6 +41,7 @@ namespace AlgorithmLab.IO
 			for (var i = 0; i < n; ++i) r[i] = Long();
 			return r;
 		}
+		public long[][] Long(int n, int m) => Array.ConvertAll(new bool[n], _ => Long(m));
 
 		public string String()
 		{
@@ -55,18 +51,16 @@ namespace AlgorithmLab.IO
 			sb.Clear();
 			return r;
 		}
-		public string[] String(int n)
-		{
-			var r = new string[n];
-			for (var i = 0; i < n; ++i) r[i] = String();
-			return r;
-		}
 
 		public T Read<T>()
 		{
-			if (typeof(T) == typeof(int)) return (T)(object)Int();
-			if (typeof(T) == typeof(long)) return (T)(object)Long();
-			return (T)Convert.ChangeType(String(), typeof(T));
+			var o =
+				typeof(T) == typeof(int) ? Int() :
+				typeof(T) == typeof(long) ? Long() :
+				typeof(T) == typeof(string) ? String() :
+				typeof(T) == typeof(char) ? Char() :
+				Convert.ChangeType(String(), typeof(T));
+			return (T)o;
 		}
 		public T[] Read<T>(int n)
 		{
@@ -74,15 +68,13 @@ namespace AlgorithmLab.IO
 			for (var i = 0; i < n; ++i) r[i] = Read<T>();
 			return r;
 		}
+		public T[][] Read<T>(int n, int m) => Array.ConvertAll(new bool[n], _ => Read<T>(m));
 		public T[] Read<T>(int n, Converter<bool, T> f) => Array.ConvertAll(new bool[n], f);
-		public (T, T) ReadTuple2<T>() => (Read<T>(), Read<T>());
-		public (T, T, T) ReadTuple3<T>() => (Read<T>(), Read<T>(), Read<T>());
-		public T[][] ReadMatrix<T>(int n, int m)
-		{
-			var r = new T[n][];
-			for (var i = 0; i < n; ++i) r[i] = Read<T>(m);
-			return r;
-		}
+
+		public (T1, T2) Tuple<T1, T2>() => (Read<T1>(), Read<T2>());
+		public (T1, T2, T3) Tuple<T1, T2, T3>() => (Read<T1>(), Read<T2>(), Read<T3>());
+		public (T, T) Tuple2<T>() => (Read<T>(), Read<T>());
+		public (T, T, T) Tuple3<T>() => (Read<T>(), Read<T>(), Read<T>());
 
 		public string StringLine()
 		{
