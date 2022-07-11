@@ -12,7 +12,7 @@ namespace OnlineTest.IO
 		static object Solve()
 		{
 			var n = io.Int();
-			var ps = io.Read(n, () => io.IntTuple3());
+			var ps = io.Read(n, () => io.Int3());
 
 			var u = new bool[100000 + 1, 24];
 

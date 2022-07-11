@@ -21,8 +21,8 @@ namespace AlgorithmLab.IO
 		public int Int() => (int)Long();
 		public int[] Int(int n) => Read(n, () => Int());
 		public int[][] Int(int n, int m) => Read(n, () => Int(m));
-		public (int, int) IntTuple2() => (Int(), Int());
-		public (int, int, int) IntTuple3() => (Int(), Int(), Int());
+		public (int, int) Int2() => (Int(), Int());
+		public (int, int, int) Int3() => (Int(), Int(), Int());
 
 		public long Long()
 		{
@@ -34,8 +34,8 @@ namespace AlgorithmLab.IO
 		}
 		public long[] Long(int n) => Read(n, () => Long());
 		public long[][] Long(int n, int m) => Read(n, () => Long(m));
-		public (long, long) LongTuple2() => (Long(), Long());
-		public (long, long, long) LongTuple3() => (Long(), Long(), Long());
+		public (long, long) Long2() => (Long(), Long());
+		public (long, long, long) Long3() => (Long(), Long(), Long());
 
 		public string String()
 		{
@@ -60,10 +60,10 @@ namespace AlgorithmLab.IO
 		public T[] Read<T>(int n) => Read(n, () => Read<T>());
 		public T[][] Read<T>(int n, int m) => Read(n, () => Read<T>(m));
 
+		public (T, T) Read2<T>() => (Read<T>(), Read<T>());
+		public (T, T, T) Read3<T>() => (Read<T>(), Read<T>(), Read<T>());
 		public (T1, T2) Tuple<T1, T2>() => (Read<T1>(), Read<T2>());
 		public (T1, T2, T3) Tuple<T1, T2, T3>() => (Read<T1>(), Read<T2>(), Read<T3>());
-		public (T, T) Tuple2<T>() => (Read<T>(), Read<T>());
-		public (T, T, T) Tuple3<T>() => (Read<T>(), Read<T>(), Read<T>());
 
 		public string StringLine()
 		{
