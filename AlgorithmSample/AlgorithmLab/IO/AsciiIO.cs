@@ -18,18 +18,11 @@ namespace AlgorithmLab.IO
 
 		public char Char() { NextValid(); return (char)b; }
 
-		public int Int()
-		{
-			NextValid();
-			if ((s = b) == '-') Next();
-			var r = 0;
-			do r = r * 10 + (b & ~'0'); while (Next());
-			return s == '-' ? -r : r;
-		}
+		public int Int() => (int)Long();
 		public int[] Int(int n)
 		{
 			var r = new int[n];
-			for (var i = 0; i < n; ++i) r[i] = Int();
+			for (var i = 0; i < n; ++i) r[i] = (int)Long();
 			return r;
 		}
 		public int[][] IntMatrix(int n, int m)
@@ -56,9 +49,8 @@ namespace AlgorithmLab.IO
 
 		public string String()
 		{
-			int b;
-			while (sp[b = si.ReadByte()]) ;
-			do sb.Append((char)b); while (!sp[b = si.ReadByte()]);
+			NextValid();
+			do sb.Append((char)b); while (Next());
 			var r = sb.ToString();
 			sb.Clear();
 			return r;
@@ -82,10 +74,13 @@ namespace AlgorithmLab.IO
 			for (var i = 0; i < n; ++i) r[i] = Read<T>();
 			return r;
 		}
-		public T[] Read<T>(int n, Func<T> f)
+		public T[] Read<T>(int n, Converter<bool, T> f) => Array.ConvertAll(new bool[n], f);
+		public (T, T) ReadTuple2<T>() => (Read<T>(), Read<T>());
+		public (T, T, T) ReadTuple3<T>() => (Read<T>(), Read<T>(), Read<T>());
+		public T[][] ReadMatrix<T>(int n, int m)
 		{
-			var r = new T[n];
-			for (var i = 0; i < n; ++i) r[i] = f();
+			var r = new T[n][];
+			for (var i = 0; i < n; ++i) r[i] = Read<T>(m);
 			return r;
 		}
 
