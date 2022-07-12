@@ -23,8 +23,8 @@ namespace AlgorithmLab.Collections.Arrays.ArrayQueue201
 		public int Count => li - fi;
 		public T this[int i]
 		{
-			get => a[(fi + i) & f];
-			set => a[(fi + i) & f] = value;
+			get => a[fi + i & f];
+			set => a[fi + i & f] = value;
 		}
 		public T First
 		{

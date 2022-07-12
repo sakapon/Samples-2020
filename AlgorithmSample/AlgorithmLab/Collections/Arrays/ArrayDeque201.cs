@@ -36,8 +36,8 @@ namespace AlgorithmLab.Collections.Arrays.ArrayDeque201
 		public int Count => li - fi;
 		public T this[int i]
 		{
-			get => a[(fi + i) & f];
-			set => a[(fi + i) & f] = value;
+			get => a[fi + i & f];
+			set => a[fi + i & f] = value;
 		}
 		public T First
 		{
@@ -46,8 +46,8 @@ namespace AlgorithmLab.Collections.Arrays.ArrayDeque201
 		}
 		public T Last
 		{
-			get => a[(li - 1) & f];
-			set => a[(li - 1) & f] = value;
+			get => a[li - 1 & f];
+			set => a[li - 1 & f] = value;
 		}
 
 		public void Clear() => fi = li = 0;
