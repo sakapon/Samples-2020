@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmLab.IO
 {
@@ -19,8 +20,8 @@ namespace AlgorithmLab.IO
 		public char Char() { NextValid(); return (char)b; }
 
 		public int Int() => (int)Long();
-		public int[] Int(int n) => Read(n, () => Int());
-		public int[][] Int(int n, int m) => Read(n, () => Int(m));
+		public int[] Int(int n) => Array(n, () => Int());
+		public int[][] Int(int n, int m) => Array(n, () => Int(m));
 		public (int, int) Int2() => (Int(), Int());
 		public (int, int, int) Int3() => (Int(), Int(), Int());
 
@@ -32,8 +33,8 @@ namespace AlgorithmLab.IO
 			do r = r * 10 + (b & ~'0'); while (Next());
 			return s == '-' ? -r : r;
 		}
-		public long[] Long(int n) => Read(n, () => Long());
-		public long[][] Long(int n, int m) => Read(n, () => Long(m));
+		public long[] Long(int n) => Array(n, () => Long());
+		public long[][] Long(int n, int m) => Array(n, () => Long(m));
 		public (long, long) Long2() => (Long(), Long());
 		public (long, long, long) Long3() => (Long(), Long(), Long());
 
@@ -56,12 +57,12 @@ namespace AlgorithmLab.IO
 				Convert.ChangeType(String(), typeof(T));
 			return (T)o;
 		}
-		public T[] Read<T>(int n, Func<T> f) { var r = new T[n]; for (var i = 0; i < n; ++i) r[i] = f(); return r; }
-		public T[] Read<T>(int n) => Read(n, () => Read<T>());
-		public T[][] Read<T>(int n, int m) => Read(n, () => Read<T>(m));
-
+		public T[] Read<T>(int n) => Array(n, () => Read<T>());
+		public T[][] Read<T>(int n, int m) => Array(n, () => Read<T>(m));
 		public (T, T) Read2<T>() => (Read<T>(), Read<T>());
 		public (T, T, T) Read3<T>() => (Read<T>(), Read<T>(), Read<T>());
+
+		public T[] Array<T>(int n, Func<T> f) { var r = new T[n]; for (var i = 0; i < n; ++i) r[i] = f(); return r; }
 		public (T1, T2) Tuple<T1, T2>() => (Read<T1>(), Read<T2>());
 		public (T1, T2, T3) Tuple<T1, T2, T3>() => (Read<T1>(), Read<T2>(), Read<T3>());
 
@@ -88,18 +89,25 @@ namespace AlgorithmLab.IO
 			while (!lf[b]);
 		}
 
+		const string Sep = " ";
 		const string TText = "Yes";
 		const string FText = "No";
-		public void Write(object o)
+		public void Write(object o, string tText = TText, string fText = FText)
 		{
 			if (o is null) { }
-			else if (o is bool b) Console.WriteLine(b ? TText : FText);
+			else if (o is bool b) Console.WriteLine(b ? tText : fText);
 			else if (o is string s)
 			{
 				if (lf[s[^1]]) Console.Write(o);
 				else Console.WriteLine(o);
 			}
 			else Console.WriteLine(o);
+		}
+
+		public void Write<T>(IEnumerable<T> os, string sep = Sep, string tText = TText, string fText = FText)
+		{
+			if (os is IEnumerable<bool> bs) Console.WriteLine(string.Join(sep, bs.Select(b => b ? tText : fText)));
+			else Console.WriteLine(string.Join(sep, os));
 		}
 	}
 }
