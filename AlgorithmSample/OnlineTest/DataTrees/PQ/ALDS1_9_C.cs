@@ -14,9 +14,7 @@ namespace OnlineTest.DataTrees.PQ
 		{
 			var sb = new StringBuilder();
 
-			var asc = Comparer<int>.Default;
-			var desc = Comparer<int>.Create((x, y) => asc.Compare(y, x));
-			var q = new HeapQueue<int>(desc);
+			var q = new HeapQueue<int>(true);
 
 			string s;
 			while ((s = Console.ReadLine())[2] != 'd')
