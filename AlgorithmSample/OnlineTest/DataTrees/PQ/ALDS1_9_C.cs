@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AlgorithmLab.DataTrees.PQ.HeapQueue101;
+using AlgorithmLab.DataTrees.PQ.HeapQueue201;
 
 namespace OnlineTest.DataTrees.PQ
 {
@@ -16,7 +16,7 @@ namespace OnlineTest.DataTrees.PQ
 
 			var asc = Comparer<int>.Default;
 			var desc = Comparer<int>.Create((x, y) => asc.Compare(y, x));
-			var q = new HeapQueue<int>(2000000, desc);
+			var q = new HeapQueue<int>(desc);
 
 			string s;
 			while ((s = Console.ReadLine())[2] != 'd')

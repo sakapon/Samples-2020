@@ -2,19 +2,28 @@
 using System.Collections.Generic;
 
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/9/ALDS1_9_C
-// 容量を固定します。
-namespace AlgorithmLab.DataTrees.PQ.HeapQueue101
+// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_C
+namespace AlgorithmLab.DataTrees.PQ.HeapQueue201
 {
+	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class HeapQueue<T>
 	{
 		T[] a;
 		int n = 1;
 		readonly IComparer<T> c;
 
-		public HeapQueue(int capacity, IComparer<T> comparer = null)
+		public HeapQueue(IComparer<T> comparer = null, IEnumerable<T> items = null)
 		{
-			a = new T[capacity];
+			a = new T[4];
 			c = comparer ?? Comparer<T>.Default;
+			if (items != null) foreach (var item in items) Add(item);
+		}
+
+		public HeapQueue(bool descending, IEnumerable<T> items = null) : this(GetComparer(descending), items) { }
+		static IComparer<T> GetComparer(bool descending)
+		{
+			var asc = Comparer<T>.Default;
+			return descending ? Comparer<T>.Create((x, y) => asc.Compare(y, x)) : asc;
 		}
 
 		public int Count => n - 1;
@@ -25,6 +34,7 @@ namespace AlgorithmLab.DataTrees.PQ.HeapQueue101
 
 		public void Add(T item)
 		{
+			if (n == a.Length) Expand();
 			a[n++] = item;
 
 			for (int i = n - 1; i > 1 && c.Compare(a[i], a[i >> 1]) < 0; i >>= 1)
@@ -46,5 +56,12 @@ namespace AlgorithmLab.DataTrees.PQ.HeapQueue101
 			}
 			return item;
 		}
+
+		void Expand()
+		{
+			Array.Resize(ref a, a.Length << 1);
+		}
+
+		public IEnumerable<T> GetRawItems() { for (var i = 1; i < n; ++i) yield return a[i]; }
 	}
 }
