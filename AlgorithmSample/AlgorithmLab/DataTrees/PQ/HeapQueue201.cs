@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/9/ALDS1_9_C
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_C
+// Test: https://atcoder.jp/contests/abc141/tasks/abc141_d
+// Test: https://atcoder.jp/contests/typical90/tasks/typical90_f
 namespace AlgorithmLab.DataTrees.PQ.HeapQueue201
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
@@ -63,5 +65,24 @@ namespace AlgorithmLab.DataTrees.PQ.HeapQueue201
 		}
 
 		public IEnumerable<T> GetRawItems() { for (var i = 1; i < n; ++i) yield return a[i]; }
+	}
+
+	public class HeapQueue<TKey, TValue> : HeapQueue<KeyValuePair<TKey, TValue>>
+	{
+		public HeapQueue(IComparer<TKey> comparer = null, IEnumerable<KeyValuePair<TKey, TValue>> items = null) : base(GetComparer(comparer), items) { }
+		public HeapQueue(bool descending, IEnumerable<KeyValuePair<TKey, TValue>> items = null) : base(GetComparer(descending), items) { }
+
+		static IComparer<KeyValuePair<TKey, TValue>> GetComparer(IComparer<TKey> c)
+		{
+			c = c ?? Comparer<TKey>.Default;
+			return Comparer<KeyValuePair<TKey, TValue>>.Create((x, y) => c.Compare(x.Key, y.Key));
+		}
+		static IComparer<KeyValuePair<TKey, TValue>> GetComparer(bool descending)
+		{
+			var asc = Comparer<TKey>.Default;
+			return descending ? Comparer<KeyValuePair<TKey, TValue>>.Create((x, y) => asc.Compare(y.Key, x.Key)) : Comparer<KeyValuePair<TKey, TValue>>.Create((x, y) => asc.Compare(x.Key, y.Key));
+		}
+
+		public void Add(TKey key, TValue value) => Add(new KeyValuePair<TKey, TValue>(key, value));
 	}
 }
