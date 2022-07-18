@@ -6,7 +6,7 @@ namespace AlgorithmLab.DataTrees.UF516
 	// typed vertexes, data augmentation
 	// 頂点を動的に追加できる方式
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}, GroupsCount = {GroupsCount}")]
-	public class UnionFind<TVertex, TValue>
+	public class QuickFind<TVertex, TValue>
 	{
 		[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 		public class Group
@@ -23,7 +23,7 @@ namespace AlgorithmLab.DataTrees.UF516
 		TValue iv;
 		Func<TValue, TValue, TValue> mergeValues;
 
-		public UnionFind(TValue iv, Func<TValue, TValue, TValue> mergeValues, IEnumerable<KeyValuePair<TVertex, TValue>> items = null)
+		public QuickFind(TValue iv, Func<TValue, TValue, TValue> mergeValues, IEnumerable<KeyValuePair<TVertex, TValue>> items = null)
 		{
 			this.iv = iv;
 			this.mergeValues = mergeValues;

@@ -5,13 +5,13 @@ namespace AlgorithmLab.DataTrees.UF412
 {
 	// Int32 vertexes
 	// グループ取得操作が多い場合に有利
-	public class UnionFind
+	public class QuickFind
 	{
 		List<int>[] gMap;
 		public HashSet<List<int>> Groups { get; }
 		public int GroupsCount => Groups.Count;
 
-		public UnionFind(int n)
+		public QuickFind(int n)
 		{
 			gMap = new List<int>[n];
 			for (int i = 0; i < n; ++i) gMap[i] = new List<int> { i };

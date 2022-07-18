@@ -5,12 +5,12 @@ using System.Linq;
 namespace AlgorithmLab.DataTrees.UF411
 {
 	// Int32 vertexes
-	public class UnionFind
+	public class QuickFind
 	{
 		List<int>[] groups;
 		public int GroupsCount { get; private set; }
 
-		public UnionFind(int n)
+		public QuickFind(int n)
 		{
 			groups = new List<int>[n];
 			for (int i = 0; i < n; ++i) groups[i] = new List<int> { i };

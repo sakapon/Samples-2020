@@ -3,14 +3,13 @@ using System.Collections.Generic;
 
 namespace AlgorithmLab.DataTrees.UF111
 {
-	// Quick Find
 	// O(log n)
 	// Find 操作が多い場合に有利
-	public class UnionFind
+	public class QuickFind
 	{
 		List<int>[] groups;
 
-		public UnionFind(int n)
+		public QuickFind(int n)
 		{
 			groups = new List<int>[n];
 			for (int i = 0; i < n; ++i) groups[i] = new List<int> { i };

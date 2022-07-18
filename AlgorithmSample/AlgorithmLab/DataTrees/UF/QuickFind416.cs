@@ -6,7 +6,7 @@ namespace AlgorithmLab.DataTrees.UF416
 	// typed vertexes
 	// 頂点を動的に追加できる方式
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}, GroupsCount = {GroupsCount}")]
-	public class UnionFind<T>
+	public class QuickFind<T>
 	{
 		[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 		public class Group
@@ -20,7 +20,7 @@ namespace AlgorithmLab.DataTrees.UF416
 		public int GroupsCount => Groups.Count;
 		public int Count => gMap.Count;
 
-		public UnionFind(IEnumerable<T> items = null)
+		public QuickFind(IEnumerable<T> items = null)
 		{
 			if (items != null) foreach (var x in items) AddGroup(x);
 		}
