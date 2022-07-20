@@ -3,7 +3,7 @@
 namespace AlgorithmLab.DataTrees.UF201
 {
 	// path compression
-	// O(α(n))
+	// O(log n)
 	public class UnionFind
 	{
 		int[] parents;
