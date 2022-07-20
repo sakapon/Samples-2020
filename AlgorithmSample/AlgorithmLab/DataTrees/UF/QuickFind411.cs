@@ -41,6 +41,6 @@ namespace AlgorithmLab.DataTrees.UF411
 			--GroupsCount;
 		}
 
-		public List<int>[] ToGroups() => groups.Distinct().ToArray();
+		public IEnumerable<List<int>> ToGroups() => groups.Distinct();
 	}
 }
