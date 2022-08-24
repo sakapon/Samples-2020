@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 
 // Test: https://atcoder.jp/contests/abc237/tasks/abc237_d
+// item: [0, n)
 namespace AlgorithmLab.Collections.Linked.DistinctLinkedList101
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class DistinctLinkedList : IEnumerable<int>
 	{
 		readonly int n;
-		int count, fv = -1, lv = -1;
 		readonly int[] prev;
 		readonly int[] next;
+		int count, fi = -1, li = -1;
 
 		public DistinctLinkedList(int size)
 		{
@@ -23,94 +24,94 @@ namespace AlgorithmLab.Collections.Linked.DistinctLinkedList101
 
 		public int Size => n;
 		public int Count => count;
-		public int First => fv;
-		public int Last => lv;
+		public int First => fi;
+		public int Last => li;
 
-		public bool Contains(int value) => count <= 1 ? fv == value : (prev[value] != -1 || next[value] != -1);
+		public bool Contains(int item) => count <= 1 ? fi == item : (prev[item] != -1 || next[item] != -1);
 
-		public void AddFirst(int value)
+		public void AddFirst(int item)
 		{
-			if (Contains(value)) throw new ArgumentException("The value is found.", nameof(value));
+			if (Contains(item)) throw new ArgumentException("The item is found.", nameof(item));
 
 			if (count == 0)
 			{
-				lv = value;
+				li = item;
 			}
 			else
 			{
-				prev[fv] = value;
-				next[value] = fv;
+				prev[fi] = item;
+				next[item] = fi;
 			}
-			fv = value;
+			fi = item;
 			++count;
 		}
-		public void AddLast(int value)
+		public void AddLast(int item)
 		{
-			if (Contains(value)) throw new ArgumentException("The value is found.", nameof(value));
+			if (Contains(item)) throw new ArgumentException("The item is found.", nameof(item));
 
 			if (count == 0)
 			{
-				fv = value;
+				fi = item;
 			}
 			else
 			{
-				next[lv] = value;
-				prev[value] = lv;
+				next[li] = item;
+				prev[item] = li;
 			}
-			lv = value;
+			li = item;
 			++count;
 		}
 
-		public void AddBefore(int target, int value)
+		public void AddBefore(int target, int item)
 		{
 			if (!Contains(target)) throw new ArgumentException("The target is not found.", nameof(target));
-			if (Contains(value)) throw new ArgumentException("The value is found.", nameof(value));
+			if (Contains(item)) throw new ArgumentException("The item is found.", nameof(item));
 
-			var pv = prev[target];
-			if (pv == -1)
+			var t = prev[target];
+			if (t == -1)
 			{
-				fv = value;
+				fi = item;
 			}
 			else
 			{
-				prev[value] = pv;
-				next[pv] = value;
+				prev[item] = t;
+				next[t] = item;
 			}
-			prev[target] = value;
-			next[value] = target;
+			prev[target] = item;
+			next[item] = target;
 			++count;
 		}
-		public void AddAfter(int target, int value)
+		public void AddAfter(int target, int item)
 		{
 			if (!Contains(target)) throw new ArgumentException("The target is not found.", nameof(target));
-			if (Contains(value)) throw new ArgumentException("The value is found.", nameof(value));
+			if (Contains(item)) throw new ArgumentException("The item is found.", nameof(item));
 
-			var nv = next[target];
-			if (nv == -1)
+			var t = next[target];
+			if (t == -1)
 			{
-				lv = value;
+				li = item;
 			}
 			else
 			{
-				next[value] = nv;
-				prev[nv] = value;
+				next[item] = t;
+				prev[t] = item;
 			}
-			next[target] = value;
-			prev[value] = target;
+			next[target] = item;
+			prev[item] = target;
 			++count;
 		}
 
-		//public bool Remove(int value);
+		//public bool Remove(int item);
 		//public int RemoveFirst();
 		//public int RemoveLast();
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-		public IEnumerator<int> GetEnumerator() { for (var v = fv; v != -1; v = next[v]) yield return v; }
+		public IEnumerator<int> GetEnumerator() { for (var v = fi; v != -1; v = next[v]) yield return v; }
 
 		public int[] ToArray()
 		{
 			var r = new int[count];
-			for (int i = 0, v = fv; v != -1; ++i, v = next[v]) r[i] = v;
+			for (int i = 0, v = fi; v != -1; ++i, v = next[v]) r[i] = v;
 			return r;
 		}
 	}
