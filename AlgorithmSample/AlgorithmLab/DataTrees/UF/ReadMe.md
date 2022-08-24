@@ -19,6 +19,7 @@ Union および Find 操作は O(α(n)) 時間であり高速です (301, 302)�
 - 201 path compression O(log n)
 - 301 union by size, path compression O(α(n))
 - 302 union by rank, path compression O(α(n))
+- 306 301 + parents で size を保持
 - 401 301 + ToGroups, GroupsCount
 - 402 typed id、頂点を動的に追加できる
 - 403 typed id、頂点を静的に登録する
