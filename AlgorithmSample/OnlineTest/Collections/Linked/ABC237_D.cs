@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AlgorithmLab.Collections.Linked;
+using AlgorithmLab.Collections.Linked.DistinctLinkedList101;
 
 namespace OnlineTest.Collections.Linked
 {
