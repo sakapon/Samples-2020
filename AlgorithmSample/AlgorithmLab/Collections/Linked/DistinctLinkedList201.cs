@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 // Test: https://atcoder.jp/contests/abc237/tasks/abc237_d
 // item: [0, n)
-namespace AlgorithmLab.Collections.Linked.DistinctLinkedList101
+namespace AlgorithmLab.Collections.Linked.DistinctLinkedList201
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class DistinctLinkedList : IEnumerable<int>
@@ -29,19 +29,18 @@ namespace AlgorithmLab.Collections.Linked.DistinctLinkedList101
 
 		public bool Contains(int item) => count <= 1 ? fi == item : (prev[item] != -1 || next[item] != -1);
 
+		void Link(int pi, int ni)
+		{
+			prev[ni] = pi;
+			next[pi] = ni;
+		}
+
 		public void AddFirst(int item)
 		{
 			if (Contains(item)) throw new ArgumentException("The item is found.", nameof(item));
 
-			if (count == 0)
-			{
-				li = item;
-			}
-			else
-			{
-				prev[fi] = item;
-				next[item] = fi;
-			}
+			if (count == 0) li = item;
+			else Link(item, fi);
 			fi = item;
 			++count;
 		}
@@ -49,15 +48,8 @@ namespace AlgorithmLab.Collections.Linked.DistinctLinkedList101
 		{
 			if (Contains(item)) throw new ArgumentException("The item is found.", nameof(item));
 
-			if (count == 0)
-			{
-				fi = item;
-			}
-			else
-			{
-				next[li] = item;
-				prev[item] = li;
-			}
+			if (count == 0) fi = item;
+			else Link(li, item);
 			li = item;
 			++count;
 		}
@@ -68,17 +60,9 @@ namespace AlgorithmLab.Collections.Linked.DistinctLinkedList101
 			if (Contains(item)) throw new ArgumentException("The item is found.", nameof(item));
 
 			var t = prev[target];
-			if (t == -1)
-			{
-				fi = item;
-			}
-			else
-			{
-				prev[item] = t;
-				next[t] = item;
-			}
-			prev[target] = item;
-			next[item] = target;
+			if (t == -1) fi = item;
+			else Link(t, item);
+			Link(item, target);
 			++count;
 		}
 		public void AddAfter(int target, int item)
@@ -87,18 +71,60 @@ namespace AlgorithmLab.Collections.Linked.DistinctLinkedList101
 			if (Contains(item)) throw new ArgumentException("The item is found.", nameof(item));
 
 			var t = next[target];
-			if (t == -1)
+			if (t == -1) li = item;
+			else Link(item, t);
+			Link(target, item);
+			++count;
+		}
+
+		public int RemoveFirst()
+		{
+			if (count == 0) throw new InvalidOperationException("No items are found.");
+
+			var r = fi;
+			if (--count == 0)
 			{
-				li = item;
+				fi = li = -1;
 			}
 			else
 			{
-				next[item] = t;
-				prev[t] = item;
+				fi = next[fi];
+				prev[fi] = -1;
+				next[r] = -1;
 			}
-			next[target] = item;
-			prev[item] = target;
-			++count;
+			return r;
+		}
+		public int RemoveLast()
+		{
+			if (count == 0) throw new InvalidOperationException("No items are found.");
+
+			var r = li;
+			if (--count == 0)
+			{
+				fi = li = -1;
+			}
+			else
+			{
+				li = prev[li];
+				next[li] = -1;
+				prev[r] = -1;
+			}
+			return r;
+		}
+
+		public bool Remove(int item)
+		{
+			if (item != fi && prev[item] == -1 && next[item] == -1) return false;
+
+			if (item == fi) RemoveFirst();
+			else if (item == li) RemoveLast();
+			else
+			{
+				--count;
+				Link(prev[item], next[item]);
+				prev[item] = next[item] = -1;
+			}
+			return true;
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
