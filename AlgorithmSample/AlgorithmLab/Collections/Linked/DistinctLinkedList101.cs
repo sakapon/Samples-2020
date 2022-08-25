@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 // Test: https://atcoder.jp/contests/abc237/tasks/abc237_d
 // item: [0, n)
+// Add only.
 namespace AlgorithmLab.Collections.Linked.DistinctLinkedList101
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
