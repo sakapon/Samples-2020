@@ -6,8 +6,8 @@ namespace AlgorithmLab.DataTrees.UF401
 	// Int32 vertexes
 	public class UnionFind
 	{
-		int[] parents, sizes;
-		public int GroupsCount { get; private set; }
+		readonly int[] parents, sizes;
+		int groupsCount;
 
 		public UnionFind(int n)
 		{
@@ -15,9 +15,11 @@ namespace AlgorithmLab.DataTrees.UF401
 			Array.Fill(parents, -1);
 			sizes = new int[n];
 			Array.Fill(sizes, 1);
-			GroupsCount = n;
+			groupsCount = n;
 		}
 
+		public int ItemsCount => parents.Length;
+		public int GroupsCount => groupsCount;
 		public int Find(int x) => parents[x] == -1 ? x : parents[x] = Find(parents[x]);
 		public bool AreSame(int x, int y) => Find(x) == Find(y);
 		public int GetSize(int x) => sizes[Find(x)];
@@ -35,7 +37,7 @@ namespace AlgorithmLab.DataTrees.UF401
 		{
 			parents[y] = x;
 			sizes[x] += sizes[y];
-			--GroupsCount;
+			--groupsCount;
 		}
 
 		public ILookup<int, int> ToGroups() => Enumerable.Range(0, parents.Length).ToLookup(Find);

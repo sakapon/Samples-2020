@@ -6,10 +6,10 @@ namespace AlgorithmLab.DataTrees.UF501
 	// Int32 vertexes, data augmentation
 	public class UnionFind<TValue>
 	{
-		int[] parents, sizes;
-		public int GroupsCount { get; private set; }
-		TValue[] values;
-		Func<TValue, TValue, TValue> mergeValues;
+		readonly int[] parents, sizes;
+		int groupsCount;
+		readonly TValue[] values;
+		readonly Func<TValue, TValue, TValue> mergeValues;
 
 		public UnionFind(int n, TValue[] values, Func<TValue, TValue, TValue> mergeValues)
 		{
@@ -17,11 +17,13 @@ namespace AlgorithmLab.DataTrees.UF501
 			Array.Fill(parents, -1);
 			sizes = new int[n];
 			Array.Fill(sizes, 1);
-			GroupsCount = n;
+			groupsCount = n;
 			this.values = values;
 			this.mergeValues = mergeValues;
 		}
 
+		public int ItemsCount => parents.Length;
+		public int GroupsCount => groupsCount;
 		public int Find(int x) => parents[x] == -1 ? x : parents[x] = Find(parents[x]);
 		public bool AreSame(int x, int y) => Find(x) == Find(y);
 		public int GetSize(int x) => sizes[Find(x)];
@@ -40,7 +42,7 @@ namespace AlgorithmLab.DataTrees.UF501
 		{
 			parents[y] = x;
 			sizes[x] += sizes[y];
-			--GroupsCount;
+			--groupsCount;
 			values[x] = mergeValues(values[x], values[y]);
 		}
 
