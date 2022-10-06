@@ -8,18 +8,19 @@ namespace AlgorithmLab.DataTrees.UF501
 	{
 		readonly int[] parents, sizes;
 		int groupsCount;
-		readonly TValue[] values;
 		readonly Func<TValue, TValue, TValue> mergeValues;
+		readonly TValue[] values;
 
-		public UnionFind(int n, TValue[] values, Func<TValue, TValue, TValue> mergeValues)
+		public UnionFind(int n, Func<TValue, TValue, TValue> mergeValues, TValue[] values)
 		{
 			parents = new int[n];
 			Array.Fill(parents, -1);
 			sizes = new int[n];
 			Array.Fill(sizes, 1);
 			groupsCount = n;
-			this.values = values;
 			this.mergeValues = mergeValues;
+			this.values = new TValue[n];
+			Array.Copy(values, this.values, n);
 		}
 
 		public int ItemsCount => parents.Length;
