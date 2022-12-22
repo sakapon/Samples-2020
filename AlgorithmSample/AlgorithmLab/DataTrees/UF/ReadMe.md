@@ -23,5 +23,7 @@ Union および Find 操作は O(α(n)) 時間であり高速です (301, 302)�
 - 401 301 + ToGroups, GroupsCount
 - 402 typed id、頂点を動的に追加できる
 - 403 typed id、頂点を静的に登録する
+- 406 401 + parents で size を保持
 - 501 401 + データ拡張
 - 502 402 + データ拡張
+- 506 501 + parents で size を保持
