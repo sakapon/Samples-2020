@@ -17,7 +17,7 @@ namespace AlgorithmLab.DataTrees.UF402
 			public int Size = 1;
 		}
 
-		Dictionary<T, Node> nodes = new Dictionary<T, Node>();
+		readonly Dictionary<T, Node> nodes = new Dictionary<T, Node>();
 		public int Count => nodes.Count;
 		public int GroupsCount { get; private set; }
 
@@ -35,7 +35,7 @@ namespace AlgorithmLab.DataTrees.UF402
 			return nodes[x] = new Node { Item = x };
 		}
 
-		public Node Find(T x) => nodes.ContainsKey(x) ? Find(nodes[x]) : null;
+		public Node Find(T x) => nodes.TryGetValue(x, out var n) ? Find(n) : null;
 		Node Find(Node n) => n.Parent == null ? n : n.Parent = Find(n.Parent);
 
 		public bool AreSame(T x, T y)
@@ -45,7 +45,7 @@ namespace AlgorithmLab.DataTrees.UF402
 			var ny = Find(y);
 			return nx != null && nx == ny;
 		}
-		public int? GetSize(T x) => Find(x)?.Size;
+		public int GetSize(T x) => Find(x)?.Size ?? 0;
 
 		public bool Union(T x, T y)
 		{

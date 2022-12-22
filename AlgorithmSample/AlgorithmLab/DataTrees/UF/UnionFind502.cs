@@ -18,7 +18,7 @@ namespace AlgorithmLab.DataTrees.UF502
 			public int Size = 1;
 		}
 
-		Dictionary<TVertex, Node> nodes = new Dictionary<TVertex, Node>();
+		readonly Dictionary<TVertex, Node> nodes = new Dictionary<TVertex, Node>();
 		public int Count => nodes.Count;
 		public int GroupsCount { get; private set; }
 		TValue iv;
@@ -40,7 +40,7 @@ namespace AlgorithmLab.DataTrees.UF502
 			return nodes[x] = new Node { Item = x, Value = value };
 		}
 
-		public Node Find(TVertex x) => nodes.ContainsKey(x) ? Find(nodes[x]) : null;
+		public Node Find(TVertex x) => nodes.TryGetValue(x, out var n) ? Find(n) : null;
 		Node Find(Node n) => n.Parent == null ? n : n.Parent = Find(n.Parent);
 
 		public bool AreSame(TVertex x, TVertex y)
@@ -50,7 +50,7 @@ namespace AlgorithmLab.DataTrees.UF502
 			var ny = Find(y);
 			return nx != null && nx == ny;
 		}
-		public int? GetSize(TVertex x) => Find(x)?.Size;
+		public int GetSize(TVertex x) => Find(x)?.Size ?? 0;
 		public TValue GetValue(TVertex x)
 		{
 			var n = Find(x);
