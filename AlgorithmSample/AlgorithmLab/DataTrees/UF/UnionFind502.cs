@@ -9,7 +9,7 @@ namespace AlgorithmLab.DataTrees.UF502
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}, GroupsCount = {GroupsCount}")]
 	public class UnionFind<TKey, TValue>
 	{
-		[System.Diagnostics.DebuggerDisplay(@"\{{Item}\}")]
+		[System.Diagnostics.DebuggerDisplay(@"\{{Key}\}")]
 		public class Node
 		{
 			public TKey Key;
@@ -21,18 +21,17 @@ namespace AlgorithmLab.DataTrees.UF502
 		readonly Dictionary<TKey, Node> nodes = new Dictionary<TKey, Node>();
 		public int Count => nodes.Count;
 		public int GroupsCount { get; private set; }
-		TValue iv;
-		Func<TValue, TValue, TValue> mergeValues;
+		readonly Func<TValue, TValue, TValue> mergeValues;
 
-		public UnionFind(TValue iv, Func<TValue, TValue, TValue> mergeValues, IEnumerable<KeyValuePair<TKey, TValue>> collection = null)
+		public UnionFind(Func<TValue, TValue, TValue> mergeValues, IEnumerable<KeyValuePair<TKey, TValue>> collection = null)
 		{
 			if (collection != null)
 				foreach (var p in collection) nodes[p.Key] = new Node { Key = p.Key, Value = p.Value };
 			GroupsCount = nodes.Count;
-			this.iv = iv;
 			this.mergeValues = mergeValues;
 		}
 
+		public bool ContainsKey(TKey x) => nodes.ContainsKey(x);
 		public Node Add(TKey x, TValue value)
 		{
 			if (nodes.ContainsKey(x)) return null;
@@ -51,29 +50,37 @@ namespace AlgorithmLab.DataTrees.UF502
 			return nx != null && nx == ny;
 		}
 		public int GetSize(TKey x) => Find(x)?.Size ?? 0;
-		public TValue GetValue(TKey x)
+
+		public TValue this[TKey x]
 		{
-			var n = Find(x);
-			return n != null ? n.Value : iv;
+			get
+			{
+				var n = Find(x) ?? throw new KeyNotFoundException();
+				return n.Value;
+			}
+			set
+			{
+				var n = Find(x) ?? throw new KeyNotFoundException();
+				if (n == null) Add(x, value);
+				else n.Value = value;
+			}
 		}
 
 		public bool Union(TKey x, TKey y)
 		{
-			var nx = Find(x) ?? Add(x, iv);
-			var ny = Find(y) ?? Add(y, iv);
+			var nx = Find(x) ?? throw new KeyNotFoundException();
+			var ny = Find(y) ?? throw new KeyNotFoundException();
 			if (nx == ny) return false;
 
-			if (nx.Size < ny.Size) Merge(ny, nx);
-			else Merge(nx, ny);
-			return true;
-		}
+			// 左右の順序を保って値をマージします。
+			var v = mergeValues(nx.Value, ny.Value);
 
-		void Merge(Node nx, Node ny)
-		{
+			if (nx.Size < ny.Size) (nx, ny) = (ny, nx);
 			ny.Parent = nx;
 			nx.Size += ny.Size;
 			--GroupsCount;
-			nx.Value = mergeValues(nx.Value, ny.Value);
+			nx.Value = v;
+			return true;
 		}
 
 		public ILookup<Node, Node> ToGroups() => nodes.Values.ToLookup(Find);

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlgorithmLab.DataTrees.UF501;
+using AlgorithmLab.DataTrees.UF502;
 
-// 401, 406, 501, 506
+// 402, 502
 namespace OnlineTest.DataTrees.UF
 {
 	// Test: https://atcoder.jp/contests/abc277/tasks/abc277_c
-	class ABC277_C
+	class ABC277_C2
 	{
 		static int[] Read() => Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
 		static (int, int) Read2() { var a = Read(); return (a[0], a[1]); }
@@ -17,25 +17,15 @@ namespace OnlineTest.DataTrees.UF
 			var n = int.Parse(Console.ReadLine());
 			var es = Array.ConvertAll(new bool[n], _ => Read2());
 
-			// compression
-			var set = new HashSet<int> { 1 };
+			var uf = new UnionFind<int, int>(Math.Max);
+			uf.Add(1, 1);
 			foreach (var (a, b) in es)
 			{
-				set.Add(a);
-				set.Add(b);
+				uf.Add(a, a);
+				uf.Add(b, b);
+				uf.Union(a, b);
 			}
-			var m = set.Count;
-			var f = new int[m];
-			set.CopyTo(f);
-			Array.Sort(f);
-			var map = Enumerable.Range(0, m).ToDictionary(i => f[i]);
-
-			var uf = new UnionFind<int>(m, Math.Max, f);
-			foreach (var (a, b) in es)
-			{
-				uf.Union(map[a], map[b]);
-			}
-			return uf[0];
+			return uf[1];
 		}
 	}
 }

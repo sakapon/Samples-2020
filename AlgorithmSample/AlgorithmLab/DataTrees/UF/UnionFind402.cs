@@ -28,6 +28,7 @@ namespace AlgorithmLab.DataTrees.UF402
 			GroupsCount = nodes.Count;
 		}
 
+		public bool Contains(T x) => nodes.ContainsKey(x);
 		public Node Add(T x)
 		{
 			if (nodes.ContainsKey(x)) return null;
