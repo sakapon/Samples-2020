@@ -40,18 +40,14 @@ namespace AlgorithmLab.DataTrees.UF501
 			if ((x = Find(x)) == (y = Find(y))) return false;
 
 			// 左右の順序を保って値をマージします。
-			values[x] = mergeValues(values[x], values[y]);
+			var v = mergeValues(values[x], values[y]);
 
-			if (sizes[x] < sizes[y]) Merge(y, x);
-			else Merge(x, y);
-			return true;
-		}
-
-		void Merge(int x, int y)
-		{
+			if (sizes[x] < sizes[y]) (x, y) = (y, x);
 			parents[y] = x;
 			sizes[x] += sizes[y];
 			--groupsCount;
+			values[x] = v;
+			return true;
 		}
 
 		public ILookup<int, int> ToGroups() => Enumerable.Range(0, parents.Length).ToLookup(Find);
