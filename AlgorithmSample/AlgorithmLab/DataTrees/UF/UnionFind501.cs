@@ -11,7 +11,7 @@ namespace AlgorithmLab.DataTrees.UF501
 		readonly Func<TValue, TValue, TValue> mergeValues;
 		readonly TValue[] values;
 
-		public UnionFind(int n, Func<TValue, TValue, TValue> mergeValues, TValue[] values)
+		public UnionFind(int n, Func<TValue, TValue, TValue> mergeValues, TValue[] values = null)
 		{
 			parents = new int[n];
 			Array.Fill(parents, -1);
@@ -20,7 +20,7 @@ namespace AlgorithmLab.DataTrees.UF501
 			groupsCount = n;
 			this.mergeValues = mergeValues;
 			this.values = new TValue[n];
-			Array.Copy(values, this.values, n);
+			if (values != null) Array.Copy(values, this.values, n);
 		}
 
 		public int ItemsCount => parents.Length;
@@ -28,11 +28,19 @@ namespace AlgorithmLab.DataTrees.UF501
 		public int Find(int x) => parents[x] == -1 ? x : parents[x] = Find(parents[x]);
 		public bool AreSame(int x, int y) => Find(x) == Find(y);
 		public int GetSize(int x) => sizes[Find(x)];
-		public TValue GetValue(int x) => values[Find(x)];
+
+		public TValue this[int x]
+		{
+			get => values[Find(x)];
+			set => values[Find(x)] = value;
+		}
 
 		public bool Union(int x, int y)
 		{
 			if ((x = Find(x)) == (y = Find(y))) return false;
+
+			// 左右の順序を保って値をマージします。
+			values[x] = mergeValues(values[x], values[y]);
 
 			if (sizes[x] < sizes[y]) Merge(y, x);
 			else Merge(x, y);
@@ -44,7 +52,6 @@ namespace AlgorithmLab.DataTrees.UF501
 			parents[y] = x;
 			sizes[x] += sizes[y];
 			--groupsCount;
-			values[x] = mergeValues(values[x], values[y]);
 		}
 
 		public ILookup<int, int> ToGroups() => Enumerable.Range(0, parents.Length).ToLookup(Find);
