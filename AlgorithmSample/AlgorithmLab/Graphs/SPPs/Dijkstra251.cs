@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using AlgorithmLab.DataTrees;
 
+// priority queue を利用します。
 namespace AlgorithmLab.Graphs.SPPs.Dijkstra251
 {
 	[System.Diagnostics.DebuggerDisplay(@"\{{Id}: {Edges.Count} edges, Cost = {Cost}\}")]
@@ -60,24 +62,24 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra251
 		public void Execute(int sv, int ev = -1)
 		{
 			Vertexes[sv].Cost = 0;
-			var q = new SortedSet<(long, int)> { (0, sv) };
+			var q = Heap<int>.CreateWithKey(v => Vertexes[v].Cost);
+			q.Push(sv);
 
-			while (q.Count > 0)
+			while (q.Any)
 			{
-				var (c, v) = q.Min;
-				q.Remove((c, v));
+				var (v, c) = q.Pop();
 				if (v == ev) return;
 				var vo = Vertexes[v];
+				if (vo.Cost < c) continue;
 
 				foreach (var (nv, cost) in vo.Edges)
 				{
 					var nvo = Vertexes[nv];
 					var nc = c + cost;
 					if (nvo.Cost <= nc) continue;
-					if (nvo.Cost != long.MaxValue) q.Remove((nvo.Cost, nv));
-					q.Add((nc, nv));
 					nvo.Cost = nc;
 					nvo.Previous = vo;
+					q.Push(nv);
 				}
 			}
 		}

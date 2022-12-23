@@ -67,7 +67,7 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra252
 			while (q.Count > 0)
 			{
 				var v = q.Pop();
-				if (v == ev) break;
+				if (v == ev) return;
 				var vo = Vertexes[v];
 
 				foreach (var (nv, cost) in vo.Edges)
