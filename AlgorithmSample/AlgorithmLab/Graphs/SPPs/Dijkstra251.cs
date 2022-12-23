@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AlgorithmLab.DataTrees;
+using AlgorithmLab.DataTrees.PQ.HeapQueue201;
 
 // priority queue を利用します。
 namespace AlgorithmLab.Graphs.SPPs.Dijkstra251
@@ -62,12 +62,12 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra251
 		public void Execute(int sv, int ev = -1)
 		{
 			Vertexes[sv].Cost = 0;
-			var q = Heap<int>.CreateWithKey(v => Vertexes[v].Cost);
-			q.Push(sv);
+			var q = new HeapQueue<long, int>(false);
+			q.Add(0, sv);
 
-			while (q.Any)
+			while (q.Count > 0)
 			{
-				var (v, c) = q.Pop();
+				var (c, v) = q.Pop();
 				if (v == ev) return;
 				var vo = Vertexes[v];
 				if (vo.Cost < c) continue;
@@ -79,7 +79,7 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra251
 					if (nvo.Cost <= nc) continue;
 					nvo.Cost = nc;
 					nvo.Previous = vo;
-					q.Push(nv);
+					q.Add(nc, nv);
 				}
 			}
 		}
