@@ -38,16 +38,16 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra252
 		public int VertexesCount => Vertexes.Length;
 		public Vertex this[int v] => Vertexes[v];
 
-		public Dijkstra(int vertexesCount)
+		public Dijkstra(int n)
 		{
-			Vertexes = new Vertex[vertexesCount];
-			for (int v = 0; v < vertexesCount; ++v) Vertexes[v] = new Vertex(v);
+			Vertexes = new Vertex[n];
+			for (int v = 0; v < n; ++v) Vertexes[v] = new Vertex(v);
 		}
-		public Dijkstra(int vertexesCount, IEnumerable<(int from, int to, int cost)> edges, bool twoWay) : this(vertexesCount)
+		public Dijkstra(int n, IEnumerable<(int from, int to, int cost)> edges, bool twoWay) : this(n)
 		{
 			foreach (var (from, to, cost) in edges) AddEdge(from, to, twoWay, cost);
 		}
-		public Dijkstra(int vertexesCount, IEnumerable<(int from, int to, long cost)> edges, bool twoWay) : this(vertexesCount)
+		public Dijkstra(int n, IEnumerable<(int from, int to, long cost)> edges, bool twoWay) : this(n)
 		{
 			foreach (var (from, to, cost) in edges) AddEdge(from, to, twoWay, cost);
 		}
