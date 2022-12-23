@@ -13,6 +13,22 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra253
 		public bool IsConnected => Cost != long.MaxValue;
 		public Vertex Previous { get; set; }
 		public Vertex(int id) { Id = id; }
+
+		public int[] GetPathVertexes()
+		{
+			var path = new Stack<int>();
+			for (var v = this; v != null; v = v.Previous)
+				path.Push(v.Id);
+			return path.ToArray();
+		}
+
+		public (int, int)[] GetPathEdges()
+		{
+			var path = new Stack<(int, int)>();
+			for (var v = this; v.Previous != null; v = v.Previous)
+				path.Push((v.Previous.Id, v.Id));
+			return path.ToArray();
+		}
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"VertexesCount = {VertexesCount}")]
@@ -65,14 +81,6 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra253
 					q.Add((nc, nv));
 				}
 			}
-		}
-
-		public Vertex[] GetPathVertexes(int ev)
-		{
-			var path = new Stack<Vertex>();
-			for (var v = Vertexes[ev]; v != null; v = v.Previous)
-				path.Push(v);
-			return path.ToArray();
 		}
 	}
 }
