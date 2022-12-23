@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoderLib8.Graphs.SPPs.Int.WeightedGraph211;
+using AlgorithmLab.Graphs.SPPs.Dijkstra253;
 
 namespace OnlineTest.Graphs.SPPs
 {
@@ -17,12 +17,13 @@ namespace OnlineTest.Graphs.SPPs
 			var (n, m, s, t) = Read4();
 			var es = Array.ConvertAll(new bool[m], _ => Read3());
 
-			var graph = new WeightedGraph(n, es, false);
-			graph.Dijkstra(s, t);
-			if (!graph[t].IsConnected) return -1;
+			var graph = new Dijkstra(n, es, false);
+			graph.Execute(s, t);
+			var ev = graph[t];
+			if (!ev.IsConnected) return -1;
 
-			var path = graph.GetPathEdges(t);
-			return $"{graph[t].Cost} {path.Length}\n" + string.Join("\n", path.Select(e => $"{e.Item1} {e.Item2}"));
+			var path = ev.GetPathEdges();
+			return $"{ev.Cost} {path.Length}\n" + string.Join("\n", path.Select(e => $"{e.Item1} {e.Item2}"));
 		}
 	}
 }
