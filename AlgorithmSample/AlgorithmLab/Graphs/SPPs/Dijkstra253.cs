@@ -67,7 +67,7 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra253
 			{
 				var (c, v) = q.Min;
 				q.Remove((c, v));
-				if (v == ev) break;
+				if (v == ev) return;
 				var vo = Vertexes[v];
 
 				foreach (var (nv, cost) in vo.Edges)
@@ -76,9 +76,9 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra253
 					var nc = c + cost;
 					if (nvo.Cost <= nc) continue;
 					if (nvo.Cost != long.MaxValue) q.Remove((nvo.Cost, nv));
+					q.Add((nc, nv));
 					nvo.Cost = nc;
 					nvo.Previous = vo;
-					q.Add((nc, nv));
 				}
 			}
 		}

@@ -10,8 +10,24 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra251
 		public List<(int to, long cost)> Edges { get; } = new List<(int, long)>();
 		public long Cost { get; set; } = long.MaxValue;
 		public bool IsConnected => Cost != long.MaxValue;
-		public int Previous { get; set; } = -1;
+		public Vertex Previous { get; set; }
 		public Vertex(int id) { Id = id; }
+
+		public int[] GetPathVertexes()
+		{
+			var path = new Stack<int>();
+			for (var v = this; v != null; v = v.Previous)
+				path.Push(v.Id);
+			return path.ToArray();
+		}
+
+		public (int, int)[] GetPathEdges()
+		{
+			var path = new Stack<(int, int)>();
+			for (var v = this; v.Previous != null; v = v.Previous)
+				path.Push((v.Previous.Id, v.Id));
+			return path.ToArray();
+		}
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"VertexesCount = {VertexesCount}")]
@@ -61,25 +77,9 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra251
 					if (nvo.Cost != long.MaxValue) q.Remove((nvo.Cost, nv));
 					q.Add((nc, nv));
 					nvo.Cost = nc;
-					nvo.Previous = v;
+					nvo.Previous = vo;
 				}
 			}
-		}
-
-		public int[] GetPathVertexes(int ev)
-		{
-			var path = new Stack<int>();
-			for (var v = ev; v != -1; v = Vertexes[v].Previous)
-				path.Push(v);
-			return path.ToArray();
-		}
-
-		public (int, int)[] GetPathEdges(int ev)
-		{
-			var path = new Stack<(int, int)>();
-			for (int v = ev, pv = Vertexes[v].Previous; pv != -1; v = pv, pv = Vertexes[v].Previous)
-				path.Push((pv, v));
-			return path.ToArray();
 		}
 	}
 }
