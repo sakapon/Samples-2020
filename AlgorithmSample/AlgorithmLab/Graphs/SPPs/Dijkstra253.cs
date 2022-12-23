@@ -2,8 +2,19 @@
 using System.Collections.Generic;
 
 // SortedSet を利用します。
-namespace AlgorithmLab.Graphs.SPPs.Dijkstra403
+namespace AlgorithmLab.Graphs.SPPs.Dijkstra253
 {
+	[System.Diagnostics.DebuggerDisplay(@"\{{Id}: {Edges.Count} edges, Cost = {Cost}\}")]
+	public class Vertex
+	{
+		public int Id { get; }
+		public List<(int to, long cost)> Edges { get; } = new List<(int, long)>();
+		public long Cost { get; set; } = long.MaxValue;
+		public bool IsConnected => Cost != long.MaxValue;
+		public Vertex Previous { get; set; }
+		public Vertex(int id) { Id = id; }
+	}
+
 	[System.Diagnostics.DebuggerDisplay(@"VertexesCount = {VertexesCount}")]
 	public class Dijkstra
 	{
@@ -63,15 +74,5 @@ namespace AlgorithmLab.Graphs.SPPs.Dijkstra403
 				path.Push(v);
 			return path.ToArray();
 		}
-	}
-
-	[System.Diagnostics.DebuggerDisplay(@"\{{Id}: {Edges.Count} edges, Cost = {Cost}\}")]
-	public class Vertex
-	{
-		public int Id { get; }
-		public List<(int to, long cost)> Edges { get; } = new List<(int, long)>();
-		public long Cost { get; set; } = long.MaxValue;
-		public Vertex Previous { get; set; }
-		public Vertex(int id) { Id = id; }
 	}
 }
