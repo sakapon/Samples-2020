@@ -12,3 +12,4 @@ Sample programs, mainly used for [the blog (Do Design Space)](https://sakapon.wo
 - [ソート用の比較関数の補助クラス](https://sakapon.wordpress.com/2021/12/21/comparer-helper/)
 - [平衡二分探索木を優先度付きキューとして使う](https://sakapon.wordpress.com/2021/12/24/bst-pq/)
 - [Union-Find の実装方法まとめ](https://qiita.com/saka_pon/items/2f18c84f1b6834e4fe4a)
+- [ダイクストラ法から考える擬似コードの意義](https://qiita.com/saka_pon/items/dd6eaf6ec3500fc3516f)
