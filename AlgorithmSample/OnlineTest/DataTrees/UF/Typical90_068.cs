@@ -45,9 +45,8 @@ namespace OnlineTest.DataTrees.UF
 				{
 					if (uf.AreSame(x, y))
 					{
-						var r = uf[x].Inverse().GetValue(v);
-						r = uf[y].GetValue(r);
-						sb.AppendLine(r.ToString());
+						var f = Op.Composition(uf[y], uf[x].Inverse());
+						sb.AppendLine(f.GetValue(v).ToString());
 					}
 					else
 					{
