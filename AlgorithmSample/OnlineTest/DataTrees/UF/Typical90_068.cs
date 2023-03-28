@@ -33,7 +33,7 @@ namespace OnlineTest.DataTrees.UF
 			var qs = Array.ConvertAll(new bool[qc], _ => Read4());
 			var sb = new StringBuilder();
 
-			var uf = new UnionFind<Op>(n + 1, new Op(1, 0), Op.Composition, f => f.Inverse());
+			var uf = new UnionFind<Op>(n + 1, new Op(1, 0), f => f.Inverse(), Op.Composition);
 
 			foreach (var (t, x, y, v) in qs)
 			{

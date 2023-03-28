@@ -5,39 +5,40 @@ namespace AlgorithmLab.DataTrees.UF602
 {
 	// Int32 vertexes
 	[System.Diagnostics.DebuggerDisplay(@"ItemsCount = {ItemsCount}, SetsCount = {SetsCount}")]
-	public class UnionFind<TValue>
+	public class UnionFind<TOp>
 	{
-		[System.Diagnostics.DebuggerDisplay(@"\{{Key}, {Value}\}")]
+		// Op: 親を基準とした相対値
+		[System.Diagnostics.DebuggerDisplay(@"\{{Key}, {Op}\}")]
 		public class Node
 		{
 			public int Key;
-			public TValue Value;
+			public TOp Op;
 			public Node Parent;
 			public int Size = 1;
 		}
 
 		readonly Node[] nodes;
-		readonly Func<TValue, TValue, TValue> composition;
-		readonly Func<TValue, TValue> inverse;
+		readonly Func<TOp, TOp> inverse;
+		readonly Func<TOp, TOp, TOp> composition;
 
-		public UnionFind(int n, TValue v0, Func<TValue, TValue, TValue> composition, Func<TValue, TValue> inverse)
+		public UnionFind(int n, TOp op0, Func<TOp, TOp> inverse, Func<TOp, TOp, TOp> composition)
 		{
 			nodes = new Node[n];
-			for (int i = 0; i < n; ++i) nodes[i] = new Node { Key = i, Value = v0 };
+			for (int i = 0; i < n; ++i) nodes[i] = new Node { Key = i, Op = op0 };
 			SetsCount = n;
-			this.composition = composition;
 			this.inverse = inverse;
+			this.composition = composition;
 		}
 
 		public int ItemsCount => nodes.Length;
 		public int SetsCount { get; private set; }
 
-		public TValue this[int x]
+		public TOp this[int x]
 		{
 			get
 			{
 				Find(x);
-				return nodes[x].Value;
+				return nodes[x].Op;
 			}
 		}
 
@@ -51,26 +52,26 @@ namespace AlgorithmLab.DataTrees.UF602
 			else
 			{
 				var root = Find(n.Parent);
-				n.Value = composition(n.Value, n.Parent.Value);
+				n.Op = composition(n.Op, n.Parent.Op);
 				return n.Parent = root;
 			}
 		}
 
 		public bool AreSame(int x, int y) => Find(x) == Find(y);
-		public bool Union(int x, int y, TValue x2y)
+		public bool Union(int x, int y, TOp x2y)
 		{
 			var nx = Find(x);
 			var ny = Find(y);
 			if (nx == ny) return false;
 
-			var v = composition(inverse(nodes[y].Value), composition(x2y, nodes[x].Value));
+			var v = composition(inverse(nodes[y].Op), composition(x2y, nodes[x].Op));
 			if (nx.Size < ny.Size)
 			{
 				(nx, ny) = (ny, nx);
 				v = inverse(v);
 			}
 			ny.Parent = nx;
-			ny.Value = v;
+			ny.Op = v;
 			nx.Size += ny.Size;
 			--SetsCount;
 			return true;
