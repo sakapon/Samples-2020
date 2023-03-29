@@ -13,7 +13,7 @@ namespace UnitTest.DataTrees.UF
 		public void Distance()
 		{
 			var n = 13;
-			var uf = new UnionFind<int>(n, (x, y) => x + y, (x, y) => y - x);
+			var uf = new UnionFind<int>(n, 0, (x, y) => x + y, (x, y) => y - x);
 
 			uf.Union(6, 8);
 			uf.Union(9, 11);
@@ -35,7 +35,7 @@ namespace UnitTest.DataTrees.UF
 		{
 			var random = new Random();
 			var n = 100000;
-			var uf = new UnionFind<int>(n, (x, y) => x + y, (x, y) => y - x);
+			var uf = new UnionFind<int>(n, 0, (x, y) => x + y, (x, y) => y - x);
 
 			for (int i = 0; i < 100000; i++)
 			{

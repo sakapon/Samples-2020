@@ -5,39 +5,40 @@ namespace AlgorithmLab.DataTrees.UF601
 {
 	// Int32 vertexes
 	[System.Diagnostics.DebuggerDisplay(@"ItemsCount = {ItemsCount}, SetsCount = {SetsCount}")]
-	public class UnionFind<TValue>
+	public class UnionFind<TOp>
 	{
-		[System.Diagnostics.DebuggerDisplay(@"\{{Key}, {Value}\}")]
+		// Op: 親を基準とした相対値
+		[System.Diagnostics.DebuggerDisplay(@"\{{Key}, {Op}\}")]
 		public class Node
 		{
 			public int Key;
-			public TValue Value;
+			public TOp Op;
 			public Node Parent;
 			public int Size = 1;
 		}
 
 		readonly Node[] nodes;
-		readonly Func<TValue, TValue, TValue> addValues;
-		readonly Func<int, int, TValue> diff;
+		readonly Func<TOp, TOp, TOp> composition;
+		readonly Func<int, int, TOp> diff;
 
-		public UnionFind(int n, Func<TValue, TValue, TValue> addValues, Func<int, int, TValue> diff)
+		public UnionFind(int n, TOp op0, Func<TOp, TOp, TOp> composition, Func<int, int, TOp> diff)
 		{
 			nodes = new Node[n];
-			for (int i = 0; i < n; ++i) nodes[i] = new Node { Key = i };
+			for (int i = 0; i < n; ++i) nodes[i] = new Node { Key = i, Op = op0 };
 			SetsCount = n;
-			this.addValues = addValues;
+			this.composition = composition;
 			this.diff = diff;
 		}
 
 		public int ItemsCount => nodes.Length;
 		public int SetsCount { get; private set; }
 
-		public TValue this[int x]
+		public TOp this[int x]
 		{
 			get
 			{
 				Find(x);
-				return nodes[x].Value;
+				return nodes[x].Op;
 			}
 		}
 
@@ -51,7 +52,7 @@ namespace AlgorithmLab.DataTrees.UF601
 			else
 			{
 				var root = Find(n.Parent);
-				n.Value = addValues(n.Parent.Value, n.Value);
+				n.Op = composition(n.Op, n.Parent.Op);
 				return n.Parent = root;
 			}
 		}
@@ -65,7 +66,7 @@ namespace AlgorithmLab.DataTrees.UF601
 
 			if (nx.Size < ny.Size) (nx, ny) = (ny, nx);
 			ny.Parent = nx;
-			ny.Value = diff(nx.Key, ny.Key);
+			ny.Op = diff(nx.Key, ny.Key);
 			nx.Size += ny.Size;
 			--SetsCount;
 			return true;
