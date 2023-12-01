@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30611.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgorithmLib", "AlgorithmLib\AlgorithmLib.csproj", "{72392F2C-5B9A-4B3B-9156-150FFBC18F22}"
 EndProject
@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgorithmLab", "AlgorithmLa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTest.csproj", "{92D1DEDD-0B31-48A0-B68C-3D4CDAD204E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineTest", "OnlineTest\OnlineTest.csproj", "{C71A6E7B-51F9-416B-B35E-65898F8ECCC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineTest", "OnlineTest\OnlineTest.csproj", "{C71A6E7B-51F9-416B-B35E-65898F8ECCC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmLib10", "AlgorithmLib10\AlgorithmLib10.csproj", "{0FF6709A-1D5C-48C7-8E9F-4D7EFB163E02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineTest10", "OnlineTest10\OnlineTest10.csproj", "{D8B3D859-F169-4F42-8C9A-68BF94EFC688}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{C71A6E7B-51F9-416B-B35E-65898F8ECCC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C71A6E7B-51F9-416B-B35E-65898F8ECCC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C71A6E7B-51F9-416B-B35E-65898F8ECCC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF6709A-1D5C-48C7-8E9F-4D7EFB163E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF6709A-1D5C-48C7-8E9F-4D7EFB163E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF6709A-1D5C-48C7-8E9F-4D7EFB163E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF6709A-1D5C-48C7-8E9F-4D7EFB163E02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8B3D859-F169-4F42-8C9A-68BF94EFC688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B3D859-F169-4F42-8C9A-68BF94EFC688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B3D859-F169-4F42-8C9A-68BF94EFC688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B3D859-F169-4F42-8C9A-68BF94EFC688}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
