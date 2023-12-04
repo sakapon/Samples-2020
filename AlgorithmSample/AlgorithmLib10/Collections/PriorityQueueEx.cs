@@ -31,9 +31,9 @@
 			{
 				var item = Peek();
 				if (!removed.TryGetValue(item, out var c)) break;
-				Dequeue();
 				if (--c == 0) removed.Remove(item);
 				else removed[item] = c;
+				Dequeue();
 			}
 		}
 	}
