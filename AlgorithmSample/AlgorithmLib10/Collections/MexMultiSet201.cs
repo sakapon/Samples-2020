@@ -8,7 +8,7 @@
 		readonly int[] added;
 		readonly PriorityQueue<int, int> pq;
 
-		public MexMultiSet(int max = 1 << 18)
+		public MexMultiSet(int max)
 		{
 			this.max = max;
 			counts = new int[max];

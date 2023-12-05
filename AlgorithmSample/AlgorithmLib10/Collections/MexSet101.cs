@@ -6,7 +6,7 @@
 		readonly int max;
 		readonly SortedSet<int> set;
 
-		public MexSet(int max = 1 << 18)
+		public MexSet(int max)
 		{
 			this.max = max;
 			set = new SortedSet<int>(Enumerable.Range(0, max));

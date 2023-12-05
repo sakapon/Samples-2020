@@ -10,7 +10,7 @@
 		readonly (int, int)[] range;
 		PriorityQueue<int, int> pq;
 
-		public MexMultiSet(int max = 1 << 18, IEnumerable<int>? collection = null, bool errorForArgs = false)
+		public MexMultiSet(int max, IEnumerable<int>? collection = null, bool errorForArgs = false)
 		{
 			this.errorForArgs = errorForArgs;
 			this.max = max;

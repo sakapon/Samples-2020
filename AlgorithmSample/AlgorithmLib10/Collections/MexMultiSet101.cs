@@ -7,7 +7,7 @@
 		readonly int[] counts;
 		readonly SortedSet<int> set;
 
-		public MexMultiSet(int max = 1 << 18)
+		public MexMultiSet(int max)
 		{
 			this.max = max;
 			counts = new int[max];
