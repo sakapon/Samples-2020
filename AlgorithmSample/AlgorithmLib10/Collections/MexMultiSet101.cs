@@ -3,31 +3,31 @@
 	[System.Diagnostics.DebuggerDisplay(@"Mex = {Mex}")]
 	public class MexMultiSet
 	{
-		readonly int max;
-		readonly int[] counts;
-		readonly SortedSet<int> set;
+		readonly int _max;
+		readonly int[] _counts;
+		readonly SortedSet<int> _ex;
 
 		public MexMultiSet(int max)
 		{
-			this.max = max;
-			counts = new int[max];
-			set = new SortedSet<int>(Enumerable.Range(0, max));
+			_max = max;
+			_counts = new int[max];
+			_ex = new SortedSet<int>(Enumerable.Range(0, max));
 		}
 
-		public int Mex => set.Count == 0 ? max : set.Min;
+		public int Mex => _ex.Count == 0 ? _max : _ex.Min;
 
 		public bool Add(int value)
 		{
-			if (value < 0 || max <= value) return false;
-			if (counts[value]++ == 0) set.Remove(value);
+			if (value < 0 || _max <= value) return false;
+			if (_counts[value]++ == 0) _ex.Remove(value);
 			return true;
 		}
 
 		public bool Remove(int value)
 		{
-			if (value < 0 || max <= value) return false;
-			if (counts[value] == 0) return false;
-			if (--counts[value] == 0) set.Add(value);
+			if (value < 0 || _max <= value) return false;
+			if (_counts[value] == 0) return false;
+			if (--_counts[value] == 0) _ex.Add(value);
 			return true;
 		}
 	}
