@@ -14,7 +14,7 @@ namespace OnlineTest10.Collections.Mex
 			var a = Read();
 			var qs = Array.ConvertAll(new bool[qc], _ => Read());
 
-			var set = new MexMultiSet(200000, a);
+			var set = new MexMultiSet(n, a);
 			return string.Join("\n", qs.Select(q => Query(q[0] - 1, q[1])));
 
 			int Query(int i, int x)
