@@ -36,11 +36,10 @@
 	{
 		readonly int[] _counts;
 
-		public IntPQSet(int max, IEnumerable<int> items) : base(items.Select(v => (v, v)))
+		public IntPQSet(int max, IEnumerable<int> items)
 		{
 			_counts = new int[max];
-			if (items != null)
-				foreach (var v in items) ++_counts[v];
+			if (items != null) foreach (var v in items) Add(v);
 		}
 
 		public int Min => Peek();
@@ -62,10 +61,7 @@
 
 		void EnsureMin()
 		{
-			while (Count > 0 && _counts[Peek()] == 0)
-			{
-				Dequeue();
-			}
+			while (Count > 0 && _counts[Peek()] == 0) Dequeue();
 		}
 	}
 }
