@@ -1,4 +1,5 @@
-﻿namespace AlgorithmLib10.Collections
+﻿// A priority queue that can remove items
+namespace AlgorithmLib10.Collections.PriorityQueueEx102
 {
 	public class PriorityQueueEx<T> : PriorityQueue<T, T> where T : notnull
 	{
