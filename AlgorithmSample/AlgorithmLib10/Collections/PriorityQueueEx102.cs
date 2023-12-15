@@ -1,4 +1,4 @@
-﻿// 実用不可能な実装
+﻿// 実用不可能な実装です。
 // A priority queue that can remove items
 namespace AlgorithmLib10.Collections.PriorityQueueEx102
 {
