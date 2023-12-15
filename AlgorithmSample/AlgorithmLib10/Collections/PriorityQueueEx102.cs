@@ -1,4 +1,5 @@
-﻿// A priority queue that can remove items
+﻿// 実用不可能な実装
+// A priority queue that can remove items
 namespace AlgorithmLib10.Collections.PriorityQueueEx102
 {
 	public class PriorityQueueEx<T> : PriorityQueue<T, T> where T : notnull
@@ -7,6 +8,8 @@ namespace AlgorithmLib10.Collections.PriorityQueueEx102
 
 		public PriorityQueueEx() { }
 		public PriorityQueueEx(IEnumerable<T> items) : base(items.Select(v => (v, v))) { }
+
+		public T First => Peek();
 
 		public void Enqueue(T item)
 		{
@@ -20,6 +23,7 @@ namespace AlgorithmLib10.Collections.PriorityQueueEx102
 			return r;
 		}
 
+		// キューに存在するかどうかを判定できません。
 		public void Remove(T item)
 		{
 			removed[item] = removed.GetValueOrDefault(item) + 1;
@@ -34,7 +38,7 @@ namespace AlgorithmLib10.Collections.PriorityQueueEx102
 				if (!removed.TryGetValue(item, out var c)) break;
 				if (--c == 0) removed.Remove(item);
 				else removed[item] = c;
-				Dequeue();
+				base.Dequeue();
 			}
 		}
 	}
