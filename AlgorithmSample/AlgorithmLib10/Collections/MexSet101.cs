@@ -3,27 +3,27 @@
 	[System.Diagnostics.DebuggerDisplay(@"Mex = {Mex}")]
 	public class MexSet
 	{
-		readonly int _max;
-		readonly SortedSet<int> _ex;
+		readonly int max;
+		readonly SortedSet<int> ex;
 
 		public MexSet(int max)
 		{
-			_max = max;
-			_ex = new SortedSet<int>(Enumerable.Range(0, max));
+			this.max = max;
+			ex = new SortedSet<int>(Enumerable.Range(0, max));
 		}
 
-		public int Mex => _ex.Count == 0 ? _max : _ex.Min;
+		public int Mex => ex.Count == 0 ? max : ex.Min;
 
 		public bool Add(int value)
 		{
-			if (value < 0 || _max <= value) return false;
-			return _ex.Remove(value);
+			if (value < 0 || max <= value) return false;
+			return ex.Remove(value);
 		}
 
 		public bool Remove(int value)
 		{
-			if (value < 0 || _max <= value) return false;
-			return _ex.Add(value);
+			if (value < 0 || max <= value) return false;
+			return ex.Add(value);
 		}
 	}
 }
