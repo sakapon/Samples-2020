@@ -13,3 +13,4 @@ Sample programs, mainly used for [the blog (Do Design Space)](https://sakapon.wo
 - [平衡二分探索木を優先度付きキューとして使う](https://sakapon.wordpress.com/2021/12/24/bst-pq/)
 - [Union-Find の実装方法まとめ](https://qiita.com/saka_pon/items/2f18c84f1b6834e4fe4a)
 - [ダイクストラ法から考える擬似コードの意義](https://qiita.com/saka_pon/items/dd6eaf6ec3500fc3516f)
+- [mex のライブラリ化](https://qiita.com/saka_pon/items/ea260f454d8b1c47b377)
