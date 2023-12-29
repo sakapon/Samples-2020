@@ -10,6 +10,7 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 
 		public int Count => count;
 		public int First => count != 0 ? l[0] : throw new InvalidOperationException("No items.");
+		public List<int> Raw => l;
 
 		public IntRemovableListHeapQueue(int max)
 		{
