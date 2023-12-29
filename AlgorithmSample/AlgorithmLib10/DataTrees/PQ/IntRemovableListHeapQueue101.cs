@@ -12,9 +12,10 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 		public int First => count != 0 ? l[0] : throw new InvalidOperationException("No items.");
 		public List<int> Raw => l;
 
-		public IntRemovableListHeapQueue(int max)
+		public IntRemovableListHeapQueue(int max, IEnumerable<int> items)
 		{
 			counts = new int[max];
+			if (items != null) foreach (var v in items) Push(v);
 		}
 
 		public void Clear()
@@ -23,6 +24,8 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 			count = 0;
 			Array.Clear(counts, 0, counts.Length);
 		}
+
+		public int GetCount(int item) => counts[item];
 
 		bool TrySwap(int i)
 		{
@@ -76,12 +79,14 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 
 		void EnsureFirst()
 		{
-			if (l.Count == 0 || counts[l[0]] > 0) return;
-			while (l.Count > 0 && counts[l[l.Count - 1]] == 0) l.RemoveAt(l.Count - 1);
-			if (l.Count == 0) return;
-			l[0] = l[l.Count - 1];
-			l.RemoveAt(l.Count - 1);
-			DownHeap();
+			while (l.Count > 0 && counts[l[0]] == 0)
+			{
+				while (l.Count > 0 && counts[l[l.Count - 1]] == 0) l.RemoveAt(l.Count - 1);
+				if (l.Count == 0) break;
+				l[0] = l[l.Count - 1];
+				l.RemoveAt(l.Count - 1);
+				DownHeap();
+			}
 		}
 	}
 }
