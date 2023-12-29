@@ -1,8 +1,8 @@
-﻿// 0-based List, bit operations
-namespace AlgorithmLib10.DataTrees.PQ.IntHeapQueue102
+﻿// 0-based, bit operations
+namespace AlgorithmLib10.DataTrees.PQ.IntListHeapQueue102
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class IntHeapQueue
+	public class IntListHeapQueue
 	{
 		readonly List<int> l = new List<int>();
 		public int Count => l.Count;
