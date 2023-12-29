@@ -1,8 +1,8 @@
-﻿// v in [0, max), 0-based List, removable
-namespace AlgorithmLib10.DataTrees.PQ.IntHeapQueue201
+﻿// 0-based, v in [0, max)
+namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class IntHeapQueue
+	public class IntRemovableListHeapQueue
 	{
 		readonly List<int> l = new List<int>();
 		int count;
@@ -11,7 +11,7 @@ namespace AlgorithmLib10.DataTrees.PQ.IntHeapQueue201
 		public int Count => count;
 		public int First => count != 0 ? l[0] : throw new InvalidOperationException("No items.");
 
-		public IntHeapQueue(int max)
+		public IntRemovableListHeapQueue(int max)
 		{
 			counts = new int[max];
 		}
