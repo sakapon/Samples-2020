@@ -11,7 +11,7 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 		public IntRemovableListHeapQueue(int max, IEnumerable<int> items)
 		{
 			counts = new int[max];
-			if (items != null) foreach (var v in items) Push(v);
+			if (items != null) foreach (var x in items) Push(x);
 		}
 
 		public List<int> Raw => l;

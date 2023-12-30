@@ -12,7 +12,7 @@ namespace AlgorithmLib10.DataTrees.PQ.ListHeapQueue202
 		{
 			c = comparer ?? Comparer<T>.Default;
 			s = descending ? -1 : 1;
-			if (items != null) foreach (var v in items) Push(v);
+			if (items != null) foreach (var x in items) Push(x);
 		}
 
 		public IComparer<T> Comparer => c;
