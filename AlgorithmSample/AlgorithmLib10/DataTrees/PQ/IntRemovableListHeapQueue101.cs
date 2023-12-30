@@ -5,12 +5,8 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 	public class IntRemovableListHeapQueue
 	{
 		readonly List<int> l = new List<int>();
-		int count;
+		int n;
 		readonly int[] counts;
-
-		public int Count => count;
-		public int First => count != 0 ? l[0] : throw new InvalidOperationException("No items.");
-		public List<int> Raw => l;
 
 		public IntRemovableListHeapQueue(int max, IEnumerable<int> items)
 		{
@@ -18,10 +14,14 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 			if (items != null) foreach (var v in items) Push(v);
 		}
 
+		public List<int> Raw => l;
+		public int Count => n;
+		public int First => n != 0 ? l[0] : throw new InvalidOperationException("No items.");
+
 		public void Clear()
 		{
 			l.Clear();
-			count = 0;
+			n = 0;
 			Array.Clear(counts, 0, counts.Length);
 		}
 
@@ -56,7 +56,7 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 		{
 			l.Add(item);
 			UpHeap();
-			++count;
+			++n;
 			++counts[item];
 		}
 
@@ -71,7 +71,7 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 		public bool Remove(int item)
 		{
 			if (counts[item] == 0) return false;
-			--count;
+			--n;
 			--counts[item];
 			EnsureFirst();
 			return true;

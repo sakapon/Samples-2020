@@ -5,9 +5,9 @@ namespace AlgorithmLib10.DataTrees.PQ.IntListHeapQueue102
 	public class IntListHeapQueue
 	{
 		readonly List<int> l = new List<int>();
+		public List<int> Raw => l;
 		public int Count => l.Count;
 		public int First => l.Count != 0 ? l[0] : throw new InvalidOperationException("No items.");
-		public List<int> Raw => l;
 		public void Clear() => l.Clear();
 
 		bool TrySwap(int i)
