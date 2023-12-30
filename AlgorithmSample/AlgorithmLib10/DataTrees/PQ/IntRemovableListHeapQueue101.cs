@@ -14,7 +14,6 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 			if (items != null) foreach (var x in items) Push(x);
 		}
 
-		public List<int> Raw => l;
 		public int Count => n;
 		public int First => n != 0 ? l[0] : throw new InvalidOperationException("No items.");
 
