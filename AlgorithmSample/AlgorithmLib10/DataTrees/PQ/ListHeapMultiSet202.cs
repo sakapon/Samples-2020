@@ -1,8 +1,8 @@
 ﻿// 0-based, bit operations
-namespace AlgorithmLib10.DataTrees.PQ.RemovableListHeapQueue202
+namespace AlgorithmLib10.DataTrees.PQ.ListHeapMultiSet202
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class RemovableListHeapQueue<T>
+	public class ListHeapMultiSet<T>
 	{
 		readonly IComparer<T> c;
 		readonly int s;
@@ -10,11 +10,11 @@ namespace AlgorithmLib10.DataTrees.PQ.RemovableListHeapQueue202
 		int n;
 		readonly Dictionary<T, int> counts = new Dictionary<T, int>();
 
-		public RemovableListHeapQueue(IEnumerable<T> items = null, IComparer<T> comparer = null, bool descending = false)
+		public ListHeapMultiSet(IEnumerable<T> items = null, IComparer<T> comparer = null, bool descending = false)
 		{
 			c = comparer ?? Comparer<T>.Default;
 			s = descending ? -1 : 1;
-			if (items != null) foreach (var x in items) Push(x);
+			if (items != null) foreach (var x in items) Add(x);
 		}
 
 		public IComparer<T> Comparer => c;
@@ -41,7 +41,7 @@ namespace AlgorithmLib10.DataTrees.PQ.RemovableListHeapQueue202
 		void UpHeap() { for (var i = l.Count - 1; i != 0 && TrySwap(i); i = (i - 1) >> 1) ; }
 		void DownHeap() { for (var i = 1; i < l.Count && TrySwap(i + 1 < l.Count && s * c.Compare(l[i + 1], l[i]) < 0 ? ++i : i); i = (i << 1) | 1) ; }
 
-		public void Push(T item)
+		public void Add(T item)
 		{
 			l.Add(item);
 			UpHeap();
@@ -49,12 +49,10 @@ namespace AlgorithmLib10.DataTrees.PQ.RemovableListHeapQueue202
 			counts[item] = counts.GetValueOrDefault(item) + 1;
 		}
 
-		public T Pop()
+		public bool RemoveFirst()
 		{
-			if (n == 0) throw new InvalidOperationException("No items.");
-			var item = l[0];
-			Remove(item);
-			return item;
+			if (n == 0) return false;
+			return Remove(l[0]);
 		}
 
 		public bool Remove(T item)
