@@ -15,8 +15,8 @@ namespace OnlineTest10.DataTrees.PQ
 			var qs = Array.ConvertAll(new bool[qc], _ => Read2());
 
 			var a = new int[n];
-			var lower = new RemovableListHeapQueue<int>(null, true, a[k..]);
-			var upper = new RemovableListHeapQueue<int>(null, false, a[..k]);
+			var lower = new RemovableListHeapQueue<int>(a[k..], descending: true);
+			var upper = new RemovableListHeapQueue<int>(a[..k]);
 
 			var s = 0L;
 			var r = new List<long>();

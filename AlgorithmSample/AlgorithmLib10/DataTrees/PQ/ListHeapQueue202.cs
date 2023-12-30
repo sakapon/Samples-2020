@@ -8,7 +8,7 @@ namespace AlgorithmLib10.DataTrees.PQ.ListHeapQueue202
 		readonly int s;
 		readonly List<T> l = new List<T>();
 
-		public ListHeapQueue(IComparer<T> comparer = null, bool descending = false, IEnumerable<T> items = null)
+		public ListHeapQueue(IEnumerable<T> items = null, IComparer<T> comparer = null, bool descending = false)
 		{
 			c = comparer ?? Comparer<T>.Default;
 			s = descending ? -1 : 1;

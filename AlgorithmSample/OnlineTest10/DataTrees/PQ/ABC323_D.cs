@@ -14,7 +14,7 @@ namespace OnlineTest10.DataTrees.PQ
 			var ps = Array.ConvertAll(new bool[n], _ => Read2L());
 
 			var r = 0;
-			var map = new ListHeapQueueMap<long, long>(items: ps);
+			var map = new ListHeapQueueMap<long, long>(ps);
 
 			while (map.Count > 0)
 			{

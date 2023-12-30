@@ -10,7 +10,7 @@ namespace AlgorithmLib10.DataTrees.PQ.RemovableListHeapQueue202
 		int n;
 		readonly Dictionary<T, int> counts = new Dictionary<T, int>();
 
-		public RemovableListHeapQueue(IComparer<T> comparer = null, bool descending = false, IEnumerable<T> items = null)
+		public RemovableListHeapQueue(IEnumerable<T> items = null, IComparer<T> comparer = null, bool descending = false)
 		{
 			c = comparer ?? Comparer<T>.Default;
 			s = descending ? -1 : 1;

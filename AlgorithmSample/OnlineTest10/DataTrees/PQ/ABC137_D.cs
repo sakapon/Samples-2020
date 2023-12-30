@@ -13,7 +13,7 @@ namespace OnlineTest10.DataTrees.PQ
 			var (n, m) = Read2();
 			var ps = Array.ConvertAll(new bool[n], _ => Read()).ToLookup(p => p[0], p => p[1]);
 
-			var q = new ListHeapQueue<int>(null, true);
+			var q = new ListHeapQueue<int>(descending: true);
 
 			var r = 0;
 			for (int i = 1; i <= m; i++)

@@ -9,7 +9,7 @@ namespace AlgorithmLib10.DataTrees.PQ.ListHeapQueueMap202
 		readonly List<TKey> l = new List<TKey>();
 		readonly List<TValue> v = new List<TValue>();
 
-		public ListHeapQueueMap(IComparer<TKey> comparer = null, bool descending = false, IEnumerable<(TKey key, TValue value)> items = null)
+		public ListHeapQueueMap(IEnumerable<(TKey key, TValue value)> items = null, IComparer<TKey> comparer = null, bool descending = false)
 		{
 			c = comparer ?? Comparer<TKey>.Default;
 			s = descending ? -1 : 1;

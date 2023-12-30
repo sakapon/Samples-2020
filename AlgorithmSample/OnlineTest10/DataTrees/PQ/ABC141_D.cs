@@ -12,7 +12,7 @@ namespace OnlineTest10.DataTrees.PQ
 			var m = Read()[1];
 			var a = Read();
 
-			var q = new ListHeapQueue<int>(null, true, a);
+			var q = new ListHeapQueue<int>(a, null, true);
 			while (m-- > 0) q.Push(q.Pop() / 2);
 			return q.Raw.Sum(v => (long)v);
 		}
