@@ -1,0 +1,49 @@
+﻿// 0-based, bit operations
+namespace AlgorithmLib10.DataTrees.PQ.ListHeapQueue202
+{
+	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
+	public class ListHeapQueue<T>
+	{
+		readonly IComparer<T> c;
+		readonly List<T> l = new List<T>();
+
+		public ListHeapQueue(IComparer<T> comparer = null, IEnumerable<T> items = null)
+		{
+			c = comparer ?? Comparer<T>.Default;
+			if (items != null) foreach (var v in items) Push(v);
+		}
+
+		public IComparer<T> Comparer => c;
+		public List<T> Raw => l;
+		public int Count => l.Count;
+		public T First => l.Count != 0 ? l[0] : throw new InvalidOperationException("No items.");
+
+		public void Clear() => l.Clear();
+
+		bool TrySwap(int i)
+		{
+			var p = (i - 1) >> 1;
+			if (c.Compare(l[p], l[i]) <= 0) return false;
+			(l[i], l[p]) = (l[p], l[i]);
+			return true;
+		}
+		void UpHeap() { for (var i = l.Count - 1; i != 0 && TrySwap(i); i = (i - 1) >> 1) ; }
+		void DownHeap() { for (var i = 1; i < l.Count && TrySwap(i + 1 < l.Count && c.Compare(l[i + 1], l[i]) < 0 ? ++i : i); i = (i << 1) | 1) ; }
+
+		public void Push(T item)
+		{
+			l.Add(item);
+			UpHeap();
+		}
+
+		public T Pop()
+		{
+			if (l.Count == 0) throw new InvalidOperationException("No items.");
+			var item = l[0];
+			l[0] = l[l.Count - 1];
+			l.RemoveAt(l.Count - 1);
+			DownHeap();
+			return item;
+		}
+	}
+}
