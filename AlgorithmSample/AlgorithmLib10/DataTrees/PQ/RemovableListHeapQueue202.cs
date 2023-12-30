@@ -69,9 +69,9 @@ namespace AlgorithmLib10.DataTrees.PQ.RemovableListHeapQueue202
 
 		void EnsureFirst()
 		{
-			while (l.Count > 0 && counts.GetValueOrDefault(l[0]) == 0)
+			while (l.Count != 0 && counts.GetValueOrDefault(l[0]) == 0)
 			{
-				while (l.Count > 0 && counts.GetValueOrDefault(l[l.Count - 1]) == 0) l.RemoveAt(l.Count - 1);
+				while (l.Count != 0 && counts.GetValueOrDefault(l[l.Count - 1]) == 0) l.RemoveAt(l.Count - 1);
 				if (l.Count == 0) break;
 				l[0] = l[l.Count - 1];
 				l.RemoveAt(l.Count - 1);
