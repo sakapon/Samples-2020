@@ -1,4 +1,4 @@
-using AlgorithmLib10.DataTrees.PQ.IntListHeapQueue101;
+using AlgorithmLib10.DataTrees.PQ.ListHeapQueue202;
 
 namespace OnlineTest10.DataTrees.PQ
 {
@@ -13,13 +13,13 @@ namespace OnlineTest10.DataTrees.PQ
 			var (n, m) = Read2();
 			var ps = Array.ConvertAll(new bool[n], _ => Read()).ToLookup(p => p[0], p => p[1]);
 
-			var q = new IntListHeapQueue();
+			var q = new ListHeapQueue<int>(null, true);
 
 			var r = 0;
 			for (int i = 1; i <= m; i++)
 			{
-				foreach (var b in ps[i]) q.Push(-b);
-				if (q.Count > 0) r += -q.Pop();
+				foreach (var b in ps[i]) q.Push(b);
+				if (q.Count > 0) r += q.Pop();
 			}
 			return r;
 		}

@@ -1,4 +1,4 @@
-using AlgorithmLib10.DataTrees.PQ.IntListHeapQueue101;
+using AlgorithmLib10.DataTrees.PQ.ListHeapQueue202;
 
 namespace OnlineTest10.DataTrees.PQ
 {
@@ -12,10 +12,9 @@ namespace OnlineTest10.DataTrees.PQ
 			var m = Read()[1];
 			var a = Read();
 
-			var q = new IntListHeapQueue();
-			foreach (var v in a) q.Push(-v);
+			var q = new ListHeapQueue<int>(null, true, a);
 			while (m-- > 0) q.Push(q.Pop() / 2);
-			return q.Raw.Sum(v => -(long)v);
+			return q.Raw.Sum(v => (long)v);
 		}
 	}
 }
