@@ -1,13 +1,13 @@
 ﻿// 実用不可能な実装です。
 // A priority queue that can remove items
-namespace AlgorithmLib10.Collections.PriorityQueueEx102
+namespace AlgorithmLib10.DataTrees.PQ.RemovablePriorityQueue102
 {
-	public class PriorityQueueEx<T> : PriorityQueue<T, T> where T : notnull
+	public class RemovablePriorityQueue<T> : PriorityQueue<T, T> where T : notnull
 	{
 		readonly Dictionary<T, int> removed = new();
 
-		public PriorityQueueEx() { }
-		public PriorityQueueEx(IEnumerable<T> items) : base(items.Select(v => (v, v))) { }
+		public RemovablePriorityQueue() { }
+		public RemovablePriorityQueue(IEnumerable<T> items) : base(items.Select(v => (v, v))) { }
 
 		public T First => Peek();
 

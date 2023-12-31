@@ -1,12 +1,12 @@
 ﻿// A priority queue that can remove items
-namespace AlgorithmLib10.Collections.PriorityQueueEx101
+namespace AlgorithmLib10.DataTrees.PQ.RemovablePriorityQueue101
 {
-	public class PriorityQueueEx<T> : PriorityQueue<T, T> where T : notnull
+	public class RemovablePriorityQueue<T> : PriorityQueue<T, T> where T : notnull
 	{
 		readonly Dictionary<T, int> counts = new();
 
-		public PriorityQueueEx() { }
-		public PriorityQueueEx(IEnumerable<T> items)
+		public RemovablePriorityQueue() { }
+		public RemovablePriorityQueue(IEnumerable<T> items)
 		{
 			if (items != null) foreach (var v in items) Enqueue(v);
 		}
