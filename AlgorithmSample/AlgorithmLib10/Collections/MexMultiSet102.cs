@@ -9,7 +9,7 @@
 		readonly int[] range;
 		SortedSet<int> set;
 
-		public MexMultiSet(int max, IEnumerable<int>? collection = null, bool errorForArgs = false)
+		public MexMultiSet(int max, IEnumerable<int> collection = null, bool errorForArgs = false)
 		{
 			this.errorForArgs = errorForArgs;
 			this.max = max;
