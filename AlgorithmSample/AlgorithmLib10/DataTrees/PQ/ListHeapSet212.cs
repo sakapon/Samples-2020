@@ -1,5 +1,6 @@
 ﻿// 0-based, bit operations
 // 非多重集合です。
+// 遅延評価を使わずに直接削除します。
 namespace AlgorithmLib10.DataTrees.PQ.ListHeapSet212
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
