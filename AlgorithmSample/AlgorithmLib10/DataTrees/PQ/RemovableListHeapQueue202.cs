@@ -1,4 +1,5 @@
 ﻿// 0-based, bit operations
+// ListHeapMultiSet と同じです。
 namespace AlgorithmLib10.DataTrees.PQ.RemovableListHeapQueue202
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
