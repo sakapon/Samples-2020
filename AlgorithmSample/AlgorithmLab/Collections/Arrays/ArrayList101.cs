@@ -15,11 +15,6 @@ namespace AlgorithmLab.Collections.Arrays.ArrayList101
 			get => a[i];
 			set => a[i] = value;
 		}
-		public T First
-		{
-			get => a[0];
-			set => a[0] = value;
-		}
 		public T Last
 		{
 			get => a[n - 1];
