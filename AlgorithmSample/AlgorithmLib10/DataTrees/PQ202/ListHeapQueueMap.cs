@@ -18,7 +18,7 @@ namespace AlgorithmLib10.DataTrees.PQ202
 
 		public IComparer<TKey> Comparer => c;
 		public bool Descending => s == -1;
-		public IEnumerable<(TKey key, TValue value)> GetRawItems => l.Zip(v);
+		public IEnumerable<(TKey key, TValue value)> GetRawItems() => l.Zip(v);
 		public int Count => l.Count;
 		public (TKey key, TValue value) First => l.Count != 0 ? (l[0], v[0]) : throw new InvalidOperationException("No items.");
 
