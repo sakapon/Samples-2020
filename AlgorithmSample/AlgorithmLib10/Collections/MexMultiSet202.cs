@@ -8,7 +8,7 @@
 		readonly int[] counts;
 		readonly int[] added;
 		readonly (int, int)[] range;
-		PriorityQueue<int, int> pq;
+		PriorityQueue<int, int> ex;
 
 		public MexMultiSet(int max, IEnumerable<int> collection = null, bool errorForArgs = false)
 		{
@@ -22,12 +22,12 @@
 			if (collection != null) foreach (var v in collection) Add(v);
 		}
 
-		public int Mex => pq.Count == 0 ? max : pq.Peek();
+		public int Mex => ex.Count == 0 ? max : ex.Peek();
 		public int Count { get; private set; }
 
 		public void Clear()
 		{
-			pq = new PriorityQueue<int, int>(range);
+			ex = new PriorityQueue<int, int>(range);
 		}
 
 		bool Validate(int value)
@@ -53,7 +53,7 @@
 		{
 			if (!Validate(value)) return false;
 			if (counts[value] == 0) return false;
-			if (--counts[value] == 0) pq.Enqueue(value, value);
+			if (--counts[value] == 0) ex.Enqueue(value, value);
 			--Count;
 			return true;
 		}
@@ -66,12 +66,12 @@
 
 		void EnsureMex()
 		{
-			while (pq.Count > 0)
+			while (ex.Count > 0)
 			{
-				var value = pq.Peek();
+				var value = ex.Peek();
 				if (added[value] == 0) break;
 				--added[value];
-				pq.Dequeue();
+				ex.Dequeue();
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 		readonly bool errorForArgs;
 		readonly int max;
 		readonly int[] range;
-		SortedSet<int> set;
+		SortedSet<int> ex;
 
 		public MexSet(int max, IEnumerable<int> collection = null, bool errorForArgs = false)
 		{
@@ -18,12 +18,12 @@
 			if (collection != null) foreach (var v in collection) Add(v);
 		}
 
-		public int Mex => set.Count == 0 ? max : set.Min;
-		public int Count => max - set.Count;
+		public int Mex => ex.Count == 0 ? max : ex.Min;
+		public int Count => max - ex.Count;
 
 		public void Clear()
 		{
-			set = new SortedSet<int>(range);
+			ex = new SortedSet<int>(range);
 		}
 
 		bool Validate(int value)
@@ -36,19 +36,19 @@
 		public bool Add(int value)
 		{
 			if (!Validate(value)) return false;
-			return set.Remove(value);
+			return ex.Remove(value);
 		}
 
 		public bool Remove(int value)
 		{
 			if (!Validate(value)) return false;
-			return set.Add(value);
+			return ex.Add(value);
 		}
 
 		public bool Contains(int value)
 		{
 			if (!Validate(value)) return false;
-			return !set.Contains(value);
+			return !ex.Contains(value);
 		}
 	}
 }

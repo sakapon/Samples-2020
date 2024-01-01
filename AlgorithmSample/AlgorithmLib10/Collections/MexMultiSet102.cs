@@ -7,7 +7,7 @@
 		readonly int max;
 		readonly int[] counts;
 		readonly int[] range;
-		SortedSet<int> set;
+		SortedSet<int> ex;
 
 		public MexMultiSet(int max, IEnumerable<int> collection = null, bool errorForArgs = false)
 		{
@@ -20,12 +20,12 @@
 			if (collection != null) foreach (var v in collection) Add(v);
 		}
 
-		public int Mex => set.Count == 0 ? max : set.Min;
+		public int Mex => ex.Count == 0 ? max : ex.Min;
 		public int Count { get; private set; }
 
 		public void Clear()
 		{
-			set = new SortedSet<int>(range);
+			ex = new SortedSet<int>(range);
 		}
 
 		bool Validate(int value)
@@ -38,7 +38,7 @@
 		public bool Add(int value)
 		{
 			if (!Validate(value)) return false;
-			if (counts[value]++ == 0) set.Remove(value);
+			if (counts[value]++ == 0) ex.Remove(value);
 			++Count;
 			return true;
 		}
@@ -47,7 +47,7 @@
 		{
 			if (!Validate(value)) return false;
 			if (counts[value] == 0) return false;
-			if (--counts[value] == 0) set.Add(value);
+			if (--counts[value] == 0) ex.Add(value);
 			--Count;
 			return true;
 		}
