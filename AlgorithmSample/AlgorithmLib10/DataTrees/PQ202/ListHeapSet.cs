@@ -1,6 +1,6 @@
 ﻿// 0-based, bit operations
 // 非多重集合です。
-namespace AlgorithmLib10.DataTrees.PQ.ListHeapSet202
+namespace AlgorithmLib10.DataTrees.PQ202
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ListHeapSet<T>

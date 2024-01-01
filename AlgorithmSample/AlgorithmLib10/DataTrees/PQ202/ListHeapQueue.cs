@@ -1,5 +1,5 @@
 ﻿// 0-based, bit operations
-namespace AlgorithmLib10.DataTrees.PQ.ListHeapQueue202
+namespace AlgorithmLib10.DataTrees.PQ202
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ListHeapQueue<T>
