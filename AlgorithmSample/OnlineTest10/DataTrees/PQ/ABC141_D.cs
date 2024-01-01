@@ -1,4 +1,4 @@
-using AlgorithmLib10.DataTrees.PQ.ListHeapQueue202;
+using AlgorithmLib10.DataTrees.PQ202;
 
 namespace OnlineTest10.DataTrees.PQ
 {
