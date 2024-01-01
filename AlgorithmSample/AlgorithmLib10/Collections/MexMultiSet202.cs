@@ -10,7 +10,7 @@
 		readonly (int, int)[] range;
 		PriorityQueue<int, int> ex;
 
-		public MexMultiSet(int max, IEnumerable<int> collection = null, bool errorForArgs = false)
+		public MexMultiSet(int max, IEnumerable<int> values = null, bool errorForArgs = false)
 		{
 			this.errorForArgs = errorForArgs;
 			this.max = max;
@@ -19,7 +19,7 @@
 			range = new (int, int)[max];
 			for (int i = 0; i < max; ++i) range[i] = (i, i);
 			Clear();
-			if (collection != null) foreach (var v in collection) Add(v);
+			if (values != null) foreach (var v in values) Add(v);
 		}
 
 		public int Mex => ex.Count == 0 ? max : ex.Peek();
