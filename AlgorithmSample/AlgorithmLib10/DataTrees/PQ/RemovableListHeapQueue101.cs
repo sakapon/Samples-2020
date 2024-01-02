@@ -71,8 +71,8 @@ namespace AlgorithmLib10.DataTrees.PQ.RemovableListHeapQueue101
 
 		public bool Remove(T item)
 		{
-			if (!counts.TryGetValue(item, out var c)) return false;
-			if (--c == 0) counts.Remove(item); else counts[item] = c;
+			if (!counts.TryGetValue(item, out var count)) return false;
+			if (--count == 0) counts.Remove(item); else counts[item] = count;
 			--n;
 			EnsureFirst();
 			return true;
