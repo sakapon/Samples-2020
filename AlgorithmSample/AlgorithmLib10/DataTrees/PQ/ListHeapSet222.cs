@@ -67,8 +67,7 @@ namespace AlgorithmLib10.DataTrees.PQ.ListHeapSet222
 
 		public bool Remove(T item)
 		{
-			var node = map.GetValueOrDefault(item);
-			if (node == null) return false;
+			if (!map.TryGetValue(item, out var node)) return false;
 			var i = node.Index;
 			l[i] = l[l.Count - 1];
 			l[i].Index = i;

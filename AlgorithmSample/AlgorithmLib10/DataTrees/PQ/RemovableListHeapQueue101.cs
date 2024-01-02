@@ -71,17 +71,16 @@ namespace AlgorithmLib10.DataTrees.PQ.RemovableListHeapQueue101
 
 		public bool Remove(T item)
 		{
-			var count = counts.GetValueOrDefault(item);
-			if (count == 0) return false;
+			if (!counts.TryGetValue(item, out var c)) return false;
+			if (--c == 0) counts.Remove(item); else counts[item] = c;
 			--n;
-			if (--count == 0) counts.Remove(item); else counts[item] = count;
 			EnsureFirst();
 			return true;
 		}
 
 		void EnsureFirst()
 		{
-			while (l.Count > 0 && counts.GetValueOrDefault(l[0]) == 0)
+			while (l.Count > 0 && !counts.ContainsKey(l[0]))
 			{
 				l[0] = l[l.Count - 1];
 				l.RemoveAt(l.Count - 1);
