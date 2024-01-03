@@ -5,8 +5,8 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 	public class IntRemovableListHeapQueue
 	{
 		readonly List<int> l = new List<int>();
-		int n;
 		readonly int[] counts;
+		int n;
 
 		public IntRemovableListHeapQueue(int max, IEnumerable<int> items = null)
 		{
@@ -20,8 +20,8 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 		public void Clear()
 		{
 			l.Clear();
-			n = 0;
 			Array.Clear(counts, 0, counts.Length);
+			n = 0;
 		}
 
 		public int GetCount(int item) => counts[item];
@@ -55,8 +55,8 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 		{
 			l.Add(item);
 			UpHeap();
-			++n;
 			++counts[item];
+			++n;
 		}
 
 		public int Pop()
@@ -70,8 +70,8 @@ namespace AlgorithmLib10.DataTrees.PQ.IntRemovableListHeapQueue101
 		public bool Remove(int item)
 		{
 			if (counts[item] == 0) return false;
-			--n;
 			--counts[item];
+			--n;
 			EnsureFirst();
 			return true;
 		}

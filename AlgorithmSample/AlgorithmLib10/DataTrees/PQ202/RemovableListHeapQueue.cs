@@ -8,8 +8,8 @@ namespace AlgorithmLib10.DataTrees.PQ202
 		readonly IComparer<T> c;
 		readonly int s;
 		readonly List<T> l = new List<T>();
-		int n;
 		readonly Dictionary<T, int> counts = new Dictionary<T, int>();
+		int n;
 
 		public RemovableListHeapQueue(IEnumerable<T> items = null, IComparer<T> comparer = null, bool descending = false)
 		{
@@ -26,8 +26,8 @@ namespace AlgorithmLib10.DataTrees.PQ202
 		public void Clear()
 		{
 			l.Clear();
-			n = 0;
 			counts.Clear();
+			n = 0;
 		}
 
 		public int GetCount(T item) => counts.GetValueOrDefault(item);
@@ -46,8 +46,8 @@ namespace AlgorithmLib10.DataTrees.PQ202
 		{
 			l.Add(item);
 			UpHeap();
-			++n;
 			counts[item] = counts.GetValueOrDefault(item) + 1;
+			++n;
 		}
 
 		public T Pop()
