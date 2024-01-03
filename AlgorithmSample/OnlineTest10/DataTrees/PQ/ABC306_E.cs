@@ -46,10 +46,10 @@ namespace OnlineTest10.DataTrees.PQ
 				{
 					if (y >= upper.First)
 					{
-						s += y - upper.First;
-						lower.Push(upper.Pop());
-						upper.Push(y);
 						lower.Remove(y0);
+						upper.Push(y);
+						lower.Push(upper.Pop());
+						s += y - lower.First;
 					}
 					else
 					{
