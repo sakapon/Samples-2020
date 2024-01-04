@@ -1,6 +1,6 @@
 ﻿// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_B
 // 容量を固定します。
-namespace AlgorithmLab.Collections.Arrays.ArrayDeque101
+namespace AlgorithmLab.Collections.Arrays101
 {
 	public class ArrayDeque<T>
 	{

@@ -1,6 +1,6 @@
 ﻿// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/3/ALDS1_3_B
 // 容量を固定します。
-namespace AlgorithmLab.Collections.Arrays.ArrayQueue101
+namespace AlgorithmLab.Collections.Arrays101
 {
 	public class ArrayQueue<T>
 	{

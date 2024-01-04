@@ -1,6 +1,6 @@
 ﻿// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/3/ALDS1_3_A
 // 容量を固定します。
-namespace AlgorithmLab.Collections.Arrays.ArrayStack101
+namespace AlgorithmLab.Collections.Arrays101
 {
 	public class ArrayStack<T>
 	{
