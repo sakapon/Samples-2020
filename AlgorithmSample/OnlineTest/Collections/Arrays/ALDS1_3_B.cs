@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AlgorithmLab.Collections.Arrays.ArrayQueue201;
+using AlgorithmLab.Collections.Arrays201;
 
 // Queue
 namespace OnlineTest.Collections.Arrays

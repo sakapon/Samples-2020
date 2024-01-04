@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AlgorithmLab.Collections.Arrays.ArrayList201;
+using AlgorithmLab.Collections.Arrays201;
 
 // ArrayList (Any)
 namespace OnlineTest.Collections.Arrays

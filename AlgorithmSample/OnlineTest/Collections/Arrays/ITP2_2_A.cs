@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AlgorithmLab.Collections.Arrays.ArrayStack201;
+using AlgorithmLab.Collections.Arrays201;
 
 // Stack (ArrayList Deque)
 namespace OnlineTest.Collections.Arrays

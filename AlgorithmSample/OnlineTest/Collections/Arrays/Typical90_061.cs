@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using AlgorithmLab.Collections.Arrays.ArrayDeque201;
+using AlgorithmLab.Collections.Arrays201;
 
 // ArrayDeque
 namespace OnlineTest.Collections.Arrays
