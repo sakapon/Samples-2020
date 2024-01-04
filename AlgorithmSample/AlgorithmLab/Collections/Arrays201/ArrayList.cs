@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/3/ALDS1_3_A
-// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/2/ITP2_2_A
-namespace AlgorithmLab.Collections.Arrays.ArrayStack201
+// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_A
+// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_D
+namespace AlgorithmLab.Collections.Arrays201
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class ArrayStack<T> : IEnumerable<T>
+	public class ArrayList<T> : IEnumerable<T>
 	{
 		T[] a;
 		int n;
 
-		public ArrayStack(int capacity = 2)
+		public ArrayList(int capacity = 2)
 		{
 			var c = 1;
 			while (c < capacity) c <<= 1;
@@ -21,10 +21,10 @@ namespace AlgorithmLab.Collections.Arrays.ArrayStack201
 		public int Count => n;
 		public T this[int i]
 		{
-			get => a[n - 1 - i];
-			set => a[n - 1 - i] = value;
+			get => a[i];
+			set => a[i] = value;
 		}
-		public T First
+		public T Last
 		{
 			get => a[n - 1];
 			set => a[n - 1] = value;
@@ -44,13 +44,12 @@ namespace AlgorithmLab.Collections.Arrays.ArrayStack201
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-		public IEnumerator<T> GetEnumerator() { for (var i = n - 1; i >= 0; --i) yield return a[i]; }
+		public IEnumerator<T> GetEnumerator() { for (var i = 0; i < n; ++i) yield return a[i]; }
 
 		public T[] ToArray()
 		{
 			var r = new T[n];
 			Array.Copy(a, r, n);
-			Array.Reverse(r);
 			return r;
 		}
 	}
