@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlgorithmLab.Collections.Arrays.ArrayList301
+namespace AlgorithmLab.Collections.Arrays.ArrayList211
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayList<T> : IEnumerable<T>
