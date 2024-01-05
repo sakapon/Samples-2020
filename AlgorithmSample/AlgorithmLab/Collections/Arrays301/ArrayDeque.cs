@@ -50,24 +50,51 @@ namespace AlgorithmLab.Collections.Arrays301
 			set => a[li - 1 & f] = value;
 		}
 
-		public void Clear() => fi = li = 0;
+		public void Clear()
+		{
+			a = new T[MinCapacity];
+			f = MinCapacity - 1;
+			fi = li = 0;
+		}
+
 		public void AddFirst(T item)
 		{
-			if (li - fi == a.Length) Expand();
+			TryExpand();
 			a[--fi & f] = item;
 		}
 		public void AddLast(T item)
 		{
-			if (li - fi == a.Length) Expand();
+			TryExpand();
 			a[li++ & f] = item;
 		}
-		public T PopFirst() => a[fi++ & f];
-		public T PopLast() => a[--li & f];
-
-		void Expand()
+		public T PopFirst()
 		{
+			if (fi == li) throw new InvalidOperationException("No items.");
+			TryReduce();
+			return a[fi++ & f];
+		}
+		public T PopLast()
+		{
+			if (fi == li) throw new InvalidOperationException("No items.");
+			TryReduce();
+			return a[--li & f];
+		}
+
+		void TryExpand()
+		{
+			if (li - fi != a.Length) return;
 			Array.Resize(ref a, a.Length << 1);
 			Array.Copy(a, 0, a, a.Length >> 1, a.Length >> 1);
+			f = a.Length - 1;
+		}
+		void TryReduce()
+		{
+			if (li - fi != a.Length >> 2 || li - fi < MinCapacity) return;
+			var q = a.Length >> 2;
+			var a0 = a;
+			a = new T[a.Length >> 1];
+			Array.Copy(a0, (fi & f) < q || (li & f) < q ? 0 : q << 1, a, 0, q);
+			Array.Copy(a0, (fi & f) < ((q << 1) | q) && (li & f) < ((q << 1) | q) ? q : (q << 1) | q, a, q, q);
 			f = a.Length - 1;
 		}
 
@@ -77,7 +104,7 @@ namespace AlgorithmLab.Collections.Arrays301
 		public T[] ToArray()
 		{
 			var r = new T[Count];
-			for (int i = fi; i < li; ++i) r[i - fi] = a[i & f];
+			for (var i = fi; i < li; ++i) r[i - fi] = a[i & f];
 			return r;
 		}
 	}
