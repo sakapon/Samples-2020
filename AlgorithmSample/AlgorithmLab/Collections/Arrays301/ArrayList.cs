@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_A
 // Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/1/ITP2_1_D
+// コレクション初期化子を利用できます。
 namespace AlgorithmLab.Collections.Arrays301
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayList<T> : IEnumerable<T>
 	{
-		const int MinCapacity = 2;
+		const int MinCapacity = 1 << 1;
 		T[] a;
 		int n;
 

@@ -10,23 +10,23 @@ namespace AlgorithmLab.Collections.Arrays301
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayDeque<T> : IEnumerable<T>
 	{
+		const int MinCapacity = 1 << 1;
 		T[] a;
 		int fi, li;
 		int f;
 
-		public ArrayDeque(int capacity = 2)
+		public ArrayDeque(IEnumerable<T> items = null)
 		{
-			var c = 1;
-			while (c < capacity) c <<= 1;
-			a = new T[c];
-			f = c - 1;
+			a = new T[MinCapacity];
+			f = MinCapacity - 1;
+			if (items != null) foreach (var x in items) AddLast(x);
 		}
 
-		public ArrayDeque(IEnumerable<T> items) : this() { foreach (var item in items) AddLast(item); }
 		public ArrayDeque(T[] items) => Initialize(items, items.Length);
 		void Initialize(T[] a0, int c)
 		{
 			li = c;
+			if (c < MinCapacity) c = MinCapacity;
 			while (c != (c & -c)) c += c & -c;
 			a = new T[c];
 			Array.Copy(a0, a, li);
