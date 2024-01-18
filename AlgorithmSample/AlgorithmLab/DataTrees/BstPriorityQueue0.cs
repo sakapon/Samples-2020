@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Col = AlgorithmLab.Collections;
+using Col = AlgorithmLab.Collections.Arrays001;
 
 namespace AlgorithmLab.DataTrees
 {

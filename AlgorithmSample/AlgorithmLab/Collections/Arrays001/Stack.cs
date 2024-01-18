@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace AlgorithmLab.Collections
+namespace AlgorithmLab.Collections.Arrays001
 {
-	public class Queue<T>
+	public class Stack<T>
 	{
 		T[] a;
-		int index;
 		public T[] Raw => a;
 		public int Length { get; private set; }
 		public T First
@@ -13,11 +12,11 @@ namespace AlgorithmLab.Collections
 			get
 			{
 				if (Length == 0) throw new InvalidOperationException();
-				return a[index];
+				return a[Length - 1];
 			}
 		}
 
-		public Queue(int size)
+		public Stack(int size)
 		{
 			if (size < 0) throw new ArgumentOutOfRangeException(nameof(size));
 			a = new T[size];
@@ -26,23 +25,20 @@ namespace AlgorithmLab.Collections
 		public void Push(T item)
 		{
 			if (a.Length <= Length) throw new InvalidOperationException();
-			a[(index + Length++) % a.Length] = item;
+			a[Length++] = item;
 		}
 
 		public T Pop()
 		{
 			if (Length == 0) throw new InvalidOperationException();
-			var r = a[index];
-			Length--;
-			index = (index + 1) % a.Length;
-			return r;
+			return a[--Length];
 		}
 
 		public T[] ToArray()
 		{
 			var r = new T[Length];
-			for (int i = 0; i < Length; i++)
-				r[i] = a[(index + i) % a.Length];
+			Array.Copy(a, r, Length);
+			Array.Reverse(r);
 			return r;
 		}
 	}

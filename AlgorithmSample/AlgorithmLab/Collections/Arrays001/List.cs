@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlgorithmLab.Collections
+namespace AlgorithmLab.Collections.Arrays001
 {
 	public class List<T>
 	{
