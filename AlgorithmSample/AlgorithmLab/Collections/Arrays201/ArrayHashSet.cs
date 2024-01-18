@@ -8,7 +8,8 @@ namespace AlgorithmLab.Collections.Arrays201
 	{
 		int n, f;
 		int[] lasts;
-		int?[] hashes;
+		bool[] u;
+		int[] hashes;
 		T[] a;
 		readonly EqualityComparer<T> ec = EqualityComparer<T>.Default;
 
@@ -20,7 +21,8 @@ namespace AlgorithmLab.Collections.Arrays201
 			f = c - 1;
 			lasts = new int[c];
 			for (int i = 0; i < c; ++i) lasts[i] = i;
-			hashes = new int?[c];
+			u = new bool[c];
+			hashes = new int[c];
 			a = new T[c];
 		}
 
@@ -30,14 +32,14 @@ namespace AlgorithmLab.Collections.Arrays201
 		{
 			n = 0;
 			for (int i = 0; i < lasts.Length; ++i) lasts[i] = i;
-			Array.Clear(hashes, 0, hashes.Length);
+			Array.Clear(u, 0, u.Length);
 		}
 
 		public bool Contains(T item)
 		{
 			var h = item.GetHashCode() & f;
 			for (int i = h; i != lasts[h]; ++i)
-				if (hashes[i & f] == h && ec.Equals(a[i & f], item)) return true;
+				if (u[i & f] && hashes[i & f] == h && ec.Equals(a[i & f], item)) return true;
 			return false;
 		}
 
@@ -48,10 +50,11 @@ namespace AlgorithmLab.Collections.Arrays201
 			var h = item.GetHashCode() & f;
 			for (int i = h; ; ++i)
 			{
-				if (hashes[i & f] is null)
+				if (!u[i & f])
 				{
 					++n;
 					if (lasts[h] <= i) lasts[h] = i + 1;
+					u[i & f] = true;
 					hashes[i & f] = h;
 					a[i & f] = item;
 					return true;
@@ -69,10 +72,10 @@ namespace AlgorithmLab.Collections.Arrays201
 			var h = item.GetHashCode() & f;
 			for (int i = h; i != lasts[h]; ++i)
 			{
-				if (hashes[i & f] == h && ec.Equals(a[i & f], item))
+				if (u[i & f] && hashes[i & f] == h && ec.Equals(a[i & f], item))
 				{
 					--n;
-					hashes[i & f] = null;
+					u[i & f] = false;
 					return true;
 				}
 			}
@@ -81,20 +84,21 @@ namespace AlgorithmLab.Collections.Arrays201
 
 		void Expand()
 		{
-			var (th, ta) = (hashes, a);
+			var (tu, ta) = (u, a);
 			var c = lasts.Length << 1;
 
 			n = 0;
 			f = c - 1;
 			lasts = new int[c];
 			for (int i = 0; i < c; ++i) lasts[i] = i;
-			hashes = new int?[c];
+			u = new bool[c];
+			hashes = new int[c];
 			a = new T[c];
 
-			for (var i = 0; i < th.Length; ++i) if (!(th[i] is null)) Add(ta[i]);
+			for (var i = 0; i < tu.Length; ++i) if (tu[i]) Add(ta[i]);
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-		public IEnumerator<T> GetEnumerator() { for (var i = 0; i <= f; ++i) if (!(hashes[i] is null)) yield return a[i]; }
+		public IEnumerator<T> GetEnumerator() { for (var i = 0; i <= f; ++i) if (u[i]) yield return a[i]; }
 	}
 }
