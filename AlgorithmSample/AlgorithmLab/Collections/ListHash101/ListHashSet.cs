@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlgorithmLab.Collections.Arrays101
+namespace AlgorithmLab.Collections.ListHash101
 {
-	public class ArrayHashSet<T>
+	public class ListHashSet<T>
 	{
 		readonly List<T>[] map;
 		readonly int f;
 		int n;
 
-		public ArrayHashSet(int capacity)
+		public ListHashSet(int capacity)
 		{
 			map = new List<T>[capacity];
 			f = capacity - 1;
