@@ -64,9 +64,19 @@ namespace AlgorithmLab.Collections.Arrays201
 			throw new InvalidOperationException();
 		}
 
-		public bool Remove(T key)
+		public bool Remove(T item)
 		{
-			throw new NotImplementedException();
+			var h = item.GetHashCode() & f;
+			for (int i = h; i != lasts[h]; ++i)
+			{
+				if (hashes[i & f] == h && ec.Equals(a[i & f], item))
+				{
+					--n;
+					hashes[i & f] = null;
+					return true;
+				}
+			}
+			return false;
 		}
 
 		void Expand()
