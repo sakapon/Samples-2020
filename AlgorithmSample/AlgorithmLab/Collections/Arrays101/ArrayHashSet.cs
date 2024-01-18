@@ -5,13 +5,13 @@ namespace AlgorithmLab.Collections.Arrays101
 {
 	public class ArrayHashSet<T>
 	{
-		readonly System.Collections.Generic.List<T>[] map;
+		readonly List<T>[] map;
 		readonly int f;
 		int n;
 
 		public ArrayHashSet(int capacity)
 		{
-			map = new System.Collections.Generic.List<T>[capacity];
+			map = new List<T>[capacity];
 			f = capacity - 1;
 		}
 
@@ -35,8 +35,9 @@ namespace AlgorithmLab.Collections.Arrays101
 			var h = item.GetHashCode() & f;
 			var l = map[h];
 			if (l != null && l.Contains(item)) return false;
-			if (l == null) map[h] = new System.Collections.Generic.List<T> { item };
+			if (l == null) map[h] = new List<T> { item };
 			else l.Add(item);
+			++n;
 			return true;
 		}
 
@@ -44,7 +45,9 @@ namespace AlgorithmLab.Collections.Arrays101
 		{
 			var h = item.GetHashCode() & f;
 			var l = map[h];
-			return l != null && l.Remove(item);
+			var b = l != null && l.Remove(item);
+			if (b) --n;
+			return b;
 		}
 	}
 }
