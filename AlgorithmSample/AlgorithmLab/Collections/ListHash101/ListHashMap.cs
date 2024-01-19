@@ -29,29 +29,7 @@ namespace AlgorithmLab.Collections.ListHash101
 		public TValue this[TKey key]
 		{
 			get => TryGetValue(key, out var value) ? value : throw new KeyNotFoundException();
-			set
-			{
-				var h = key.GetHashCode() & f;
-				var l = keys[h];
-				int i;
-				if (l != null && (i = l.IndexOf(key)) != -1)
-				{
-					values[h][i] = value;
-					return;
-				}
-
-				if (l == null)
-				{
-					keys[h] = new List<TKey> { key };
-					values[h] = new List<TValue> { value };
-				}
-				else
-				{
-					l.Add(key);
-					values[h].Add(value);
-				}
-				++n;
-			}
+			set => AddOrUpdate(key, value, true);
 		}
 
 		public bool ContainsKey(TKey key)
@@ -73,9 +51,19 @@ namespace AlgorithmLab.Collections.ListHash101
 
 		public bool Add(TKey key, TValue value)
 		{
+			return AddOrUpdate(key, value, false);
+		}
+
+		bool AddOrUpdate(TKey key, TValue value, bool update)
+		{
 			var h = key.GetHashCode() & f;
 			var l = keys[h];
-			if (l != null && l.Contains(key)) return false;
+			int i;
+			if (l != null && (i = l.IndexOf(key)) != -1)
+			{
+				if (update) values[h][i] = value;
+				return update;
+			}
 
 			if (l == null)
 			{
