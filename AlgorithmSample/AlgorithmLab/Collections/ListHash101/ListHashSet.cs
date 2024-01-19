@@ -5,13 +5,13 @@ namespace AlgorithmLab.Collections.ListHash101
 {
 	public class ListHashSet<T>
 	{
-		readonly List<T>[] map;
+		readonly List<T>[] t;
 		readonly int f;
 		int n;
 
 		public ListHashSet(int capacity)
 		{
-			map = new List<T>[capacity];
+			t = new List<T>[capacity];
 			f = capacity - 1;
 		}
 
@@ -19,23 +19,23 @@ namespace AlgorithmLab.Collections.ListHash101
 
 		public void Clear()
 		{
-			Array.Clear(map, 0, map.Length);
+			Array.Clear(t, 0, t.Length);
 			n = 0;
 		}
 
 		public bool Contains(T item)
 		{
 			var h = item.GetHashCode() & f;
-			var l = map[h];
+			var l = t[h];
 			return l != null && l.Contains(item);
 		}
 
 		public bool Add(T item)
 		{
 			var h = item.GetHashCode() & f;
-			var l = map[h];
+			var l = t[h];
 			if (l != null && l.Contains(item)) return false;
-			if (l == null) map[h] = new List<T> { item };
+			if (l == null) t[h] = new List<T> { item };
 			else l.Add(item);
 			++n;
 			return true;
@@ -44,7 +44,7 @@ namespace AlgorithmLab.Collections.ListHash101
 		public bool Remove(T item)
 		{
 			var h = item.GetHashCode() & f;
-			var l = map[h];
+			var l = t[h];
 			var b = l != null && l.Remove(item);
 			if (b) --n;
 			return b;
