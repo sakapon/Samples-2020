@@ -14,7 +14,7 @@ namespace OnlineTest.Collections.Hashing
 			var set = new ListHashSet<int>(1 << 20);
 
 			Console.SetOut(new System.IO.StreamWriter(Console.OpenStandardOutput()) { AutoFlush = false });
-			for (int i = 0; i < qc; i++)
+			while (qc-- > 0)
 			{
 				var q = Console.ReadLine().Split();
 				var x = int.Parse(q[1]);
