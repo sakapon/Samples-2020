@@ -69,19 +69,24 @@ namespace AlgorithmLab.Collections.ListHash101
 		{
 			var h = key.GetHashCode() & f;
 			var l = keys[h];
-			if (l == null) return 0;
+			if (l == null || l.Count == 0) return 0;
 
-			var c = 0;
-			for (int i = l.Count - 1; i >= 0; --i)
+			var tk = new List<TKey>();
+			var tv = new List<TValue>();
+
+			for (int i = 0; i < l.Count; ++i)
 			{
-				if (ec.Equals(l[i], key))
+				if (!ec.Equals(l[i], key))
 				{
-					l.RemoveAt(i);
-					values[h].RemoveAt(i);
-					--n;
-					++c;
+					tk.Add(l[i]);
+					tv.Add(values[h][i]);
 				}
 			}
+
+			var c = tk.Count - l.Count;
+			n -= c;
+			keys[h] = tk;
+			values[h] = tv;
 			return c;
 		}
 	}
