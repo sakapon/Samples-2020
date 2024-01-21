@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlgorithmLab.Collections.ListHash101
+namespace AlgorithmLab.Collections.ListHash201
 {
-	public class ListHashMultiMap<TKey, TValue>
+	public class ListHashMap<TKey, TValue>
 	{
 		readonly List<TKey>[] keys;
 		readonly List<TValue>[] values;
 		readonly int f;
 		int n;
-		readonly EqualityComparer<TKey> ec = EqualityComparer<TKey>.Default;
 
-		public ListHashMultiMap(int capacity)
+		public ListHashMap(int capacity)
 		{
 			keys = new List<TKey>[capacity];
 			values = new List<TValue>[capacity];
@@ -27,16 +26,10 @@ namespace AlgorithmLab.Collections.ListHash101
 			n = 0;
 		}
 
-		public IEnumerable<TValue> this[TKey key]
+		public TValue this[TKey key]
 		{
-			get
-			{
-				var h = key.GetHashCode() & f;
-				var l = keys[h];
-				if (l == null) yield break;
-				for (int i = 0; i < l.Count; ++i)
-					if (ec.Equals(l[i], key)) yield return values[h][i];
-			}
+			get => TryGetValue(key, out var value) ? value : throw new KeyNotFoundException();
+			set => AddOrUpdate(key, value, true);
 		}
 
 		public bool ContainsKey(TKey key)
@@ -46,10 +39,31 @@ namespace AlgorithmLab.Collections.ListHash101
 			return l != null && l.Contains(key);
 		}
 
-		public bool Add(TKey key, TValue value)
+		public bool TryGetValue(TKey key, out TValue value)
 		{
 			var h = key.GetHashCode() & f;
 			var l = keys[h];
+			var i = -1;
+			var b = l != null && (i = l.IndexOf(key)) != -1;
+			value = b ? values[h][i] : default(TValue);
+			return b;
+		}
+
+		public bool Add(TKey key, TValue value)
+		{
+			return AddOrUpdate(key, value, false);
+		}
+
+		bool AddOrUpdate(TKey key, TValue value, bool update)
+		{
+			var h = key.GetHashCode() & f;
+			var l = keys[h];
+			int i;
+			if (l != null && (i = l.IndexOf(key)) != -1)
+			{
+				if (update) values[h][i] = value;
+				return update;
+			}
 
 			if (l == null)
 			{
@@ -65,29 +79,16 @@ namespace AlgorithmLab.Collections.ListHash101
 			return true;
 		}
 
-		public int RemoveAll(TKey key)
+		public bool Remove(TKey key)
 		{
 			var h = key.GetHashCode() & f;
 			var l = keys[h];
-			if (l == null || l.Count == 0) return 0;
-
-			var tk = new List<TKey>();
-			var tv = new List<TValue>();
-
-			for (int i = 0; i < l.Count; ++i)
-			{
-				if (!ec.Equals(l[i], key))
-				{
-					tk.Add(l[i]);
-					tv.Add(values[h][i]);
-				}
-			}
-
-			var c = tk.Count - l.Count;
-			n -= c;
-			keys[h] = tk;
-			values[h] = tv;
-			return c;
+			int i;
+			if (l == null || (i = l.IndexOf(key)) == -1) return false;
+			l.RemoveAt(i);
+			values[h].RemoveAt(i);
+			--n;
+			return true;
 		}
 	}
 }

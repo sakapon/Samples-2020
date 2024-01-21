@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlgorithmLab.Collections.ListHash101
+namespace AlgorithmLab.Collections.ListHash201
 {
 	public class ListHashMultiSet<T>
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AlgorithmLab.Collections.ListHash101;
+using AlgorithmLab.Collections.ListHash201;
 
 namespace OnlineTest.Collections.Hashing
 {
