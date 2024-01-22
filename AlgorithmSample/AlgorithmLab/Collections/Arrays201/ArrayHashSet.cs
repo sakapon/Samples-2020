@@ -11,7 +11,7 @@ namespace AlgorithmLab.Collections.Arrays201
 		bool[] u;
 		int[] hashes;
 		T[] a;
-		readonly EqualityComparer<T> ec = EqualityComparer<T>.Default;
+		readonly IEqualityComparer<T> ec = typeof(T) == typeof(string) ? (IEqualityComparer<T>)StringComparer.Ordinal : EqualityComparer<T>.Default;
 
 		public ArrayHashSet(int capacity = 8)
 		{
