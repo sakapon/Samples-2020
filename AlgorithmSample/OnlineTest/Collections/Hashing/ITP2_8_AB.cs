@@ -4,14 +4,15 @@ using AlgorithmLab.Collections.ListHash201;
 
 namespace OnlineTest.Collections.Hashing
 {
+	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/8/ITP2_8_A
 	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/8/ITP2_8_B
-	class ITP2_8_B
+	class ITP2_8_AB
 	{
 		static void Main()
 		{
 			var qc = int.Parse(Console.ReadLine());
 
-			var map = new ListHashMap<string, string>(1 << 20);
+			var map = new ListHashMap<string, string>(1 << 18);
 
 			Console.SetOut(new System.IO.StreamWriter(Console.OpenStandardOutput()) { AutoFlush = false });
 			while (qc-- > 0)
