@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using AlgorithmLab.Collections.Arrays202;
+using AlgorithmLab.Collections.Arrays201;
 
 namespace OnlineTest.Collections.Arrays
 {
@@ -15,7 +14,7 @@ namespace OnlineTest.Collections.Arrays
 			Console.ReadLine();
 			var a = Read();
 
-			var set = new ArrayHashSet<int>(1 << 19);
+			var set = new ArrayHashSet<int>();
 			foreach (var x in a) set.Add(x);
 			a = set.ToArray();
 			Array.Sort(a);

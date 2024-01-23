@@ -4,36 +4,36 @@ using System.Collections.Generic;
 namespace AlgorithmLab.Collections.Arrays201
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class ArrayHashSet<T>
+	public class ArrayHashSet<T> : IEnumerable<T>
 	{
-		int n;
-		readonly int f;
-		readonly int[] firsts;
-		readonly int[] nexts;
-		readonly bool[] u;
-		readonly T[] a;
+		int n, f;
+		int[] firsts, nexts;
+		bool[] u;
+		T[] a;
 		readonly IEqualityComparer<T> ec = typeof(T) == typeof(string) ? (IEqualityComparer<T>)StringComparer.Ordinal : EqualityComparer<T>.Default;
 
-		public ArrayHashSet(int capacity)
+		public ArrayHashSet(int capacity = 8)
 		{
-			f = capacity - 1;
-			firsts = new int[capacity];
-			nexts = new int[capacity];
-			u = new bool[capacity];
-			a = new T[capacity];
+			var c = 1;
+			while (c < capacity) c <<= 1;
+			Initialize(c);
+		}
+
+		void Initialize(int c)
+		{
+			n = 0;
+			f = c - 1;
+			firsts = new int[c];
+			nexts = new int[c];
+			u = new bool[c];
+			a = new T[c];
 			Array.Fill(firsts, -1);
 			Array.Fill(nexts, -1);
 		}
 
 		public int Count => n;
 
-		public void Clear()
-		{
-			n = 0;
-			Array.Fill(firsts, -1);
-			Array.Fill(nexts, -1);
-			Array.Clear(u, 0, u.Length);
-		}
+		public void Clear() => Initialize(8);
 
 		public bool Contains(T item)
 		{
@@ -44,6 +44,12 @@ namespace AlgorithmLab.Collections.Arrays201
 		}
 
 		public bool Add(T item)
+		{
+			if (n == a.Length >> 1) Expand();
+			return Add0(item);
+		}
+
+		bool Add0(T item)
 		{
 			var h = item.GetHashCode() & f;
 			var last = -1;
@@ -80,10 +86,21 @@ namespace AlgorithmLab.Collections.Arrays201
 			return false;
 		}
 
-		IEnumerable<int> GetAddresses(int h)
+		void Expand()
 		{
-			for (var i = firsts[h]; i != -1; i = nexts[i])
-				yield return i;
+			var (tu, ta) = (u, a);
+			Initialize(a.Length << 1);
+			for (var i = 0; i < tu.Length; ++i) if (tu[i]) Add0(ta[i]);
+		}
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+		public IEnumerator<T> GetEnumerator() { for (var i = 0; i <= f; ++i) if (u[i]) yield return a[i]; }
+
+		public T[] ToArray()
+		{
+			var r = new T[n];
+			for (int i = 0, j = 0; i <= f; ++i) if (u[i]) r[j++] = a[i];
+			return r;
 		}
 	}
 }

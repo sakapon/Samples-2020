@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AlgorithmLab.Collections.Arrays202;
+using AlgorithmLab.Collections.Arrays201;
 
 namespace OnlineTest.Collections.Arrays
 {

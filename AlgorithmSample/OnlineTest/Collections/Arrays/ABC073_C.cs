@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AlgorithmLab.Collections.Arrays101;
+using AlgorithmLab.Collections.Arrays201;
 
 namespace OnlineTest.Collections.Arrays
 {
@@ -13,7 +13,7 @@ namespace OnlineTest.Collections.Arrays
 			var n = int.Parse(Console.ReadLine());
 			var a = Array.ConvertAll(new bool[n], _ => int.Parse(Console.ReadLine()));
 
-			var set = new ArrayHashSet<int>(1 << 18);
+			var set = new ArrayHashSet<int>();
 			foreach (var x in a)
 				if (!set.Add(x)) set.Remove(x);
 			return set.Count;
