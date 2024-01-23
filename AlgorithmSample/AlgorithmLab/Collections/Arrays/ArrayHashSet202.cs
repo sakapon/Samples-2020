@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlgorithmLab.Collections.Arrays201
+namespace AlgorithmLab.Collections.Arrays202
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayHashSet<T> : IEnumerable<T>
