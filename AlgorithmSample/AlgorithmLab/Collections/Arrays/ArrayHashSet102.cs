@@ -35,12 +35,6 @@ namespace AlgorithmLab.Collections.Arrays102
 			Array.Clear(u, 0, u.Length);
 		}
 
-		public IEnumerable<int> GetAddresses(int hash)
-		{
-			for (var i = firsts[hash]; i != -1; i = nexts[i])
-				yield return i;
-		}
-
 		public bool Contains(T item)
 		{
 			var h = item.GetHashCode() & f;
@@ -53,22 +47,19 @@ namespace AlgorithmLab.Collections.Arrays102
 		{
 			var h = item.GetHashCode() & f;
 			var last = -1;
-			for (var i = firsts[h]; i != -1; last = i, i = nexts[i])
-			{
+			var i = firsts[h];
+			for (; i != -1; last = i, i = nexts[i])
 				if (ec.Equals(a[i], item)) return false;
-			}
-			for (int i = last == -1 ? h : (last + 1) & f; ; i = (i + 1) & f)
-			{
-				if (u[i]) continue;
 
-				++n;
-				if (last == -1) firsts[h] = i;
-				else nexts[last] = i;
-				u[i] = true;
-				a[i] = item;
-				return true;
-			}
-			throw new InvalidOperationException();
+			i = last == -1 ? h : (last + 1) & f;
+			while (u[i]) i = (i + 1) & f;
+
+			++n;
+			if (last == -1) firsts[h] = i;
+			else nexts[last] = i;
+			u[i] = true;
+			a[i] = item;
+			return true;
 		}
 
 		public bool Remove(T item)
@@ -87,6 +78,12 @@ namespace AlgorithmLab.Collections.Arrays102
 				return true;
 			}
 			return false;
+		}
+
+		IEnumerable<int> GetAddresses(int h)
+		{
+			for (var i = firsts[h]; i != -1; i = nexts[i])
+				yield return i;
 		}
 	}
 }
