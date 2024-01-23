@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlgorithmLab.Collections.Arrays102
+namespace AlgorithmLab.Collections.Arrays101
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayHashMap<TKey, TValue>
