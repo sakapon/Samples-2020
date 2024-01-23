@@ -89,7 +89,7 @@ namespace AlgorithmLab.Collections.Arrays201
 		void Expand()
 		{
 			var (tu, ta) = (u, a);
-			Initialize(a.Length << 1);
+			Initialize(u.Length << 1);
 			for (var i = 0; i < tu.Length; ++i) if (tu[i]) Add0(ta[i]);
 		}
 

@@ -4,40 +4,40 @@ using System.Collections.Generic;
 namespace AlgorithmLab.Collections.Arrays201
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class ArrayHashMap<TKey, TValue>
+	public class ArrayHashMap<TKey, TValue> : IEnumerable<(TKey key, TValue value)>
 	{
-		int n;
-		readonly int f;
-		readonly int[] firsts;
-		readonly int[] nexts;
-		readonly bool[] u;
-		readonly TKey[] keys;
-		readonly TValue[] values;
+		int n, f;
+		int[] firsts, nexts;
+		bool[] u;
+		TKey[] keys;
+		TValue[] values;
 		readonly TValue iv;
 		readonly IEqualityComparer<TKey> ec = typeof(TKey) == typeof(string) ? (IEqualityComparer<TKey>)StringComparer.Ordinal : EqualityComparer<TKey>.Default;
 
-		public ArrayHashMap(int capacity, TValue iv = default(TValue))
+		public ArrayHashMap(TValue iv = default(TValue), int capacity = 8)
 		{
-			f = capacity - 1;
-			firsts = new int[capacity];
-			nexts = new int[capacity];
-			u = new bool[capacity];
-			keys = new TKey[capacity];
-			values = new TValue[capacity];
+			this.iv = iv;
+			var c = 1;
+			while (c < capacity) c <<= 1;
+			Initialize(c);
+		}
+
+		void Initialize(int c)
+		{
+			n = 0;
+			f = c - 1;
+			firsts = new int[c];
+			nexts = new int[c];
+			u = new bool[c];
+			keys = new TKey[c];
+			values = new TValue[c];
 			Array.Fill(firsts, -1);
 			Array.Fill(nexts, -1);
-			this.iv = iv;
 		}
 
 		public int Count => n;
 
-		public void Clear()
-		{
-			n = 0;
-			Array.Fill(firsts, -1);
-			Array.Fill(nexts, -1);
-			Array.Clear(u, 0, u.Length);
-		}
+		public void Clear() => Initialize(8);
 
 		public TValue this[TKey key]
 		{
@@ -46,7 +46,11 @@ namespace AlgorithmLab.Collections.Arrays201
 				var i = GetIndex(key);
 				return i != -1 ? values[i] : iv;
 			}
-			set => AddOrUpdate(key, value, true);
+			set
+			{
+				if (n == keys.Length >> 1) Expand();
+				AddOrUpdate(key, value, true);
+			}
 		}
 
 		public bool ContainsKey(TKey key) => GetIndex(key) != -1;
@@ -58,7 +62,11 @@ namespace AlgorithmLab.Collections.Arrays201
 			else { value = iv; return false; }
 		}
 
-		public bool Add(TKey key, TValue value) => AddOrUpdate(key, value, false);
+		public bool Add(TKey key, TValue value)
+		{
+			if (n == keys.Length >> 1) Expand();
+			return AddOrUpdate(key, value, false);
+		}
 
 		public bool Remove(TKey key)
 		{
@@ -110,10 +118,14 @@ namespace AlgorithmLab.Collections.Arrays201
 			return true;
 		}
 
-		IEnumerable<int> GetAddresses(int h)
+		void Expand()
 		{
-			for (var i = firsts[h]; i != -1; i = nexts[i])
-				yield return i;
+			var (tu, tk, tv) = (u, keys, values);
+			Initialize(u.Length << 1);
+			for (var i = 0; i < tu.Length; ++i) if (tu[i]) AddOrUpdate(tk[i], tv[i], false);
 		}
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+		public IEnumerator<(TKey key, TValue value)> GetEnumerator() { for (var i = 0; i <= f; ++i) if (u[i]) yield return (keys[i], values[i]); }
 	}
 }
