@@ -6,21 +6,22 @@ namespace AlgorithmLab.Collections.Arrays301
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayHashSet<T> : IEnumerable<T>
 	{
+		const int MinCapacity = 1 << 3;
 		int[] firsts, nexts;
 		bool[] u;
 		T[] a;
 		int n, f;
-		readonly IEqualityComparer<T> ec = typeof(T) == typeof(string) ? (IEqualityComparer<T>)StringComparer.Ordinal : EqualityComparer<T>.Default;
+		readonly IEqualityComparer<T> ec;
 
-		public ArrayHashSet(int capacity = 8)
+		public ArrayHashSet(IEnumerable<T> items = null, IEqualityComparer<T> comparer = null)
 		{
-			var c = 1;
-			while (c < capacity) c <<= 1;
-			Initialize(c);
+			ec = comparer ?? (typeof(T) == typeof(string) ? (IEqualityComparer<T>)StringComparer.Ordinal : EqualityComparer<T>.Default);
+			Initialize(MinCapacity);
+			if (items != null) foreach (var x in items) Add(x);
 		}
 
 		public int Count => n;
-		public void Clear() => Initialize(8);
+		public void Clear() => Initialize(MinCapacity);
 		void Initialize(int c)
 		{
 			firsts = new int[c];
@@ -43,7 +44,7 @@ namespace AlgorithmLab.Collections.Arrays301
 
 		public bool Add(T item)
 		{
-			if (n == a.Length >> 1) Expand();
+			if (n == u.Length >> 1) Resize(true);
 			return Add0(item);
 		}
 
@@ -68,6 +69,7 @@ namespace AlgorithmLab.Collections.Arrays301
 
 		public bool Remove(T item)
 		{
+			if (n == u.Length >> 3 && n >= MinCapacity >> 1) Resize(false);
 			var h = item.GetHashCode() & f;
 			var last = -1;
 			for (var i = firsts[h]; i != -1; last = i, i = nexts[i])
@@ -84,10 +86,10 @@ namespace AlgorithmLab.Collections.Arrays301
 			return false;
 		}
 
-		void Expand()
+		void Resize(bool expand)
 		{
 			var (tu, ta) = (u, a);
-			Initialize(u.Length << 1);
+			Initialize(expand ? u.Length << 1 : u.Length >> 1);
 			for (var i = 0; i < tu.Length; ++i) if (tu[i]) Add0(ta[i]);
 		}
 

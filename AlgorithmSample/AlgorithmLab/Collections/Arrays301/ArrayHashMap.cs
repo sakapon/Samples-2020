@@ -6,24 +6,25 @@ namespace AlgorithmLab.Collections.Arrays301
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayHashMap<TKey, TValue> : IEnumerable<(TKey key, TValue value)>
 	{
+		const int MinCapacity = 1 << 3;
 		int[] firsts, nexts;
 		bool[] u;
 		TKey[] keys;
 		TValue[] values;
 		int n, f;
 		readonly TValue iv;
-		readonly IEqualityComparer<TKey> ec = typeof(TKey) == typeof(string) ? (IEqualityComparer<TKey>)StringComparer.Ordinal : EqualityComparer<TKey>.Default;
+		readonly IEqualityComparer<TKey> ec;
 
-		public ArrayHashMap(TValue iv = default(TValue), int capacity = 8)
+		public ArrayHashMap(TValue iv = default(TValue), IEnumerable<(TKey key, TValue value)> items = null, IEqualityComparer<TKey> comparer = null)
 		{
 			this.iv = iv;
-			var c = 1;
-			while (c < capacity) c <<= 1;
-			Initialize(c);
+			ec = comparer ?? (typeof(TKey) == typeof(string) ? (IEqualityComparer<TKey>)StringComparer.Ordinal : EqualityComparer<TKey>.Default);
+			Initialize(MinCapacity);
+			if (items != null) foreach (var (k, v) in items) Add(k, v);
 		}
 
 		public int Count => n;
-		public void Clear() => Initialize(8);
+		public void Clear() => Initialize(MinCapacity);
 		void Initialize(int c)
 		{
 			firsts = new int[c];
@@ -54,7 +55,7 @@ namespace AlgorithmLab.Collections.Arrays301
 			}
 			set
 			{
-				if (n == keys.Length >> 1) Expand();
+				if (n == u.Length >> 1) Resize(true);
 				AddOrUpdate(key, value, true);
 			}
 		}
@@ -70,7 +71,7 @@ namespace AlgorithmLab.Collections.Arrays301
 
 		public bool Add(TKey key, TValue value)
 		{
-			if (n == keys.Length >> 1) Expand();
+			if (n == u.Length >> 1) Resize(true);
 			return AddOrUpdate(key, value, false);
 		}
 
@@ -100,6 +101,7 @@ namespace AlgorithmLab.Collections.Arrays301
 
 		public bool Remove(TKey key)
 		{
+			if (n == u.Length >> 3 && n >= MinCapacity >> 1) Resize(false);
 			var h = key.GetHashCode() & f;
 			var last = -1;
 			for (var i = firsts[h]; i != -1; last = i, i = nexts[i])
@@ -116,10 +118,10 @@ namespace AlgorithmLab.Collections.Arrays301
 			return false;
 		}
 
-		void Expand()
+		void Resize(bool expand)
 		{
 			var (tu, tk, tv) = (u, keys, values);
-			Initialize(u.Length << 1);
+			Initialize(expand ? u.Length << 1 : u.Length >> 1);
 			for (var i = 0; i < tu.Length; ++i) if (tu[i]) AddOrUpdate(tk[i], tv[i], false);
 		}
 
