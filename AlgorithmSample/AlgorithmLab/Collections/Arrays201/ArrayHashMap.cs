@@ -6,11 +6,11 @@ namespace AlgorithmLab.Collections.Arrays201
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayHashMap<TKey, TValue> : IEnumerable<(TKey key, TValue value)>
 	{
-		int n, f;
 		int[] firsts, nexts;
 		bool[] u;
 		TKey[] keys;
 		TValue[] values;
+		int n, f;
 		readonly TValue iv;
 		readonly IEqualityComparer<TKey> ec = typeof(TKey) == typeof(string) ? (IEqualityComparer<TKey>)StringComparer.Ordinal : EqualityComparer<TKey>.Default;
 
@@ -22,10 +22,10 @@ namespace AlgorithmLab.Collections.Arrays201
 			Initialize(c);
 		}
 
+		public int Count => n;
+		public void Clear() => Initialize(8);
 		void Initialize(int c)
 		{
-			n = 0;
-			f = c - 1;
 			firsts = new int[c];
 			nexts = new int[c];
 			u = new bool[c];
@@ -33,11 +33,17 @@ namespace AlgorithmLab.Collections.Arrays201
 			values = new TValue[c];
 			Array.Fill(firsts, -1);
 			Array.Fill(nexts, -1);
+			n = 0;
+			f = c - 1;
 		}
 
-		public int Count => n;
-
-		public void Clear() => Initialize(8);
+		int GetIndex(TKey key)
+		{
+			var h = key.GetHashCode() & f;
+			for (var i = firsts[h]; i != -1; i = nexts[i])
+				if (ec.Equals(keys[i], key)) return i;
+			return -1;
+		}
 
 		public TValue this[TKey key]
 		{
@@ -68,32 +74,6 @@ namespace AlgorithmLab.Collections.Arrays201
 			return AddOrUpdate(key, value, false);
 		}
 
-		public bool Remove(TKey key)
-		{
-			var h = key.GetHashCode() & f;
-			var last = -1;
-			for (var i = firsts[h]; i != -1; last = i, i = nexts[i])
-			{
-				if (!ec.Equals(keys[i], key)) continue;
-
-				--n;
-				if (last == -1) firsts[h] = nexts[i];
-				else nexts[last] = nexts[i];
-				nexts[i] = -1;
-				u[i] = false;
-				return true;
-			}
-			return false;
-		}
-
-		int GetIndex(TKey key)
-		{
-			var h = key.GetHashCode() & f;
-			for (var i = firsts[h]; i != -1; i = nexts[i])
-				if (ec.Equals(keys[i], key)) return i;
-			return -1;
-		}
-
 		bool AddOrUpdate(TKey key, TValue value, bool update)
 		{
 			var h = key.GetHashCode() & f;
@@ -109,13 +89,31 @@ namespace AlgorithmLab.Collections.Arrays201
 			i = last == -1 ? h : (last + 1) & f;
 			while (u[i]) i = (i + 1) & f;
 
-			++n;
 			if (last == -1) firsts[h] = i;
 			else nexts[last] = i;
 			u[i] = true;
 			keys[i] = key;
 			values[i] = value;
+			++n;
 			return true;
+		}
+
+		public bool Remove(TKey key)
+		{
+			var h = key.GetHashCode() & f;
+			var last = -1;
+			for (var i = firsts[h]; i != -1; last = i, i = nexts[i])
+			{
+				if (!ec.Equals(keys[i], key)) continue;
+
+				if (last == -1) firsts[h] = nexts[i];
+				else nexts[last] = nexts[i];
+				nexts[i] = -1;
+				u[i] = false;
+				--n;
+				return true;
+			}
+			return false;
 		}
 
 		void Expand()

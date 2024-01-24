@@ -6,10 +6,10 @@ namespace AlgorithmLab.Collections.Arrays201
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class ArrayHashSet<T> : IEnumerable<T>
 	{
-		int n, f;
 		int[] firsts, nexts;
 		bool[] u;
 		T[] a;
+		int n, f;
 		readonly IEqualityComparer<T> ec = typeof(T) == typeof(string) ? (IEqualityComparer<T>)StringComparer.Ordinal : EqualityComparer<T>.Default;
 
 		public ArrayHashSet(int capacity = 8)
@@ -19,21 +19,19 @@ namespace AlgorithmLab.Collections.Arrays201
 			Initialize(c);
 		}
 
+		public int Count => n;
+		public void Clear() => Initialize(8);
 		void Initialize(int c)
 		{
-			n = 0;
-			f = c - 1;
 			firsts = new int[c];
 			nexts = new int[c];
 			u = new bool[c];
 			a = new T[c];
 			Array.Fill(firsts, -1);
 			Array.Fill(nexts, -1);
+			n = 0;
+			f = c - 1;
 		}
-
-		public int Count => n;
-
-		public void Clear() => Initialize(8);
 
 		public bool Contains(T item)
 		{
@@ -60,11 +58,11 @@ namespace AlgorithmLab.Collections.Arrays201
 			i = last == -1 ? h : (last + 1) & f;
 			while (u[i]) i = (i + 1) & f;
 
-			++n;
 			if (last == -1) firsts[h] = i;
 			else nexts[last] = i;
 			u[i] = true;
 			a[i] = item;
+			++n;
 			return true;
 		}
 
@@ -76,11 +74,11 @@ namespace AlgorithmLab.Collections.Arrays201
 			{
 				if (!ec.Equals(a[i], item)) continue;
 
-				--n;
 				if (last == -1) firsts[h] = nexts[i];
 				else nexts[last] = nexts[i];
 				nexts[i] = -1;
 				u[i] = false;
+				--n;
 				return true;
 			}
 			return false;
