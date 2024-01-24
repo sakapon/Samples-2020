@@ -12,7 +12,7 @@ namespace OnlineTest.Collections.Hashing
 		{
 			var qc = int.Parse(Console.ReadLine());
 
-			var map = new ListHashMap<string, string>(1 << 18);
+			var map = new ListHashMap<string, string>("0");
 
 			Console.SetOut(new System.IO.StreamWriter(Console.OpenStandardOutput()) { AutoFlush = false });
 			while (qc-- > 0)
@@ -25,7 +25,7 @@ namespace OnlineTest.Collections.Hashing
 				}
 				else if (q[0][0] == '1')
 				{
-					Console.WriteLine(map.TryGetValue(q[1], out var v) ? v : "0");
+					Console.WriteLine(map[q[1]]);
 				}
 				else
 				{
