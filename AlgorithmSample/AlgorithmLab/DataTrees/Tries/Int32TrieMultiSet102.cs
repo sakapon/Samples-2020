@@ -14,31 +14,42 @@ namespace AlgorithmLab.DataTrees.Tries.Tries102
 		}
 
 		const int MaxDigit = 30;
-		readonly Node Root = new Node();
+		Node Root = new Node();
 		public long Count;
 
-		public long GetCount(int item)
+		public void Clear()
+		{
+			Root = new Node();
+			Count = 0;
+		}
+
+		Node GetNode(int item)
 		{
 			var node = Root;
 			for (var f = 1 << MaxDigit; f != 0 && item != 0; f >>= 1)
 			{
 				if (item < 0)
 				{
-					if ((node = node.Left) == null) return 0;
+					if ((node = node.Left) == null) break;
 					item += f;
 				}
 				else
 				{
-					if ((node = node.Right) == null) return 0;
+					if ((node = node.Right) == null) break;
 					item -= f;
 				}
 			}
-			return node.Count;
+			return node;
+		}
+
+		public long GetCount(int item)
+		{
+			var node = GetNode(item);
+			return node == null ? 0 : node.Count;
 		}
 
 		public void Add(int item, long count = 1)
 		{
-			Count += count;
 			var node = Root;
 			for (var f = 1 << MaxDigit; f != 0 && item != 0; f >>= 1)
 			{
@@ -54,6 +65,7 @@ namespace AlgorithmLab.DataTrees.Tries.Tries102
 				}
 			}
 			node.Count += count;
+			Count += count;
 		}
 	}
 }

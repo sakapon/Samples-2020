@@ -5,6 +5,7 @@ namespace AlgorithmLab.DataTrees.Tries.Tries102
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class Int32TrieSet
 	{
+		[System.Diagnostics.DebuggerDisplay(@"Enabled = {Enabled}")]
 		public class Node
 		{
 			public bool Enabled;
@@ -13,8 +14,14 @@ namespace AlgorithmLab.DataTrees.Tries.Tries102
 		}
 
 		const int MaxDigit = 30;
-		readonly Node Root = new Node();
+		Node Root = new Node();
 		public long Count;
+
+		public void Clear()
+		{
+			Root = new Node();
+			Count = 0;
+		}
 
 		Node GetNode(int item)
 		{
@@ -41,6 +48,16 @@ namespace AlgorithmLab.DataTrees.Tries.Tries102
 			return node != null && node.Enabled;
 		}
 
+		public bool Remove(int item)
+		{
+			var node = GetNode(item);
+			if (node == null || !node.Enabled) return false;
+
+			node.Enabled = false;
+			--Count;
+			return true;
+		}
+
 		public bool Add(int item)
 		{
 			var node = Root;
@@ -58,17 +75,9 @@ namespace AlgorithmLab.DataTrees.Tries.Tries102
 				}
 			}
 			if (node.Enabled) return false;
+
 			node.Enabled = true;
 			++Count;
-			return true;
-		}
-
-		public bool Remove(int item)
-		{
-			var node = GetNode(item);
-			if (node == null || !node.Enabled) return false;
-			node.Enabled = false;
-			--Count;
 			return true;
 		}
 	}
