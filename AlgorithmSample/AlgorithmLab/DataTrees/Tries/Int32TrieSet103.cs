@@ -23,18 +23,6 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 			Count = 0;
 		}
 
-		Node GetNode(int item)
-		{
-			var node = Root;
-			while (node != null)
-			{
-				if (item == node.Key) break;
-				if (item < node.Key) node = node.Left;
-				else node = node.Right;
-			}
-			return node;
-		}
-
 		public bool Contains(int item)
 		{
 			var node = GetNode(item);
@@ -52,6 +40,30 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 		}
 
 		public bool Add(int item)
+		{
+			var node = GetOrAddNode(item);
+			if (node.Enabled) return false;
+
+			node.Enabled = true;
+			++Count;
+			return true;
+		}
+
+		#region Private Methods
+
+		Node GetNode(int item)
+		{
+			var node = Root;
+			while (node != null)
+			{
+				if (item == node.Key) break;
+				if (item < node.Key) node = node.Left;
+				else node = node.Right;
+			}
+			return node;
+		}
+
+		Node GetOrAddNode(int item)
 		{
 			Node node = Root, p = null;
 			while (true)
@@ -114,11 +126,7 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 					break;
 				}
 			}
-			if (node.Enabled) return false;
-
-			node.Enabled = true;
-			++Count;
-			return true;
+			return node;
 		}
 
 		static int GetLca(int x, int y)
@@ -139,5 +147,7 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 			x |= x >> 16;
 			return x ^ (x >> 1);
 		}
+
+		#endregion
 	}
 }
