@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using AlgorithmLab.DataTrees.BSTs.Trees102;
 
-namespace OnlineTest.DataTrees.Tries
+namespace OnlineTest.DataTrees.BSTs
 {
 	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_A
 	// Test: https://onlinejudge.u-aizu.ac.jp/courses/lesson/8/ITP2/7/ITP2_7_B

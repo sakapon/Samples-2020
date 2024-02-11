@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AlgorithmLab.DataTrees.BSTs.Trees102;
 
-namespace OnlineTest.DataTrees.Tries
+namespace OnlineTest.DataTrees.BSTs
 {
 	// Test: https://atcoder.jp/contests/abc073/tasks/abc073_c
 	class ABC073_C
