@@ -3,7 +3,7 @@
 namespace AlgorithmLab.DataTrees.BSTs.Trees103
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class Int32TrieSet
+	public class Int32TreeSet
 	{
 		[System.Diagnostics.DebuggerDisplay(@"Key = {Key}, Enabled = {Enabled}")]
 		public class Node

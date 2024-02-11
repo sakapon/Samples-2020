@@ -12,7 +12,7 @@ namespace OnlineTest.DataTrees.Tries
 		{
 			var qc = int.Parse(Console.ReadLine());
 
-			var set = new Int32TrieSet();
+			var set = new Int32TreeSet();
 
 			Console.SetOut(new System.IO.StreamWriter(Console.OpenStandardOutput()) { AutoFlush = false });
 			while (qc-- > 0)

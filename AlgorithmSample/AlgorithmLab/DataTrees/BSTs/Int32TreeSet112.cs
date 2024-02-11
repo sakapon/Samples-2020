@@ -3,7 +3,7 @@
 namespace AlgorithmLab.DataTrees.BSTs.Trees112
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class Int32TrieSet
+	public class Int32TreeSet
 	{
 		const int MaxDigit = 30;
 		int[] l, r;
@@ -11,7 +11,7 @@ namespace AlgorithmLab.DataTrees.BSTs.Trees112
 		int t;
 		public long Count;
 
-		public Int32TrieSet(int size = 1 << 22)
+		public Int32TreeSet(int size = 1 << 22)
 		{
 			Initialize(size);
 		}
