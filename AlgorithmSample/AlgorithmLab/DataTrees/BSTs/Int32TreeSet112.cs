@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlgorithmLab.DataTrees.Tries.Tries112
+namespace AlgorithmLab.DataTrees.BSTs.Trees112
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class Int32TrieSet

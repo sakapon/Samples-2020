@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AlgorithmLab.DataTrees.Tries.Tries102;
+using AlgorithmLab.DataTrees.BSTs.Trees102;
 
 namespace OnlineTest.DataTrees.Tries
 {
