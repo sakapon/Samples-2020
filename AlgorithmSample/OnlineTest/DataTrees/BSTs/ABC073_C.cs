@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlgorithmLab.DataTrees.BSTs.Trees102;
+using AlgorithmLab.DataTrees.BSTs.BSTs203;
 
 namespace OnlineTest.DataTrees.BSTs
 {
@@ -14,7 +14,7 @@ namespace OnlineTest.DataTrees.BSTs
 			var n = int.Parse(Console.ReadLine());
 			var a = Array.ConvertAll(new bool[n], _ => int.Parse(Console.ReadLine()));
 
-			var set = new Int32TreeSet();
+			var set = new Int32LcaTreeSet();
 			foreach (var x in a)
 				if (!set.Add(x)) set.Remove(x);
 			return set.Count;
