@@ -18,7 +18,7 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 
 		public Node Root = new Node();
 		public long Count => Root.Count;
-		public readonly List<Node> Path = new List<Node>();
+		internal readonly List<Node> Path = new List<Node>();
 
 		public void Clear()
 		{
