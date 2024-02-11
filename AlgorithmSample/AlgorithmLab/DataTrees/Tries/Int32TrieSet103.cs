@@ -56,8 +56,9 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 			var node = Root;
 			while (node != null)
 			{
-				if (item == node.Key) break;
-				if (item < node.Key) node = node.Left;
+				var d = item.CompareTo(node.Key);
+				if (d == 0) break;
+				if (d < 0) node = node.Left;
 				else node = node.Right;
 			}
 			return node;
@@ -68,13 +69,14 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 			Node node = Root, p = null;
 			while (true)
 			{
-				if (item == node.Key) break;
+				var d = item.CompareTo(node.Key);
+				if (d == 0) break;
 
 				var lca = GetLca(item, node.Key);
 				if (lca == node.Key)
 				{
 					p = node;
-					if (item < node.Key)
+					if (d < 0)
 					{
 						if (node.Left == null)
 						{
@@ -100,8 +102,8 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 					if (item < p.Key) p.Left = mn;
 					else p.Right = mn;
 
-					if (node.Key < item) mn.Left = node;
-					else mn.Right = node;
+					if (d < 0) mn.Right = node;
+					else mn.Left = node;
 
 					node = mn;
 					break;
@@ -113,15 +115,15 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 					if (lca < p.Key) p.Left = mn;
 					else p.Right = mn;
 
-					if (node.Key < item)
-					{
-						mn.Left = node;
-						node = mn.Right = new Node { Key = item };
-					}
-					else
+					if (d < 0)
 					{
 						mn.Right = node;
 						node = mn.Left = new Node { Key = item };
+					}
+					else
+					{
+						mn.Left = node;
+						node = mn.Right = new Node { Key = item };
 					}
 					break;
 				}
