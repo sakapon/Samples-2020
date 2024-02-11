@@ -64,12 +64,20 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 					p = node;
 					if (item < node.Key)
 					{
-						if (node.Left == null) node.Left = new Node { Key = item };
+						if (node.Left == null)
+						{
+							node = node.Left = new Node { Key = item };
+							break;
+						}
 						node = node.Left;
 					}
 					else
 					{
-						if (node.Right == null) node.Right = new Node { Key = item };
+						if (node.Right == null)
+						{
+							node = node.Right = new Node { Key = item };
+							break;
+						}
 						node = node.Right;
 					}
 				}
@@ -93,7 +101,7 @@ namespace AlgorithmLab.DataTrees.Tries.Tries103
 					if (lca < p.Key) p.Left = mn;
 					else p.Right = mn;
 
-					if (node.Key < lca)
+					if (node.Key < item)
 					{
 						mn.Left = node;
 						node = mn.Right = new Node { Key = item };
