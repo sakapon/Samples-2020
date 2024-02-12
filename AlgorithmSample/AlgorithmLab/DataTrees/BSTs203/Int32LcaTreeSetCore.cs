@@ -125,4 +125,95 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 			return x ^ (x >> 1);
 		}
 	}
+
+	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
+	public class Int32LcaTreeSet
+	{
+		readonly Int32LcaTreeSetCore<bool> core = new Int32LcaTreeSetCore<bool>();
+		public long Count => core.Count;
+		public void Clear() => core.Clear();
+
+		public bool Contains(int item)
+		{
+			var node = core.GetNode(item);
+			return node != null && node.Enabled;
+		}
+
+		public bool Remove(int item)
+		{
+			var node = core.GetNode(item);
+			if (node == null || !node.Enabled) return false;
+
+			node.Enabled = false;
+			foreach (var n in core.Path) --n.Count;
+			return true;
+		}
+
+		public bool Add(int item)
+		{
+			var node = core.GetOrAddNode(item);
+			if (node.Enabled) return false;
+
+			node.Enabled = true;
+			foreach (var n in core.Path) ++n.Count;
+			return true;
+		}
+	}
+
+	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
+	public class Int32LcaTreeMap<TValue>
+	{
+		readonly Int32LcaTreeSetCore<TValue> core = new Int32LcaTreeSetCore<TValue>();
+		public long Count => core.Count;
+		public void Clear() => core.Clear();
+
+		public bool ContainsKey(int key)
+		{
+			var node = core.GetNode(key);
+			return node != null && node.Enabled;
+		}
+
+		public bool Remove(int key)
+		{
+			var node = core.GetNode(key);
+			if (node == null || !node.Enabled) return false;
+
+			node.Enabled = false;
+			foreach (var n in core.Path) --n.Count;
+			return true;
+		}
+
+		public bool Add(int key, TValue value)
+		{
+			var node = core.GetOrAddNode(key);
+			if (node.Enabled) return false;
+
+			node.Enabled = true;
+			node.Value = value;
+			foreach (var n in core.Path) ++n.Count;
+			return true;
+		}
+
+		public TValue this[int key]
+		{
+			get
+			{
+				var node = core.GetNode(key);
+				if (node == null || !node.Enabled) throw new KeyNotFoundException();
+				return node.Value;
+			}
+			set
+			{
+				var node = core.GetOrAddNode(key);
+				if (node.Enabled)
+				{
+					node.Value = value;
+					return;
+				}
+				node.Enabled = true;
+				node.Value = value;
+				foreach (var n in core.Path) ++n.Count;
+			}
+		}
+	}
 }
