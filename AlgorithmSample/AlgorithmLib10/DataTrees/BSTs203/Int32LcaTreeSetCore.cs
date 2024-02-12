@@ -249,10 +249,25 @@
 		{
 			throw new NotImplementedException();
 		}
+
+		public int[] ToArray()
+		{
+			var r = new int[core.Root.Count];
+			var i = -1;
+			Rec(core.Root);
+			return r;
+
+			void Rec(Int32LcaTreeSetCore<bool>.Node node)
+			{
+				if (node.Left != null) Rec(node.Left);
+				if (node.Enabled) r[++i] = node.Key;
+				if (node.Right != null) Rec(node.Right);
+			}
+		}
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class Int32LcaTreeMap<TValue>
+	public class Int32LcaTreeMap<TValue> : IEnumerable<(int key, TValue value)>
 	{
 		readonly Int32LcaTreeSetCore<TValue> core = new Int32LcaTreeSetCore<TValue>();
 		public long Count => core.Count;
@@ -336,6 +351,27 @@
 		{
 			var node = core.GetNodeAt(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
 			node.Value = value;
+		}
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+		public IEnumerator<(int key, TValue value)> GetEnumerator()
+		{
+			throw new NotImplementedException();
+		}
+
+		public (int key, TValue value)[] ToArray()
+		{
+			var r = new (int, TValue)[core.Root.Count];
+			var i = -1;
+			Rec(core.Root);
+			return r;
+
+			void Rec(Int32LcaTreeSetCore<TValue>.Node node)
+			{
+				if (node.Left != null) Rec(node.Left);
+				if (node.Enabled) r[++i] = (node.Key, node.Value);
+				if (node.Right != null) Rec(node.Right);
+			}
 		}
 	}
 
