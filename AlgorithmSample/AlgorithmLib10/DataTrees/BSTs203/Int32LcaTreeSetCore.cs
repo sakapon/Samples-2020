@@ -172,10 +172,28 @@
 			x |= x >> 16;
 			return x ^ (x >> 1);
 		}
+
+		// Path に記録しません。
+		public static Node GetNodeAt(Node node, long index)
+		{
+			if (node == null) return null;
+			var lc = node.Left?.Count ?? 0;
+			if (index < lc)
+			{
+				return GetNodeAt(node.Left, index);
+			}
+			else
+			{
+				index -= lc;
+				if (index == 0 && node.Enabled) return node;
+				if (node.Enabled) --index;
+				return GetNodeAt(node.Right, index);
+			}
+		}
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class Int32LcaTreeSet
+	public class Int32LcaTreeSet : IEnumerable<int>
 	{
 		readonly Int32LcaTreeSetCore<bool> core = new Int32LcaTreeSetCore<bool>();
 		public long Count => core.Count;
@@ -224,6 +242,12 @@
 			node.Enabled = false;
 			foreach (var n in core.Path) --n.Count;
 			return node.Key;
+		}
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+		public IEnumerator<int> GetEnumerator()
+		{
+			throw new NotImplementedException();
 		}
 	}
 
@@ -306,6 +330,12 @@
 			node.Enabled = false;
 			foreach (var n in core.Path) --n.Count;
 			return (node.Key, node.Value);
+		}
+
+		public void SetAt(long index, TValue value)
+		{
+			var node = core.GetNodeAt(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
+			node.Value = value;
 		}
 	}
 
