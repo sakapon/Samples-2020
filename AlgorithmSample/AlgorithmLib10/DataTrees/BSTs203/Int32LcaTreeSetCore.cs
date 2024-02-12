@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AlgorithmLab.DataTrees.BSTs.BSTs203
+﻿namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	class Int32LcaTreeSetCore<TValue>

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlgorithmLab.DataTrees.BSTs.Trees112
+﻿namespace AlgorithmLib10.DataTrees.BSTs.Trees112
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	public class Int32TreeSet
