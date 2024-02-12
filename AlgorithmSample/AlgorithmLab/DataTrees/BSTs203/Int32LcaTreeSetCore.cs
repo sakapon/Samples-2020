@@ -6,14 +6,14 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	class Int32LcaTreeSetCore<TValue>
 	{
-		[System.Diagnostics.DebuggerDisplay(@"Key = {Key}, Enabled = {Enabled}, Count = {Count}")]
+		[System.Diagnostics.DebuggerDisplay(@"Key = {Key}, Count = {Count}")]
 		public class Node
 		{
 			public int Key;
 			public TValue Value;
 			public bool Enabled;
-			public Node Left, Right;
 			public long Count;
+			public Node Left, Right;
 		}
 
 		public Node Root = new Node();
@@ -22,6 +22,7 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 
 		public void Clear()
 		{
+			// 暗黙的に Key = 0
 			Root = new Node();
 		}
 
@@ -35,6 +36,29 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 				var d = key.CompareTo(node.Key);
 				if (d == 0) break;
 				node = d < 0 ? node.Left : node.Right;
+			}
+			return node;
+		}
+
+		public Node GetNodeByIndex(long index)
+		{
+			Path.Clear();
+			var node = Root;
+			while (node != null)
+			{
+				Path.Add(node);
+				var lc = node.Left?.Count ?? 0;
+				if (index < lc)
+				{
+					node = node.Left;
+				}
+				else
+				{
+					index -= lc;
+					if (index == 0 && node.Enabled) break;
+					if (node.Enabled) --index;
+					node = node.Right;
+				}
 			}
 			return node;
 		}
@@ -158,6 +182,14 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 			foreach (var n in core.Path) ++n.Count;
 			return true;
 		}
+
+		public int GetFirst() => GetByIndex(0);
+		public int GetLast() => GetByIndex(core.Count - 1);
+		public int GetByIndex(long index)
+		{
+			var node = core.GetNodeByIndex(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
+			return node.Key;
+		}
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
@@ -214,6 +246,14 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 				node.Value = value;
 				foreach (var n in core.Path) ++n.Count;
 			}
+		}
+
+		public (int key, TValue value) GetFirst() => GetByIndex(0);
+		public (int key, TValue value) GetLast() => GetByIndex(core.Count - 1);
+		public (int key, TValue value) GetByIndex(long index)
+		{
+			var node = core.GetNodeByIndex(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
+			return (node.Key, node.Value);
 		}
 	}
 }
