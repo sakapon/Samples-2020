@@ -187,6 +187,17 @@
 			var node = core.GetNodeAt(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
 			return node.Key;
 		}
+
+		public int RemoveFirst() => RemoveAt(0);
+		public int RemoveLast() => RemoveAt(core.Count - 1);
+		public int RemoveAt(long index)
+		{
+			var node = core.GetNodeAt(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
+
+			node.Enabled = false;
+			foreach (var n in core.Path) --n.Count;
+			return node.Key;
+		}
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
@@ -195,6 +206,12 @@
 		readonly Int32LcaTreeSetCore<TValue> core = new Int32LcaTreeSetCore<TValue>();
 		public long Count => core.Count;
 		public void Clear() => core.Clear();
+
+		readonly TValue iv;
+		public Int32LcaTreeMap(TValue iv)
+		{
+			this.iv = iv;
+		}
 
 		public bool ContainsKey(int key)
 		{
@@ -228,7 +245,7 @@
 			get
 			{
 				var node = core.GetNode(key);
-				if (node == null || !node.Enabled) throw new KeyNotFoundException();
+				if (node == null || !node.Enabled) return iv;
 				return node.Value;
 			}
 			set
@@ -250,6 +267,17 @@
 		public (int key, TValue value) GetAt(long index)
 		{
 			var node = core.GetNodeAt(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
+			return (node.Key, node.Value);
+		}
+
+		public (int key, TValue value) RemoveFirst() => RemoveAt(0);
+		public (int key, TValue value) RemoveLast() => RemoveAt(core.Count - 1);
+		public (int key, TValue value) RemoveAt(long index)
+		{
+			var node = core.GetNodeAt(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
+
+			node.Enabled = false;
+			foreach (var n in core.Path) --n.Count;
 			return (node.Key, node.Value);
 		}
 	}
