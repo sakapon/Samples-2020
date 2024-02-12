@@ -37,6 +37,33 @@
 			return node;
 		}
 
+		public long GetIndex(int key)
+		{
+			var index = 0L;
+			var node = Root;
+			while (node != null)
+			{
+				var lc = node.Left?.Count ?? 0;
+				var d = key.CompareTo(node.Key);
+				if (d == 0)
+				{
+					if (!node.Enabled) break;
+					return index + lc;
+				}
+				else if (d < 0)
+				{
+					node = node.Left;
+				}
+				else
+				{
+					index += lc;
+					if (node.Enabled) ++index;
+					node = node.Right;
+				}
+			}
+			return -1;
+		}
+
 		public Node GetNodeAt(long index)
 		{
 			Path.Clear();
@@ -208,7 +235,7 @@
 		public void Clear() => core.Clear();
 
 		readonly TValue iv;
-		public Int32LcaTreeMap(TValue iv)
+		public Int32LcaTreeMap(TValue iv = default)
 		{
 			this.iv = iv;
 		}
@@ -279,6 +306,32 @@
 			node.Enabled = false;
 			foreach (var n in core.Path) --n.Count;
 			return (node.Key, node.Value);
+		}
+	}
+
+	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
+	public class Int32LcaTreeMultiSet
+	{
+		readonly Int32LcaTreeSetCore<long> core = new Int32LcaTreeSetCore<long>();
+		public long Count => core.Root.Value;
+		public void Clear() => core.Clear();
+
+		public bool Contains(int item)
+		{
+			var node = core.GetNode(item);
+			return node != null && node.Enabled;
+		}
+
+		public bool Add(int item, long count = 1)
+		{
+			var node = core.GetOrAddNode(item);
+			var nv = node.Value + count;
+			if (nv < 0) return false;
+
+			node.Value = nv;
+			node.Enabled = nv != 0;
+			foreach (var n in core.Path) n.Count += count;
+			return true;
 		}
 	}
 }
