@@ -37,7 +37,7 @@
 			return node;
 		}
 
-		public Node GetNodeByIndex(long index)
+		public Node GetNodeAt(long index)
 		{
 			Path.Clear();
 			var node = Root;
@@ -180,11 +180,11 @@
 			return true;
 		}
 
-		public int GetFirst() => GetByIndex(0);
-		public int GetLast() => GetByIndex(core.Count - 1);
-		public int GetByIndex(long index)
+		public int GetFirst() => GetAt(0);
+		public int GetLast() => GetAt(core.Count - 1);
+		public int GetAt(long index)
 		{
-			var node = core.GetNodeByIndex(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
+			var node = core.GetNodeAt(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
 			return node.Key;
 		}
 	}
@@ -245,11 +245,11 @@
 			}
 		}
 
-		public (int key, TValue value) GetFirst() => GetByIndex(0);
-		public (int key, TValue value) GetLast() => GetByIndex(core.Count - 1);
-		public (int key, TValue value) GetByIndex(long index)
+		public (int key, TValue value) GetFirst() => GetAt(0);
+		public (int key, TValue value) GetLast() => GetAt(core.Count - 1);
+		public (int key, TValue value) GetAt(long index)
 		{
-			var node = core.GetNodeByIndex(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
+			var node = core.GetNodeAt(index) ?? throw new ArgumentOutOfRangeException(nameof(index));
 			return (node.Key, node.Value);
 		}
 	}

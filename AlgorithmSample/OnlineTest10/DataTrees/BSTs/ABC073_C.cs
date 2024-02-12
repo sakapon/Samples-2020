@@ -1,6 +1,6 @@
 using AlgorithmLib10.DataTrees.BSTs.BSTs203;
 
-namespace OnlineTest.DataTrees.BSTs
+namespace OnlineTest10.DataTrees.BSTs
 {
 	// Test: https://atcoder.jp/contests/abc073/tasks/abc073_c
 	class ABC073_C
