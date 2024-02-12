@@ -45,13 +45,17 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 			Node node = Root, p = null;
 			while (true)
 			{
-				Path.Add(node);
 				var d = key.CompareTo(node.Key);
-				if (d == 0) return node;
+				if (d == 0)
+				{
+					Path.Add(node);
+					return node;
+				}
 
 				var lca = GetLca(key, node.Key);
 				if (lca == node.Key)
 				{
+					Path.Add(node);
 					p = node;
 					ref var child = ref node.Right;
 					if (d < 0) child = ref node.Left;
@@ -66,7 +70,7 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 				}
 				else if (lca == key)
 				{
-					var mn = new Node { Key = key };
+					var mn = new Node { Key = key, Count = node.Count };
 
 					if (key < p.Key) p.Left = mn;
 					else p.Right = mn;
@@ -79,8 +83,7 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 				}
 				else
 				{
-					var mn = new Node { Key = lca };
-					Path.Add(mn);
+					var mn = new Node { Key = lca, Count = node.Count };
 
 					if (lca < p.Key) p.Left = mn;
 					else p.Right = mn;
@@ -95,6 +98,8 @@ namespace AlgorithmLab.DataTrees.BSTs.BSTs203
 						mn.Left = node;
 						node = mn.Right = new Node { Key = key };
 					}
+
+					Path.Add(mn);
 					Path.Add(node);
 					return node;
 				}
