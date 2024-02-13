@@ -93,57 +93,26 @@
 			ref var node = ref Root;
 			while (true)
 			{
+				if (node == null) { node = new Node { Key = key }; break; }
+
 				var d = key.CompareTo(node.Key);
-				if (d == 0)
-				{
-					Path.Add(node);
-					return node;
-				}
+				if (d == 0) break;
 
 				var lca = GetLca(key, node.Key);
-				if (lca == node.Key)
+				if (lca != node.Key)
 				{
-					Path.Add(node);
-					node = ref (d < 0 ? ref node.Left : ref node.Right);
-
-					if (node == null)
-					{
-						node = new Node { Key = key };
-						Path.Add(node);
-						return node;
-					}
+					var child = node;
+					node = new Node { Key = lca, Count = node.Count };
+					(d < 0 ? ref node.Right : ref node.Left) = child;
+					if (lca == key) break;
 				}
-				else if (lca == key)
-				{
-					var mn = new Node { Key = key, Count = node.Count };
-					if (d < 0) mn.Right = node;
-					else mn.Left = node;
 
-					node = mn;
-					Path.Add(mn);
-					return mn;
-				}
-				else
-				{
-					var mn = new Node { Key = lca, Count = node.Count };
-					var child = new Node { Key = key };
-					if (d < 0)
-					{
-						mn.Right = node;
-						mn.Left = child;
-					}
-					else
-					{
-						mn.Left = node;
-						mn.Right = child;
-					}
-
-					node = mn;
-					Path.Add(mn);
-					Path.Add(child);
-					return child;
-				}
+				Path.Add(node);
+				node = ref (d < 0 ? ref node.Left : ref node.Right);
 			}
+
+			Path.Add(node);
+			return node;
 		}
 
 		static int GetLca(int x, int y)
