@@ -90,7 +90,7 @@
 		public Node GetOrAddNode(int key)
 		{
 			Path.Clear();
-			Node node = Root, p = null;
+			ref var node = ref Root;
 			while (true)
 			{
 				var d = key.CompareTo(node.Key);
@@ -104,52 +104,44 @@
 				if (lca == node.Key)
 				{
 					Path.Add(node);
-					p = node;
-					ref var child = ref node.Right;
-					if (d < 0) child = ref node.Left;
+					node = ref (d < 0 ? ref node.Left : ref node.Right);
 
-					if (child == null)
+					if (node == null)
 					{
-						child = new Node { Key = key };
-						Path.Add(child);
-						return child;
+						node = new Node { Key = key };
+						Path.Add(node);
+						return node;
 					}
-					node = child;
 				}
 				else if (lca == key)
 				{
 					var mn = new Node { Key = key, Count = node.Count };
-
-					if (key < p.Key) p.Left = mn;
-					else p.Right = mn;
-
 					if (d < 0) mn.Right = node;
 					else mn.Left = node;
 
+					node = mn;
 					Path.Add(mn);
 					return mn;
 				}
 				else
 				{
 					var mn = new Node { Key = lca, Count = node.Count };
-
-					if (lca < p.Key) p.Left = mn;
-					else p.Right = mn;
-
+					var child = new Node { Key = key };
 					if (d < 0)
 					{
 						mn.Right = node;
-						node = mn.Left = new Node { Key = key };
+						mn.Left = child;
 					}
 					else
 					{
 						mn.Left = node;
-						node = mn.Right = new Node { Key = key };
+						mn.Right = child;
 					}
 
+					node = mn;
 					Path.Add(mn);
-					Path.Add(node);
-					return node;
+					Path.Add(child);
+					return child;
 				}
 			}
 		}
