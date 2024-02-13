@@ -135,18 +135,59 @@
 		}
 
 		// Path に記録しません。
+		// node != null
+		public static Node GetFirstNodeGeq(Node node, int key)
+		{
+			var d = key.CompareTo(node.Key);
+			if (d < 0)
+			{
+				var r = node.Left == null ? null : GetFirstNodeGeq(node.Left, key);
+				if (r != null) return r;
+				if (node.Enabled) return node;
+				if (node.Right == null) return null;
+				return GetFirstNode(node.Right);
+			}
+			else if (d == 0)
+			{
+				if (node.Enabled) return node;
+				if (node.Right == null) return null;
+				return GetFirstNode(node.Right);
+			}
+			else
+			{
+				return GetFirstNodeGeq(node.Right, key);
+			}
+		}
+
+		// Path に記録しません。
+		// node != null
+		public static Node GetFirstNode(Node node)
+		{
+			if (node.Count == 0) return null;
+			if (node.Left != null && node.Left.Count > 0) return GetFirstNode(node.Left);
+			if (node.Enabled) return node;
+			return GetFirstNode(node.Right);
+		}
+		public static Node GetLastNode(Node node)
+		{
+			if (node.Count == 0) return null;
+			if (node.Right != null && node.Right.Count > 0) return GetLastNode(node.Right);
+			if (node.Enabled) return node;
+			return GetLastNode(node.Left);
+		}
 		public static Node GetNodeAt(Node node, long index)
 		{
-			if (node == null) return null;
 			var lc = node.Left?.Count ?? 0;
 			if (index < lc)
 			{
+				if (node.Left == null) return null;
 				return GetNodeAt(node.Left, index);
 			}
 			else
 			{
 				index -= lc;
 				if (index == 0 && node.Enabled) return node;
+				if (node.Right == null) return null;
 				if (node.Enabled) --index;
 				return GetNodeAt(node.Right, index);
 			}
@@ -184,6 +225,12 @@
 			node.Enabled = true;
 			foreach (var n in core.Path) ++n.Count;
 			return true;
+		}
+
+		public int GetFirstGeq(int item)
+		{
+			var node = Int32LcaTreeSetCore<bool>.GetFirstNodeGeq(core.Root, item);
+			return node != null ? node.Key : int.MinValue;
 		}
 
 		public int GetFirst() => GetAt(0);
