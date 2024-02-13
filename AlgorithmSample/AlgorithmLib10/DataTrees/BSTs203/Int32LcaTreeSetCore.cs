@@ -255,7 +255,23 @@
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 		public IEnumerator<int> GetEnumerator()
 		{
-			throw new NotImplementedException();
+			var q = new Stack<(Int32LcaTreeSetCore<bool>.Node, bool)>();
+			q.Push((core.Root, true));
+
+			while (q.Count > 0)
+			{
+				var (node, pre) = q.Pop();
+				if (pre)
+				{
+					q.Push((node, false));
+					if (node.Left != null) q.Push((node.Left, true));
+				}
+				else
+				{
+					if (node.Enabled) yield return node.Key;
+					if (node.Right != null) q.Push((node.Right, true));
+				}
+			}
 		}
 
 		public int[] ToArray()
@@ -364,7 +380,23 @@
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 		public IEnumerator<(int key, TValue value)> GetEnumerator()
 		{
-			throw new NotImplementedException();
+			var q = new Stack<(Int32LcaTreeSetCore<TValue>.Node, bool)>();
+			q.Push((core.Root, true));
+
+			while (q.Count > 0)
+			{
+				var (node, pre) = q.Pop();
+				if (pre)
+				{
+					q.Push((node, false));
+					if (node.Left != null) q.Push((node.Left, true));
+				}
+				else
+				{
+					if (node.Enabled) yield return (node.Key, node.Value);
+					if (node.Right != null) q.Push((node.Right, true));
+				}
+			}
 		}
 
 		public (int key, TValue value)[] ToArray()
