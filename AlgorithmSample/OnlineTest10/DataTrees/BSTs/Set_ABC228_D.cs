@@ -15,7 +15,7 @@ namespace OnlineTest10.DataTrees.BSTs
 			var a = new long[n];
 			Array.Fill(a, -1);
 
-			var set = new Int32LcaTreeSet();
+			var set = new Int32LCATreeSet();
 			for (int i = 0; i < n; i++)
 				set.Add(i);
 

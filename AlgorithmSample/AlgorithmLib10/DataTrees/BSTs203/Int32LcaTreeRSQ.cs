@@ -2,7 +2,7 @@
 namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	class Int32LcaTreeRSQCore
+	class Int32LCATreeRSQCore
 	{
 		[System.Diagnostics.DebuggerDisplay(@"Key = {Key}, Count = {Count}")]
 		public class Node
@@ -99,9 +99,9 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class Int32LcaTreeRSQ
+	public class Int32LCATreeRSQ
 	{
-		readonly Int32LcaTreeRSQCore core = new Int32LcaTreeRSQCore();
+		readonly Int32LCATreeRSQCore core = new Int32LCATreeRSQCore();
 		public long Count => core.Root.Value;
 		public void Clear() => core.Clear();
 

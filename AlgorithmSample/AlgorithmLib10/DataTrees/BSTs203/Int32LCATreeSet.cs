@@ -2,7 +2,7 @@
 namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	class Int32LcaTreeSetCore<TValue>
+	class Int32LCATreeSetCore<TValue>
 	{
 		[System.Diagnostics.DebuggerDisplay(@"Key = {Key}, Count = {Count}")]
 		public class Node
@@ -209,9 +209,9 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class Int32LcaTreeSet : IEnumerable<int>
+	public class Int32LCATreeSet : IEnumerable<int>
 	{
-		readonly Int32LcaTreeSetCore<bool> core = new Int32LcaTreeSetCore<bool>();
+		readonly Int32LCATreeSetCore<bool> core = new Int32LCATreeSetCore<bool>();
 		public long Count => core.Count;
 		public void Clear() => core.Clear();
 
@@ -243,7 +243,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 
 		public int GetFirstGeq(int item)
 		{
-			var node = Int32LcaTreeSetCore<bool>.GetFirstNodeGeq(core.Root, item);
+			var node = Int32LCATreeSetCore<bool>.GetFirstNodeGeq(core.Root, item);
 			return node != null ? node.Key : int.MinValue;
 		}
 
@@ -269,7 +269,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 		public IEnumerator<int> GetEnumerator()
 		{
-			var q = new Stack<(Int32LcaTreeSetCore<bool>.Node, bool)>();
+			var q = new Stack<(Int32LCATreeSetCore<bool>.Node, bool)>();
 			q.Push((core.Root, true));
 
 			while (q.Count > 0)
@@ -295,7 +295,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 			Rec(core.Root);
 			return r;
 
-			void Rec(Int32LcaTreeSetCore<bool>.Node node)
+			void Rec(Int32LCATreeSetCore<bool>.Node node)
 			{
 				if (node.Left != null) Rec(node.Left);
 				if (node.Enabled) r[++i] = node.Key;
@@ -305,14 +305,14 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class Int32LcaTreeMap<TValue> : IEnumerable<(int key, TValue value)>
+	public class Int32LCATreeMap<TValue> : IEnumerable<(int key, TValue value)>
 	{
-		readonly Int32LcaTreeSetCore<TValue> core = new Int32LcaTreeSetCore<TValue>();
+		readonly Int32LCATreeSetCore<TValue> core = new Int32LCATreeSetCore<TValue>();
 		public long Count => core.Count;
 		public void Clear() => core.Clear();
 
 		readonly TValue iv;
-		public Int32LcaTreeMap(TValue iv = default)
+		public Int32LCATreeMap(TValue iv = default)
 		{
 			this.iv = iv;
 		}
@@ -394,7 +394,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 		public IEnumerator<(int key, TValue value)> GetEnumerator()
 		{
-			var q = new Stack<(Int32LcaTreeSetCore<TValue>.Node, bool)>();
+			var q = new Stack<(Int32LCATreeSetCore<TValue>.Node, bool)>();
 			q.Push((core.Root, true));
 
 			while (q.Count > 0)
@@ -420,7 +420,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 			Rec(core.Root);
 			return r;
 
-			void Rec(Int32LcaTreeSetCore<TValue>.Node node)
+			void Rec(Int32LCATreeSetCore<TValue>.Node node)
 			{
 				if (node.Left != null) Rec(node.Left);
 				if (node.Enabled) r[++i] = (node.Key, node.Value);
@@ -430,9 +430,9 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class Int32LcaTreeMultiSet
+	public class Int32LCATreeMultiSet
 	{
-		readonly Int32LcaTreeSetCore<long> core = new Int32LcaTreeSetCore<long>();
+		readonly Int32LCATreeSetCore<long> core = new Int32LCATreeSetCore<long>();
 		public long Count => core.Root.Value;
 		public void Clear() => core.Clear();
 

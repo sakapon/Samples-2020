@@ -14,7 +14,7 @@ namespace OnlineTest10.DataTrees.BSTs
 			var p = Read();
 
 			var r = new int[n - k + 1];
-			var set = new Int32LcaTreeSet();
+			var set = new Int32LCATreeSet();
 
 			for (int i = 1; i <= n; i++)
 			{
