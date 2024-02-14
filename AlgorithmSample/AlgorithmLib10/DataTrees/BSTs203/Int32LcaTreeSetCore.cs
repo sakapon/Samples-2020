@@ -1,4 +1,5 @@
-﻿namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
+﻿
+namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 {
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
 	class Int32LcaTreeSetCore<TValue>
@@ -132,6 +133,20 @@
 			x |= x >> 8;
 			x |= x >> 16;
 			return x ^ (x >> 1);
+		}
+
+		public long GetCount(int l, int r) => GetFirstIndexGeq(Root, r) - GetFirstIndexGeq(Root, l);
+
+		public static long GetFirstIndexGeq(Node node, int key)
+		{
+			if (node == null) return 0;
+			var d = key.CompareTo(node.Key);
+			if (d < 0) return GetFirstIndexGeq(node.Left, key);
+
+			var lc = node.Left?.Count ?? 0;
+			if (d == 0) return lc;
+			if (node.Enabled) ++lc;
+			return lc + GetFirstIndexGeq(node.Right, key);
 		}
 
 		// Path に記録しません。
