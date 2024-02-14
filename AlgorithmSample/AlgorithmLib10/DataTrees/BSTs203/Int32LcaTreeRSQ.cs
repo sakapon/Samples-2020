@@ -92,7 +92,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 			if (node == null) return 0;
 			var d = key.CompareTo(node.Key);
 			if (d < 0) return GetCountLt(node.Left, key);
-			var lc = node.Left?.Count ?? 0;
+			var lc = node.Left != null ? node.Left.Count : 0;
 			if (d == 0) return lc;
 			return lc + node.Value + GetCountLt(node.Right, key);
 		}
