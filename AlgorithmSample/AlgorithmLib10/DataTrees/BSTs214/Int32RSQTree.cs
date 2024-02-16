@@ -1,7 +1,7 @@
 ﻿
 namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 {
-	public class Int32RAQTree
+	public class Int32RSQTree
 	{
 		// [-1 << MaxDigit, 1 << MaxDigit)
 		const int MaxDigit = 30;
@@ -11,7 +11,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 		int Root;
 		readonly List<int> Path = new List<int>();
 
-		public Int32RAQTree(int size = 1 << 22)
+		public Int32RSQTree(int size = 1 << 22)
 		{
 			Initialize(size);
 		}
@@ -31,56 +31,56 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 			t = 0;
 		}
 
-		public long this[int key]
+		public long this[int key] => this[key, key + 1];
+		public long this[int l, int r]
 		{
 			get
 			{
-				ScanNode(key);
+				ScanNode(l, r);
 				var v = 0L;
 				foreach (var n in Path) v += values[n];
 				return v;
 			}
 		}
 
-		public void Add(int key, long value) => Add(key, key + 1, value);
-		public void Add(int l, int r, long value)
+		public void Add(int key, long value)
 		{
-			AddNode(l, r);
+			AddNode(key);
 			foreach (var n in Path) values[n] += value;
 		}
 
-		void AddNode(int l, int r)
+		void ScanNode(int l, int r)
 		{
 			Path.Clear();
-			AddNode(ref Root, -1 << MaxDigit, 1 << MaxDigit, l, r);
+			ScanNode(Root, -1 << MaxDigit, 1 << MaxDigit, l, r);
 		}
 
-		void AddNode(ref int node, int nl, int nr, int l, int r)
+		void ScanNode(int node, int nl, int nr, int l, int r)
 		{
-			if (node == -1) node = ++t;
+			if (node == -1) return;
 			if (nl == l && nr == r) { Path.Add(node); return; }
 			var nc = (nl + nr) >> 1;
-			if (l < nc) AddNode(ref this.l[node], nl, nc, l, nc < r ? nc : r);
-			if (nc < r) AddNode(ref this.r[node], nc, nr, l < nc ? nc : l, r);
+			if (l < nc) ScanNode(this.l[node], nl, nc, l, nc < r ? nc : r);
+			if (nc < r) ScanNode(this.r[node], nc, nr, l < nc ? nc : l, r);
 		}
 
-		void ScanNode(int key)
+		void AddNode(int key)
 		{
 			Path.Clear();
-			var node = Root;
+			ref var node = ref Root;
 			var nc = 0;
 			for (int d = MaxDigit - 1; d >= -2; --d)
 			{
-				if (node == -1) return;
+				if (node == -1) node = ++t;
 				Path.Add(node);
 				if (key < nc)
 				{
-					node = l[node];
+					node = ref l[node];
 					nc -= 1 << d;
 				}
 				else
 				{
-					node = r[node];
+					node = ref r[node];
 					nc |= 1 << d;
 				}
 			}
