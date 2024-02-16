@@ -10,11 +10,12 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 			public Node Left, Right;
 		}
 
+		// [-1 << MaxDigit, 1 << MaxDigit)
 		const int MaxDigit = 30;
-		Node Root = new Node();
+		Node Root;
 		readonly List<Node> Path = new List<Node>();
 
-		public void Clear() => Root = new Node();
+		public void Clear() => Root = null;
 
 		public long this[int key]
 		{
@@ -40,7 +41,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 		void AddNode(int l, int r)
 		{
 			Path.Clear();
-			AddNode(ref Root, 0, 1 << MaxDigit, l, r);
+			AddNode(ref Root, -1 << MaxDigit, 1 << MaxDigit, l, r);
 		}
 
 		void AddNode(ref Node node, int nl, int nr, int l, int r)
@@ -56,20 +57,20 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 		{
 			Path.Clear();
 			var node = Root;
-			var nc = 1 << MaxDigit - 1;
-			for (var d = 1 << MaxDigit; d != 0; d >>= 1)
+			var nc = 0;
+			for (var d = 1 << MaxDigit - 1; ; d >>= 1)
 			{
 				if (node == null) return;
 				Path.Add(node);
 				if (key < nc)
 				{
 					node = node.Left;
-					nc -= d >> 2;
+					nc -= d;
 				}
 				else
 				{
 					node = node.Right;
-					nc |= d >> 2;
+					nc |= d;
 				}
 			}
 		}
