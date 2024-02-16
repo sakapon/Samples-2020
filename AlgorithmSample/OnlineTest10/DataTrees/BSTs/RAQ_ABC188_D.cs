@@ -19,7 +19,7 @@ namespace OnlineTest10.DataTrees.BSTs
 
 			foreach (var (a, b, c) in ps)
 			{
-				raq[a, b + 1] = c;
+				raq.Add(a, b + 1, c);
 				set.Add(a);
 				set.Add(b + 1);
 			}

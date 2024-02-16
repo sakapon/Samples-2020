@@ -40,16 +40,13 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 				foreach (var n in Path) v += values[n];
 				return v;
 			}
-			set => this[key, key + 1] = value;
 		}
 
-		public long this[int l, int r]
+		public void Add(int key, long value) => Add(key, key + 1, value);
+		public void Add(int l, int r, long value)
 		{
-			set
-			{
-				AddNode(l, r);
-				foreach (var n in Path) values[n] += value;
-			}
+			AddNode(l, r);
+			foreach (var n in Path) values[n] += value;
 		}
 
 		void AddNode(int l, int r)

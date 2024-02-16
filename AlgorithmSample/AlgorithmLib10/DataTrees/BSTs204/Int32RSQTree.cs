@@ -17,16 +17,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 
 		public void Clear() => Root = null;
 
-		public long this[int key]
-		{
-			get => this[key, key + 1];
-			set
-			{
-				AddNode(key);
-				foreach (var n in Path) n.Value += value;
-			}
-		}
-
+		public long this[int key] => this[key, key + 1];
 		public long this[int l, int r]
 		{
 			get
@@ -36,6 +27,12 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 				foreach (var n in Path) v += n.Value;
 				return v;
 			}
+		}
+
+		public void Add(int key, long value)
+		{
+			AddNode(key);
+			foreach (var n in Path) n.Value += value;
 		}
 
 		void ScanNode(int l, int r)

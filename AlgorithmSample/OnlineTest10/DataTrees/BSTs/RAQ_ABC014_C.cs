@@ -18,7 +18,7 @@ namespace OnlineTest10.DataTrees.BSTs
 
 			foreach (var (a, b) in ps)
 			{
-				raq[a, b + 1] = 1;
+				raq.Add(a, b + 1, 1);
 				u[a] = true;
 			}
 			return Enumerable.Range(0, u.Length).Where(i => u[i]).Max(i => raq[i]);
