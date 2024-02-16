@@ -36,9 +36,9 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 			get
 			{
 				ScanNode(key);
-				var r = 0L;
-				foreach (var n in Path) r += values[n];
-				return r;
+				var v = 0L;
+				foreach (var n in Path) v += values[n];
+				return v;
 			}
 			set => this[key, key + 1] = value;
 		}
@@ -73,19 +73,19 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 			Path.Clear();
 			var node = 0;
 			var nc = 0;
-			for (var d = 1 << MaxDigit - 1; ; d >>= 1)
+			for (int d = MaxDigit - 1; d >= -2; --d)
 			{
 				if (node == -1) return;
 				Path.Add(node);
 				if (key < nc)
 				{
 					node = l[node];
-					nc -= d;
+					nc -= 1 << d;
 				}
 				else
 				{
 					node = r[node];
-					nc |= d;
+					nc |= 1 << d;
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 ﻿
 namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 {
-	public class Int32RAQTree
+	public class Int32RSQTree
 	{
 		[System.Diagnostics.DebuggerDisplay(@"Value = {Value}")]
 		public class Node
@@ -19,57 +19,57 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 
 		public long this[int key]
 		{
-			get
-			{
-				ScanNode(key);
-				var v = 0L;
-				foreach (var n in Path) v += n.Value;
-				return v;
-			}
-			set => this[key, key + 1] = value;
-		}
-
-		public long this[int l, int r]
-		{
+			get => this[key, key + 1];
 			set
 			{
-				AddNode(l, r);
+				AddNode(key);
 				foreach (var n in Path) n.Value += value;
 			}
 		}
 
-		void AddNode(int l, int r)
+		public long this[int l, int r]
 		{
-			Path.Clear();
-			AddNode(ref Root, -1 << MaxDigit, 1 << MaxDigit, l, r);
+			get
+			{
+				ScanNode(l, r);
+				var v = 0L;
+				foreach (var n in Path) v += n.Value;
+				return v;
+			}
 		}
 
-		void AddNode(ref Node node, int nl, int nr, int l, int r)
+		void ScanNode(int l, int r)
 		{
-			node ??= new Node();
+			Path.Clear();
+			ScanNode(Root, -1 << MaxDigit, 1 << MaxDigit, l, r);
+		}
+
+		void ScanNode(Node node, int nl, int nr, int l, int r)
+		{
+			if (node == null) return;
 			if (nl == l && nr == r) { Path.Add(node); return; }
 			var nc = (nl + nr) >> 1;
-			if (l < nc) AddNode(ref node.Left, nl, nc, l, nc < r ? nc : r);
-			if (nc < r) AddNode(ref node.Right, nc, nr, l < nc ? nc : l, r);
+			if (l < nc) ScanNode(node.Left, nl, nc, l, nc < r ? nc : r);
+			if (nc < r) ScanNode(node.Right, nc, nr, l < nc ? nc : l, r);
 		}
 
-		void ScanNode(int key)
+		void AddNode(int key)
 		{
 			Path.Clear();
-			var node = Root;
+			ref var node = ref Root;
 			var nc = 0;
 			for (int d = MaxDigit - 1; d >= -2; --d)
 			{
-				if (node == null) return;
+				node ??= new Node();
 				Path.Add(node);
 				if (key < nc)
 				{
-					node = node.Left;
+					node = ref node.Left;
 					nc -= 1 << d;
 				}
 				else
 				{
-					node = node.Right;
+					node = ref node.Right;
 					nc |= 1 << d;
 				}
 			}
