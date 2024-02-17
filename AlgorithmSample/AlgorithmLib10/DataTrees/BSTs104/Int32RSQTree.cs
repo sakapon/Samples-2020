@@ -1,5 +1,5 @@
 ﻿
-namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
+namespace AlgorithmLib10.DataTrees.BSTs.BSTs104
 {
 	public class Int32RSQTree
 	{
