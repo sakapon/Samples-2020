@@ -1,4 +1,4 @@
-﻿using AlgorithmLib10.DataTrees.BSTs.BSTs203;
+﻿using AlgorithmLib10.DataTrees.BSTs.BSTs204;
 
 namespace OnlineTest10.DataTrees.BSTs
 {
@@ -14,7 +14,10 @@ namespace OnlineTest10.DataTrees.BSTs
 
 			var rsq = new Int32LCATreeRSQ();
 			for (int i = 0; i < n; i++)
-				rsq[i] = a[i];
+			{
+				rsq.Add(i, a[i]);
+				//rsq[i] = a[i];
+			}
 
 			Console.SetOut(new System.IO.StreamWriter(Console.OpenStandardOutput()) { AutoFlush = false });
 			while (qc-- > 0)

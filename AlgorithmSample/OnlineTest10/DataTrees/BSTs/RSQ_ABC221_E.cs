@@ -1,4 +1,4 @@
-﻿using AlgorithmLib10.DataTrees.BSTs.BSTs104;
+﻿using AlgorithmLib10.DataTrees.BSTs.BSTs204;
 
 namespace OnlineTest10.DataTrees.BSTs
 {
@@ -16,7 +16,7 @@ namespace OnlineTest10.DataTrees.BSTs
 			var p2_ = MPows(MHalf, n);
 
 			var r = 0L;
-			var rsq = new Int32RSQTree();
+			var rsq = new Int32LCATreeRSQ();
 
 			for (int i = n - 1; i >= 0; i--)
 			{
