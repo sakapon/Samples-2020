@@ -99,7 +99,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs203
 	}
 
 	[System.Diagnostics.DebuggerDisplay(@"Count = {Count}")]
-	public class Int32LCATreeRSQ0
+	public class Int32LCATreeRSQ
 	{
 		readonly Int32LCATreeRSQCore core = new Int32LCATreeRSQCore();
 		public long Count => core.Root.Value;
