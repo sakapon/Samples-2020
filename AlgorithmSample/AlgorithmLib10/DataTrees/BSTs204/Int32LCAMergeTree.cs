@@ -49,6 +49,23 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 			if (nc < r) ScanNode(node.Right, l < nc ? nc : l, r);
 		}
 
+		protected Node GetNode(int key)
+		{
+			Path.Clear();
+			var node = Root;
+			while (node != null)
+			{
+				if (!(node.L <= key && key < node.R)) return null;
+
+				Path.Add(node);
+				var nc = (node.L + node.R) >> 1;
+				var d = key.CompareTo(nc);
+				if (d == 0 && node.L + 1 == node.R) break;
+				node = d < 0 ? node.Left : node.Right;
+			}
+			return node;
+		}
+
 		protected Node GetOrAddNode(int key)
 		{
 			Path.Clear();
@@ -108,10 +125,16 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 
 		public TValue this[int key]
 		{
-			get => Get(key, key + 1);
+			get => Get(key);
 			set => Set(key, value);
 		}
 		public TValue this[int l, int r] => Get(l, r);
+
+		public TValue Get(int key)
+		{
+			var node = GetNode(key);
+			return node != null ? node.Value : IV;
+		}
 
 		public TValue Get(int l, int r)
 		{
@@ -141,10 +164,16 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 
 		public long this[int key]
 		{
-			get => Get(key, key + 1);
+			get => Get(key);
 			set => Set(key, value);
 		}
 		public long this[int l, int r] => Get(l, r);
+
+		public long Get(int key)
+		{
+			var node = GetNode(key);
+			return node != null ? node.Value : 0;
+		}
 
 		public long Get(int l, int r)
 		{
