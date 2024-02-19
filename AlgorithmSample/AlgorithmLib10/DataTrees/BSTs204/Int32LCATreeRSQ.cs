@@ -4,13 +4,10 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 	public class Int32LCATreeRSQ
 	{
 		// ノードは区間を表します。
-		[System.Diagnostics.DebuggerDisplay(@"Key = {Key}, Value = {Value}")]
+		[System.Diagnostics.DebuggerDisplay(@"[{L}, {R}), Value = {Value}")]
 		public class Node
 		{
-			// 区間の中央
-			public int Key;
-			// 区間の長さの半分 (葉の場合は 0)
-			public int HalfLength;
+			public int L, R;
 			public long Value;
 			public Node Left, Right;
 		}
@@ -21,7 +18,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 		readonly List<Node> Path = new List<Node>();
 
 		public Int32LCATreeRSQ() => Clear();
-		public void Clear() => Root = new Node { HalfLength = 1 << MaxDigit };
+		public void Clear() => Root = new Node { L = -1 << MaxDigit, R = 1 << MaxDigit };
 
 		public long this[int key] => Get(key, key + 1);
 		public long this[int l, int r] => Get(l, r);
@@ -44,8 +41,8 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 		void ScanNode(Node node, int l, int r)
 		{
 			if (node == null) return;
-			var nc = node.Key;
-			if (l <= nc - node.HalfLength && nc + node.HalfLength <= r) { Path.Add(node); return; }
+			var nc = (node.L + node.R) >> 1;
+			if (l <= node.L && node.R <= r) { Path.Add(node); return; }
 			if (l < nc) ScanNode(node.Left, l, nc < r ? nc : r);
 			if (nc < r) ScanNode(node.Right, l < nc ? nc : l, r);
 		}
@@ -56,37 +53,38 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 			ref var node = ref Root;
 			while (true)
 			{
-				if (node == null) { node = new Node { Key = key }; break; }
+				if (node == null) { node = new Node { L = key, R = key + 1 }; break; }
 
-				var d = key.CompareTo(node.Key);
-				if (d == 0 && node.HalfLength == 0) break;
-
-				var lca = GetLca(node, key);
-				if (lca == null)
+				var nc = (node.L + node.R) >> 1;
+				if (node.L <= key && key < node.R)
 				{
+					var d = key.CompareTo(nc);
+					if (d == 0 && node.L + 1 == node.R) break;
 					Path.Add(node);
 					node = ref (d < 0 ? ref node.Left : ref node.Right);
 				}
 				else
 				{
-					node = lca;
+					var child = node;
+					var f = MaxBit(nc ^ key);
+					var l = key & ~(f | (f - 1));
+					node = new Node { L = l, R = l + (f << 1), Value = node.Value };
 					Path.Add(node);
-					node = ref (node.Left == null ? ref node.Left : ref node.Right);
+					if (nc < (l | f))
+					{
+						node.Left = child;
+						node = ref node.Right;
+					}
+					else
+					{
+						node.Right = child;
+						node = ref node.Left;
+					}
 				}
 			}
 
 			Path.Add(node);
 			return node;
-		}
-
-		static Node GetLca(Node node, int key)
-		{
-			var nc = node.Key;
-			if (nc - node.HalfLength <= key && key < nc + node.HalfLength) return null;
-			var f = MaxBit(nc ^ key);
-			var lca = new Node { Key = key & ~(f - 1) | f, HalfLength = f, Value = node.Value };
-			(nc - node.HalfLength < lca.Key ? ref lca.Left : ref lca.Right) = node;
-			return lca;
 		}
 
 		static int MaxBit(int x)
