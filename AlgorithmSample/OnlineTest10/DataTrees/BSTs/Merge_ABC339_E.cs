@@ -1,4 +1,4 @@
-﻿using AlgorithmLib10.DataTrees.BSTs.BSTs203;
+﻿using AlgorithmLib10.DataTrees.BSTs.BSTs204;
 
 namespace OnlineTest10.DataTrees.BSTs
 {
@@ -14,7 +14,7 @@ namespace OnlineTest10.DataTrees.BSTs
 			var a = Read();
 
 			var monoid = new Monoid<int>((x, y) => x >= y ? x : y, 0);
-			var st = new Int32LCATreeMerge<int>(monoid);
+			var st = new Int32LCAMergeTree<int>(monoid);
 
 			foreach (var v in a)
 			{

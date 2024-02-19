@@ -102,17 +102,25 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 
 	public class Int32LCAMergeTree<TValue> : Int32LCAMergeTreeCore<TValue>
 	{
-		readonly Monoid<TValue> monoid;
+		readonly Func<TValue, TValue, TValue> merge;
 		protected override TValue IV { get; }
+		public Int32LCAMergeTree(Monoid<TValue> monoid) => (merge, IV) = (monoid.Op, monoid.Id);
 
-		public Int32LCAMergeTree(Monoid<TValue> monoid)
+		public TValue this[int key]
 		{
-			this.monoid = monoid;
-			IV = monoid.Id;
+			get => Get(key, key + 1);
+			set => Set(key, value);
 		}
-
-		public TValue this[int key] => Get(key, key + 1);
 		public TValue this[int l, int r] => Get(l, r);
+
+		public TValue Get(int l, int r)
+		{
+			Path.Clear();
+			ScanNode(Root, l, r);
+			var v = IV;
+			foreach (var n in Path) v = merge(v, n.Value);
+			return v;
+		}
 
 		public void Set(int key, TValue value)
 		{
@@ -122,17 +130,8 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 			{
 				node = Path[i];
 				node.Value = node.Left != null ? node.Left.Value : IV;
-				if (node.Right != null) node.Value = monoid.Op(node.Value, node.Right.Value);
+				if (node.Right != null) node.Value = merge(node.Value, node.Right.Value);
 			}
-		}
-
-		TValue Get(int l, int r)
-		{
-			Path.Clear();
-			ScanNode(Root, l, r);
-			var v = IV;
-			foreach (var n in Path) v = monoid.Op(v, n.Value);
-			return v;
 		}
 	}
 
@@ -140,8 +139,21 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 	{
 		protected override long IV => 0;
 
-		public long this[int key] => Get(key, key + 1);
+		public long this[int key]
+		{
+			get => Get(key, key + 1);
+			set => Set(key, value);
+		}
 		public long this[int l, int r] => Get(l, r);
+
+		public long Get(int l, int r)
+		{
+			Path.Clear();
+			ScanNode(Root, l, r);
+			var v = 0L;
+			foreach (var n in Path) v += n.Value;
+			return v;
+		}
 
 		public void Add(int key, long value)
 		{
@@ -149,13 +161,11 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 			foreach (var n in Path) n.Value += value;
 		}
 
-		long Get(int l, int r)
+		public void Set(int key, long value)
 		{
-			Path.Clear();
-			ScanNode(Root, l, r);
-			var v = 0L;
-			foreach (var n in Path) v += n.Value;
-			return v;
+			var node = GetOrAddNode(key);
+			var d = value - node.Value;
+			foreach (var n in Path) n.Value += d;
 		}
 	}
 }
