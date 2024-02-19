@@ -16,7 +16,7 @@ namespace OnlineTest10.DataTrees.BSTs
 			var p2_ = MPows(MHalf, n);
 
 			var r = 0L;
-			var rsq = new Int32LCATreeRSQ();
+			var rsq = new Int32LCARSQTree();
 
 			for (int i = n - 1; i >= 0; i--)
 			{

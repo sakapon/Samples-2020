@@ -12,7 +12,7 @@ namespace OnlineTest10.DataTrees.BSTs
 			var (n, qc) = Read2();
 			var a = Read();
 
-			var rsq = new Int32LCATreeRSQ();
+			var rsq = new Int32LCARSQTree();
 			for (int i = 0; i < n; i++)
 			{
 				rsq.Add(i, a[i]);

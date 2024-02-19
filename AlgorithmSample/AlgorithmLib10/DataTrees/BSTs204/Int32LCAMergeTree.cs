@@ -20,7 +20,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 		public Monoid(Func<T, T, T> op, T id = default(T)) { Op = op; Id = id; }
 	}
 
-	public class Int32LCAMergeTree<TValue>
+	public abstract class Int32LCAMergeTreeCore<TValue>
 	{
 		// ノードは区間を表します。
 		[System.Diagnostics.DebuggerDisplay(@"[{L}, {R}), Value = {Value}")]
@@ -33,41 +33,14 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 
 		// [-1 << MaxDigit, 1 << MaxDigit)
 		const int MaxDigit = 30;
-		readonly Monoid<TValue> monoid;
-		Node Root;
-		readonly List<Node> Path = new List<Node>();
+		protected Node Root;
+		protected readonly List<Node> Path = new List<Node>();
+		protected abstract TValue IV { get; }
 
-		public Int32LCAMergeTree(Monoid<TValue> monoid)
-		{
-			this.monoid = monoid;
-			Clear();
-		}
-		public void Clear() => Root = new Node { L = -1 << MaxDigit, R = 1 << MaxDigit, Value = monoid.Id };
+		public Int32LCAMergeTreeCore() => Clear();
+		public void Clear() => Root = new Node { L = -1 << MaxDigit, R = 1 << MaxDigit, Value = IV };
 
-		public TValue this[int key] => Get(key, key + 1);
-		public TValue this[int l, int r] => Get(l, r);
-
-		public void Set(int key, TValue value)
-		{
-			var node = GetOrAddNode(key);
-			node.Value = value;
-			for (int i = Path.Count - 2; i >= 0; --i)
-			{
-				node = Path[i];
-				node.Value = monoid.Op(node.Left != null ? node.Left.Value : monoid.Id, node.Right != null ? node.Right.Value : monoid.Id);
-			}
-		}
-
-		TValue Get(int l, int r)
-		{
-			Path.Clear();
-			ScanNode(Root, l, r);
-			var v = monoid.Id;
-			foreach (var n in Path) v = monoid.Op(v, n.Value);
-			return v;
-		}
-
-		void ScanNode(Node node, int l, int r)
+		protected void ScanNode(Node node, int l, int r)
 		{
 			if (node == null) return;
 			var nc = (node.L + node.R) >> 1;
@@ -76,13 +49,13 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 			if (nc < r) ScanNode(node.Right, l < nc ? nc : l, r);
 		}
 
-		Node GetOrAddNode(int key)
+		protected Node GetOrAddNode(int key)
 		{
 			Path.Clear();
 			ref var node = ref Root;
 			while (true)
 			{
-				if (node == null) { node = new Node { L = key, R = key + 1, Value = monoid.Id }; break; }
+				if (node == null) { node = new Node { L = key, R = key + 1, Value = IV }; break; }
 
 				var nc = (node.L + node.R) >> 1;
 				if (node.L <= key && key < node.R)
@@ -124,6 +97,65 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 			x |= x >> 8;
 			x |= x >> 16;
 			return x ^ (x >> 1);
+		}
+	}
+
+	public class Int32LCAMergeTree<TValue> : Int32LCAMergeTreeCore<TValue>
+	{
+		readonly Monoid<TValue> monoid;
+		protected override TValue IV { get; }
+
+		public Int32LCAMergeTree(Monoid<TValue> monoid)
+		{
+			this.monoid = monoid;
+			IV = monoid.Id;
+		}
+
+		public TValue this[int key] => Get(key, key + 1);
+		public TValue this[int l, int r] => Get(l, r);
+
+		public void Set(int key, TValue value)
+		{
+			var node = GetOrAddNode(key);
+			node.Value = value;
+			for (int i = Path.Count - 2; i >= 0; --i)
+			{
+				node = Path[i];
+				node.Value = node.Left != null ? node.Left.Value : IV;
+				if (node.Right != null) node.Value = monoid.Op(node.Value, node.Right.Value);
+			}
+		}
+
+		TValue Get(int l, int r)
+		{
+			Path.Clear();
+			ScanNode(Root, l, r);
+			var v = IV;
+			foreach (var n in Path) v = monoid.Op(v, n.Value);
+			return v;
+		}
+	}
+
+	public class Int32LCARSQTree : Int32LCAMergeTreeCore<long>
+	{
+		protected override long IV => 0;
+
+		public long this[int key] => Get(key, key + 1);
+		public long this[int l, int r] => Get(l, r);
+
+		public void Add(int key, long value)
+		{
+			GetOrAddNode(key);
+			foreach (var n in Path) n.Value += value;
+		}
+
+		long Get(int l, int r)
+		{
+			Path.Clear();
+			ScanNode(Root, l, r);
+			var v = 0L;
+			foreach (var n in Path) v += n.Value;
+			return v;
 		}
 	}
 }
