@@ -33,7 +33,8 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 		int t;
 
 		protected int Root;
-		protected readonly List<int> Path = new List<int>();
+		protected readonly int[] Path = new int[32];
+		protected int PathLength;
 		protected abstract TValue IV { get; }
 
 		public Int32LCAMergeTreeCore(int size = 1 << 20) => Initialize(size);
@@ -58,20 +59,20 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 		{
 			if (node == -1) return;
 			var nc = (L[node] + R[node]) >> 1;
-			if (l <= L[node] && R[node] <= r) { Path.Add(node); return; }
+			if (l <= L[node] && R[node] <= r) { Path[PathLength++] = node; return; }
 			if (l < nc) ScanNode(Left[node], l, nc < r ? nc : r);
 			if (nc < r) ScanNode(Right[node], l < nc ? nc : l, r);
 		}
 
 		protected int GetNode(int key)
 		{
-			Path.Clear();
+			PathLength = 0;
 			var node = Root;
 			while (node != -1)
 			{
 				if (!(L[node] <= key && key < R[node])) return -1;
 
-				Path.Add(node);
+				Path[PathLength++] = node;
 				var nc = (L[node] + R[node]) >> 1;
 				var d = key.CompareTo(nc);
 				if (d == 0 && L[node] + 1 == R[node]) break;
@@ -82,7 +83,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 
 		protected int GetOrAddNode(int key)
 		{
-			Path.Clear();
+			PathLength = 0;
 			ref var node = ref Root;
 			while (true)
 			{
@@ -99,7 +100,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 				{
 					var d = key.CompareTo(nc);
 					if (d == 0 && L[node] + 1 == R[node]) break;
-					Path.Add(node);
+					Path[PathLength++] = node;
 					node = ref (d < 0 ? ref Left[node] : ref Right[node]);
 				}
 				else
@@ -111,7 +112,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 					L[node] = l;
 					R[node] = l + (f << 1);
 					Value[node] = Value[child];
-					Path.Add(node);
+					Path[PathLength++] = node;
 					if (nc < (l | f))
 					{
 						Left[node] = child;
@@ -125,7 +126,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 				}
 			}
 
-			Path.Add(node);
+			Path[PathLength++] = node;
 			return node;
 		}
 
@@ -161,10 +162,10 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 
 		public TValue Get(int l, int r)
 		{
-			Path.Clear();
+			PathLength = 0;
 			ScanNode(Root, l, r);
 			var v = IV;
-			foreach (var n in Path) v = merge(v, Value[n]);
+			for (int i = 0; i < PathLength; ++i) v = merge(v, Value[Path[i]]);
 			return v;
 		}
 
@@ -172,7 +173,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 		{
 			var node = GetOrAddNode(key);
 			Value[node] = value;
-			for (int i = Path.Count - 2; i >= 0; --i)
+			for (int i = PathLength - 2; i >= 0; --i)
 			{
 				node = Path[i];
 				Value[node] = Left[node] != -1 ? Value[Left[node]] : IV;
@@ -200,24 +201,24 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 
 		public long Get(int l, int r)
 		{
-			Path.Clear();
+			PathLength = 0;
 			ScanNode(Root, l, r);
 			var v = 0L;
-			foreach (var n in Path) v += Value[n];
+			for (int i = 0; i < PathLength; ++i) v += Value[Path[i]];
 			return v;
 		}
 
 		public void Add(int key, long value)
 		{
 			GetOrAddNode(key);
-			foreach (var n in Path) Value[n] += value;
+			for (int i = 0; i < PathLength; ++i) Value[Path[i]] += value;
 		}
 
 		public void Set(int key, long value)
 		{
 			var node = GetOrAddNode(key);
 			var d = value - Value[node];
-			foreach (var n in Path) Value[n] += d;
+			for (int i = 0; i < PathLength; ++i) Value[Path[i]] += d;
 		}
 	}
 }
