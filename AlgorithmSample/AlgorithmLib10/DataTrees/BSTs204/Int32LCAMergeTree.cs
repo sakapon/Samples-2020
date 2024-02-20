@@ -31,14 +31,14 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 			public Node Left, Right;
 		}
 
-		// [-1 << MaxDigit, 1 << MaxDigit)
+		// [0, 1 << MaxDigit)
 		const int MaxDigit = 30;
 		protected Node Root;
 		protected readonly List<Node> Path = new List<Node>();
 		protected abstract TValue IV { get; }
 
 		public Int32LCAMergeTreeCore() => Clear();
-		public void Clear() => Root = new Node { L = -1 << MaxDigit, R = 1 << MaxDigit, Value = IV };
+		public void Clear() => Root = new Node { R = 1 << MaxDigit, Value = IV };
 
 		protected void ScanNodes(int l, int r)
 		{

@@ -22,7 +22,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 
 	public abstract class Int32LCAMergeTreeCore<TValue>
 	{
-		// [-1 << MaxDigit, 1 << MaxDigit)
+		// [0, 1 << MaxDigit)
 		const int MaxDigit = 30;
 
 		// ノードは区間を表します。
@@ -47,7 +47,6 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 			Left = new int[size];
 			Right = new int[size];
 
-			L[Root] = -1 << MaxDigit;
 			R[Root] = 1 << MaxDigit;
 			Array.Fill(Value, IV);
 			Array.Fill(Left, -1);
