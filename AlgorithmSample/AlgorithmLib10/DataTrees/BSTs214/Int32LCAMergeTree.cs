@@ -55,13 +55,19 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 			t = 0;
 		}
 
-		protected void ScanNode(int node, int l, int r)
+		protected void ScanNodes(int l, int r)
+		{
+			PathLength = 0;
+			ScanNodes(Root, l, r);
+		}
+
+		void ScanNodes(int node, int l, int r)
 		{
 			if (node == -1) return;
-			var nc = (L[node] + R[node]) >> 1;
 			if (l <= L[node] && R[node] <= r) { Path[PathLength++] = node; return; }
-			if (l < nc) ScanNode(Left[node], l, nc < r ? nc : r);
-			if (nc < r) ScanNode(Right[node], l < nc ? nc : l, r);
+			var nc = (L[node] + R[node]) >> 1;
+			if (l < nc) ScanNodes(Left[node], l, nc < r ? nc : r);
+			if (nc < r) ScanNodes(Right[node], l < nc ? nc : l, r);
 		}
 
 		protected int GetNode(int key)
@@ -162,8 +168,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 
 		public TValue Get(int l, int r)
 		{
-			PathLength = 0;
-			ScanNode(Root, l, r);
+			ScanNodes(l, r);
 			var v = IV;
 			for (int i = 0; i < PathLength; ++i) v = merge(v, Value[Path[i]]);
 			return v;
@@ -201,8 +206,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs214
 
 		public long Get(int l, int r)
 		{
-			PathLength = 0;
-			ScanNode(Root, l, r);
+			ScanNodes(l, r);
 			var v = 0L;
 			for (int i = 0; i < PathLength; ++i) v += Value[Path[i]];
 			return v;

@@ -40,13 +40,19 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 		public Int32LCAMergeTreeCore() => Clear();
 		public void Clear() => Root = new Node { L = -1 << MaxDigit, R = 1 << MaxDigit, Value = IV };
 
-		protected void ScanNode(Node node, int l, int r)
+		protected void ScanNodes(int l, int r)
+		{
+			Path.Clear();
+			ScanNodes(Root, l, r);
+		}
+
+		void ScanNodes(Node node, int l, int r)
 		{
 			if (node == null) return;
-			var nc = (node.L + node.R) >> 1;
 			if (l <= node.L && node.R <= r) { Path.Add(node); return; }
-			if (l < nc) ScanNode(node.Left, l, nc < r ? nc : r);
-			if (nc < r) ScanNode(node.Right, l < nc ? nc : l, r);
+			var nc = (node.L + node.R) >> 1;
+			if (l < nc) ScanNodes(node.Left, l, nc < r ? nc : r);
+			if (nc < r) ScanNodes(node.Right, l < nc ? nc : l, r);
 		}
 
 		protected Node GetNode(int key)
@@ -138,8 +144,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 
 		public TValue Get(int l, int r)
 		{
-			Path.Clear();
-			ScanNode(Root, l, r);
+			ScanNodes(l, r);
 			var v = IV;
 			foreach (var n in Path) v = merge(v, n.Value);
 			return v;
@@ -177,8 +182,7 @@ namespace AlgorithmLib10.DataTrees.BSTs.BSTs204
 
 		public long Get(int l, int r)
 		{
-			Path.Clear();
-			ScanNode(Root, l, r);
+			ScanNodes(l, r);
 			var v = 0L;
 			foreach (var n in Path) v += n.Value;
 			return v;
