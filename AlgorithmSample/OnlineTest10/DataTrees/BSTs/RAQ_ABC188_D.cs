@@ -1,4 +1,4 @@
-﻿using AlgorithmLib10.DataTrees.BSTs.BSTs104;
+﻿using AlgorithmLib10.DataTrees.BSTs.BSTs204;
 
 namespace OnlineTest10.DataTrees.BSTs
 {
@@ -14,7 +14,7 @@ namespace OnlineTest10.DataTrees.BSTs
 			var (n, C) = Read2();
 			var ps = Array.ConvertAll(new bool[n], _ => Read3());
 
-			var raq = new Int32RAQTree();
+			var raq = new Int32LCARAQTree();
 			var set = new HashSet<int>();
 
 			foreach (var (a, b, c) in ps)
