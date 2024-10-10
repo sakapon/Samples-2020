@@ -25,7 +25,7 @@ namespace OnlineTest.DataTrees.UF
 				uf.Union(c - 1, d - 1);
 			}
 
-			return uf.ToGroups().All(g => g.Sum(v => a[v]) == g.Sum(v => b[v]));
+			return uf.ToSets().All(g => g.Sum(v => a[v]) == g.Sum(v => b[v]));
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace OnlineTest.DataTrees.UF
 			var uf = new UnionFind(n + 1);
 			foreach (var (a, b) in es)
 				uf.Union(a, b);
-			return uf.GroupsCount - 2;
+			return uf.SetsCount - 2;
 		}
 	}
 }

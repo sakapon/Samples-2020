@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Linq;
 
+// 実用可能です。
+// Int32 vertexes
 namespace AlgorithmLab.DataTrees.UF401
 {
-	// Int32 vertexes
+	[System.Diagnostics.DebuggerDisplay(@"ItemsCount = {ItemsCount}, SetsCount = {SetsCount}")]
 	public class UnionFind
 	{
 		readonly int[] parents, sizes;
-		int groupsCount;
+		public int ItemsCount => parents.Length;
+		public int SetsCount { get; private set; }
 
 		public UnionFind(int n)
 		{
@@ -15,11 +18,9 @@ namespace AlgorithmLab.DataTrees.UF401
 			Array.Fill(parents, -1);
 			sizes = new int[n];
 			Array.Fill(sizes, 1);
-			groupsCount = n;
+			SetsCount = n;
 		}
 
-		public int ItemsCount => parents.Length;
-		public int GroupsCount => groupsCount;
 		public int Find(int x) => parents[x] == -1 ? x : parents[x] = Find(parents[x]);
 		public bool AreSame(int x, int y) => Find(x) == Find(y);
 		public int GetSize(int x) => sizes[Find(x)];
@@ -28,18 +29,13 @@ namespace AlgorithmLab.DataTrees.UF401
 		{
 			if ((x = Find(x)) == (y = Find(y))) return false;
 
-			if (sizes[x] < sizes[y]) Merge(y, x);
-			else Merge(x, y);
+			if (sizes[x] < sizes[y]) (x, y) = (y, x);
+			parents[y] = x;
+			sizes[x] += sizes[y];
+			--SetsCount;
 			return true;
 		}
 
-		void Merge(int x, int y)
-		{
-			parents[y] = x;
-			sizes[x] += sizes[y];
-			--groupsCount;
-		}
-
-		public ILookup<int, int> ToGroups() => Enumerable.Range(0, parents.Length).ToLookup(Find);
+		public ILookup<int, int> ToSets() => Enumerable.Range(0, parents.Length).ToLookup(Find);
 	}
 }
