@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-// 実用可能です。
 // Int32 vertexes, node-based
-namespace AlgorithmLab.DataTrees.UF411
+namespace AlgorithmLab.DataTrees.UF611
 {
 	[System.Diagnostics.DebuggerDisplay(@"ItemsCount = {ItemsCount}, SetsCount = {SetsCount}")]
 	public class UnionFind
@@ -14,6 +13,8 @@ namespace AlgorithmLab.DataTrees.UF411
 			public int Item;
 			public Node Parent;
 			public int Size = 1;
+			// 親を基準とした相対値
+			public long Value;
 		}
 
 		readonly Node[] nodes;
@@ -29,21 +30,34 @@ namespace AlgorithmLab.DataTrees.UF411
 			SetsCount = n;
 		}
 
-		Node Find(Node n) => n.Parent == null ? n : n.Parent = Find(n.Parent);
+		Node Find(Node n)
+		{
+			if (n.Parent == null) return n;
+
+			var r = Find(n.Parent);
+			n.Value += n.Parent.Value;
+			return n.Parent = r;
+		}
+
 		public Node Find(int x) => Find(nodes[x]);
 		public bool AreSame(int x, int y) => Find(x) == Find(y);
 		public int GetSize(int x) => Find(x).Size;
 
-		public bool Union(int x, int y)
+		public bool Union(int x, int y, long x2y)
 		{
 			var rx = Find(x);
 			var ry = Find(y);
 			if (rx == ry) return false;
 
-			if (rx.Size < ry.Size) (rx, ry) = (ry, rx);
+			if (rx.Size < ry.Size)
+			{
+				(rx, ry) = (ry, rx);
+				x2y = -x2y;
+			}
 			ry.Parent = rx;
 			rx.Size += ry.Size;
 			--SetsCount;
+			ry.Value = nodes[x].Value - nodes[y].Value + x2y;
 			return true;
 		}
 
