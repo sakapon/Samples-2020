@@ -2,7 +2,7 @@
 using System.Linq;
 
 // 実用可能です。
-// Int32 vertexes
+// Int32 vertexes, array-based
 namespace AlgorithmLab.DataTrees.UF401
 {
 	[System.Diagnostics.DebuggerDisplay(@"ItemsCount = {ItemsCount}, SetsCount = {SetsCount}")]
