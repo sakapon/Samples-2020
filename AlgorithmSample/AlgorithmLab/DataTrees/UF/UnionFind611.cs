@@ -51,6 +51,7 @@ namespace AlgorithmLab.DataTrees.UF611
 
 			if (rx.Size < ry.Size)
 			{
+				(x, y) = (y, x);
 				(rx, ry) = (ry, rx);
 				x2y = -x2y;
 			}
