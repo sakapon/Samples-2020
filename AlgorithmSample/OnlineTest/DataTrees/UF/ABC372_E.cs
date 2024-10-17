@@ -36,7 +36,7 @@ namespace OnlineTest.DataTrees.UF
 				}
 				else
 				{
-					var l = uf.Find(u).Value;
+					var l = uf.GetValue(u);
 					r.Add(l.Count >= v ? l[v - 1] : -1);
 				}
 			}

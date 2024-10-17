@@ -8,18 +8,17 @@ namespace AlgorithmLab.DataTrees.UF511
 	[System.Diagnostics.DebuggerDisplay(@"ItemsCount = {ItemsCount}, SetsCount = {SetsCount}")]
 	public class UnionFind<TValue>
 	{
-		[System.Diagnostics.DebuggerDisplay(@"\{{Item}, {Value}\}")]
+		[System.Diagnostics.DebuggerDisplay(@"\{{DebuggerDisplay}\}")]
 		public class Node
 		{
 			public int Item;
 			public Node Parent;
 			public int Size = 1;
 			public TValue Value;
+			string DebuggerDisplay => Parent == null ? $"{{{Item}, Size = {Size}, Value = {Value}}}" : $"{{{Item} (Not Root)}}";
 		}
 
 		readonly Node[] nodes;
-		// path compression
-		public Node this[int x] { get { Find(x); return nodes[x]; } }
 		public int ItemsCount => nodes.Length;
 		public int SetsCount { get; private set; }
 		public Func<TValue, TValue, TValue> MergeValues { get; }
@@ -37,6 +36,7 @@ namespace AlgorithmLab.DataTrees.UF511
 		public Node Find(int x) => Find(nodes[x]);
 		public bool AreSame(int x, int y) => Find(x) == Find(y);
 		public int GetSize(int x) => Find(x).Size;
+		public TValue GetValue(int x) => Find(x).Value;
 
 		public bool Union(int x, int y)
 		{
