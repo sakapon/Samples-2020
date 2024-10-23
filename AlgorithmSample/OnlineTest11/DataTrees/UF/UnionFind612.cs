@@ -34,6 +34,7 @@ namespace AlgorithmLab.DataTrees.UF612
 			if (n.Parent == null) return n;
 
 			var r = Find(n.Parent);
+			// 作用素の場合、右が先
 			n.Value += n.Parent.Value;
 			return n.Parent = r;
 		}
@@ -57,7 +58,8 @@ namespace AlgorithmLab.DataTrees.UF612
 			ry.Parent = rx;
 			rx.Size += ry.Size;
 			--SetsCount;
-			ry.Value = nodes[x].Value + x2y + (-nodes[y].Value);
+			// 作用素の場合、右が先
+			ry.Value = -nodes[y].Value + x2y + nodes[x].Value;
 			return true;
 		}
 
