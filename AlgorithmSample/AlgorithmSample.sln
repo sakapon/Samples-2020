@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineTest", "OnlineTest\OnlineTest.csproj", "{C71A6E7B-51F9-416B-B35E-65898F8ECCC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmLib10", "AlgorithmLib10\AlgorithmLib10.csproj", "{0FF6709A-1D5C-48C7-8E9F-4D7EFB163E02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgorithmLib10", "AlgorithmLib10\AlgorithmLib10.csproj", "{0FF6709A-1D5C-48C7-8E9F-4D7EFB163E02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineTest10", "OnlineTest10\OnlineTest10.csproj", "{D8B3D859-F169-4F42-8C9A-68BF94EFC688}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineTest10", "OnlineTest10\OnlineTest10.csproj", "{D8B3D859-F169-4F42-8C9A-68BF94EFC688}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineTest11", "OnlineTest11\OnlineTest11.csproj", "{47C15AE3-37B6-42EB-A12E-39284099C1D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{D8B3D859-F169-4F42-8C9A-68BF94EFC688}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8B3D859-F169-4F42-8C9A-68BF94EFC688}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8B3D859-F169-4F42-8C9A-68BF94EFC688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47C15AE3-37B6-42EB-A12E-39284099C1D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C15AE3-37B6-42EB-A12E-39284099C1D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C15AE3-37B6-42EB-A12E-39284099C1D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C15AE3-37B6-42EB-A12E-39284099C1D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
