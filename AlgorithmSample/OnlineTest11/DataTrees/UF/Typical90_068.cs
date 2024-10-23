@@ -1,31 +1,31 @@
-﻿using System;
-using System.Linq;
+﻿using System.Numerics;
 using System.Text;
-using AlgorithmLab.DataTrees.UF602;
+using AlgorithmLab.DataTrees.UF612;
 
 namespace OnlineTest.DataTrees.UF
 {
 	// Test: https://atcoder.jp/contests/typical90/tasks/typical90_bp
 	class Typical90_068
 	{
-		struct Op
+		struct Op : IUnaryNegationOperators<Op, Op>, IAdditionOperators<Op, Op, Op>
 		{
-			public int sign;
-			public long value;
+			public int a;
+			public long b;
 
-			public Op(int sign, long value)
+			public Op() : this(1, 0) { }
+			public Op(int a, long b)
 			{
-				this.sign = sign;
-				this.value = value;
+				this.a = a;
+				this.b = b;
 			}
 
-			public long GetValue(long a) => sign * a + value;
-			public Op Inverse() => new Op(sign, -sign * value);
-			public static Op Composition(Op f, Op g) => new Op(f.sign * g.sign, f.sign * g.value + f.value);
+			public readonly long GetValue(long x) => a * x + b;
+			public static Op operator -(Op f) => new(1 / f.a, -f.b / f.a);
+			public static Op operator +(Op f, Op g) => new(f.a * g.a, f.a * g.b + f.b);
 		}
 
 		static int[] Read() => Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-		static (int t, int x, int y, int v) Read4() { var a = Read(); return (a[0], a[1], a[2], a[3]); }
+		static (int, int, int, int) Read4() { var a = Read(); return (a[0], a[1], a[2], a[3]); }
 		static void Main()
 		{
 			var n = int.Parse(Console.ReadLine());
@@ -33,7 +33,7 @@ namespace OnlineTest.DataTrees.UF
 			var qs = Array.ConvertAll(new bool[qc], _ => Read4());
 			var sb = new StringBuilder();
 
-			var uf = new UnionFind<Op>(n + 1, new Op(1, 0), f => f.Inverse(), Op.Composition);
+			var uf = new UnionFind<Op>(n + 1);
 
 			foreach (var (t, x, y, v) in qs)
 			{
@@ -45,7 +45,7 @@ namespace OnlineTest.DataTrees.UF
 				{
 					if (uf.AreSame(x, y))
 					{
-						var f = Op.Composition(uf[y], uf[x].Inverse());
+						var f = uf[y].Value + (-uf[x].Value);
 						sb.AppendLine(f.GetValue(v).ToString());
 					}
 					else
