@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 
 // Int32 vertexes, node-based
+// TValue を作用素として利用するには、(f + g)(x) = f(g(x)) となるように Addition を定義すればよい。
 namespace AlgorithmLab.DataTrees.UF612
 {
 	[System.Diagnostics.DebuggerDisplay(@"ItemsCount = {ItemsCount}, SetsCount = {SetsCount}")]
