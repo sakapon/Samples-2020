@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Numerics;
 
 // Int32 vertexes, node-based
-namespace AlgorithmLab.DataTrees.UF611
+namespace AlgorithmLab.DataTrees.UF612
 {
 	[System.Diagnostics.DebuggerDisplay(@"ItemsCount = {ItemsCount}, SetsCount = {SetsCount}")]
-	public class UnionFind
+	public class UnionFind<TValue> where TValue : IUnaryNegationOperators<TValue, TValue>, IAdditionOperators<TValue, TValue, TValue>, new()
 	{
 		[System.Diagnostics.DebuggerDisplay(@"\{{Item}, {Value}\}")]
 		public class Node
@@ -14,7 +13,7 @@ namespace AlgorithmLab.DataTrees.UF611
 			public Node Parent;
 			public int Size = 1;
 			// 親を基準とした相対値
-			public long Value;
+			public TValue Value = new();
 		}
 
 		readonly Node[] nodes;
@@ -43,7 +42,7 @@ namespace AlgorithmLab.DataTrees.UF611
 		public bool AreSame(int x, int y) => Find(x) == Find(y);
 		public int GetSize(int x) => Find(x).Size;
 
-		public bool Union(int x, int y, long x2y)
+		public bool Union(int x, int y, TValue x2y)
 		{
 			var rx = Find(x);
 			var ry = Find(y);
@@ -58,7 +57,7 @@ namespace AlgorithmLab.DataTrees.UF611
 			ry.Parent = rx;
 			rx.Size += ry.Size;
 			--SetsCount;
-			ry.Value = nodes[x].Value - nodes[y].Value + x2y;
+			ry.Value = nodes[x].Value + x2y + (-nodes[y].Value);
 			return true;
 		}
 
