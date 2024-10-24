@@ -6,7 +6,7 @@ using AlgorithmLab.DataTrees.UF602;
 namespace OnlineTest.DataTrees.UF
 {
 	// Test: https://atcoder.jp/contests/typical90/tasks/typical90_bp
-	class Typical90_068
+	class Typical90_068_2
 	{
 		struct Op
 		{
