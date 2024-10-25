@@ -58,7 +58,7 @@ namespace AlgorithmLab.DataTrees.UF611
 			ry.Parent = rx;
 			rx.Size += ry.Size;
 			--SetsCount;
-			ry.Value = nodes[x].Value - nodes[y].Value + x2y;
+			ry.Value = -nodes[y].Value + x2y + nodes[x].Value;
 			return true;
 		}
 
