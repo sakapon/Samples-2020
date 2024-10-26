@@ -24,7 +24,7 @@ namespace OnlineTest.DataTrees.UF
 			{
 				var (a, b, d) = qs[i];
 
-				if (uf.Union(b, a, d) || uf[a].Value - uf[b].Value == d)
+				if (uf.Union(b, a, d) || uf.Verify(b, a, d))
 				{
 					r.Add(i + 1);
 				}

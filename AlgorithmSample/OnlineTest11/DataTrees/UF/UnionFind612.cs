@@ -64,6 +64,8 @@ namespace AlgorithmLab.DataTrees.UF612
 			return true;
 		}
 
+		public bool Verify(int x, int y, TValue x2y) => AreSame(x, y) && EqualityComparer<TValue>.Default.Equals(nodes[y].Value, x2y + nodes[x].Value);
+
 		public ILookup<Node, Node> ToSets() => nodes.ToLookup(Find);
 	}
 }

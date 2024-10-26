@@ -62,6 +62,8 @@ namespace AlgorithmLab.DataTrees.UF611
 			return true;
 		}
 
+		public bool Verify(int x, int y, long x2y) => AreSame(x, y) && nodes[y].Value == x2y + nodes[x].Value;
+
 		public ILookup<Node, Node> ToSets() => nodes.ToLookup(Find);
 	}
 }

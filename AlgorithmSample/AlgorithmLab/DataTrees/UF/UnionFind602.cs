@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AlgorithmLab.DataTrees.UF602
@@ -76,6 +77,8 @@ namespace AlgorithmLab.DataTrees.UF602
 			--SetsCount;
 			return true;
 		}
+
+		public bool Verify(int x, int y, TOp x2y) => AreSame(x, y) && EqualityComparer<TOp>.Default.Equals(nodes[y].Op, composition(x2y, nodes[x].Op));
 
 		public ILookup<Node, Node> ToGroups() => nodes.ToLookup(Find);
 	}
