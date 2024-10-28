@@ -25,7 +25,7 @@ namespace OnlineTest.DataTrees.UF
 		}
 
 		static int[] Read() => Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-		static (int t, int x, int y, int v) Read4() { var a = Read(); return (a[0], a[1], a[2], a[3]); }
+		static (int, int, int, int) Read4() { var a = Read(); return (a[0], a[1], a[2], a[3]); }
 		static void Main()
 		{
 			var n = int.Parse(Console.ReadLine());
@@ -45,7 +45,7 @@ namespace OnlineTest.DataTrees.UF
 				{
 					if (uf.AreSame(x, y))
 					{
-						var f = Op.Composition(uf[y], uf[x].Inverse());
+						var f = uf.GetX2Y(x, y);
 						sb.AppendLine(f.GetValue(v).ToString());
 					}
 					else

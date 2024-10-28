@@ -45,7 +45,7 @@ namespace OnlineTest.DataTrees.UF
 				{
 					if (uf.AreSame(x, y))
 					{
-						var f = uf[y].Value + (-uf[x].Value);
+						var f = uf.GetX2Y(x, y);
 						sb.AppendLine(f.GetValue(v).ToString());
 					}
 					else

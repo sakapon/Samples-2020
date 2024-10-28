@@ -78,6 +78,11 @@ namespace AlgorithmLab.DataTrees.UF602
 			return true;
 		}
 
+		public TOp GetX2Y(int x, int y)
+		{
+			if (!AreSame(x, y)) throw new InvalidOperationException($"{x} and {y} are not in the same set.");
+			return composition(nodes[y].Op, inverse(nodes[x].Op));
+		}
 		public bool Verify(int x, int y, TOp x2y) => AreSame(x, y) && EqualityComparer<TOp>.Default.Equals(nodes[y].Op, composition(x2y, nodes[x].Op));
 
 		public ILookup<Node, Node> ToGroups() => nodes.ToLookup(Find);

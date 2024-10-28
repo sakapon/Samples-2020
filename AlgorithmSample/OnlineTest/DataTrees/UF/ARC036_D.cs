@@ -36,7 +36,7 @@ namespace OnlineTest.DataTrees.UF
 				}
 				else
 				{
-					r.Add(uf1.AreSame(x, y) && (uf1.GetValue(x) || uf2.Verify(x, y, false)));
+					r.Add(uf1.AreSame(x, y) && (uf1.GetValue(x) || !uf2.GetX2Y(x, y)));
 				}
 			}
 			return string.Join("\n", r.Select(b => b ? "YES" : "NO"));

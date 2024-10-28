@@ -64,6 +64,11 @@ namespace AlgorithmLab.DataTrees.UF612
 			return true;
 		}
 
+		public TValue GetX2Y(int x, int y)
+		{
+			if (!AreSame(x, y)) throw new InvalidOperationException($"{x} and {y} are not in the same set.");
+			return nodes[y].Value + (-nodes[x].Value);
+		}
 		public bool Verify(int x, int y, TValue x2y) => AreSame(x, y) && EqualityComparer<TValue>.Default.Equals(nodes[y].Value, x2y + nodes[x].Value);
 
 		public ILookup<Node, Node> ToSets() => nodes.ToLookup(Find);
