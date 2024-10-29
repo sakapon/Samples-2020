@@ -37,27 +37,25 @@ namespace OnlineTest.DataTrees.UF
 
 			var redsCount = 0;
 			var sum = 0L;
-			var nexts = new List<int>();
+			var set = new HashSet<int>();
 
-			for (int v = 0; v < n; v++)
-			{
-				if (p[v]) continue;
-				redsCount++;
+			for (int i = 0; i < h; i++)
+				for (int j = 0; j < w; j++)
+				{
+					var v = w * i + j;
+					if (p[v]) continue;
+					redsCount++;
 
-				var i = v / w;
-				var j = v % w;
+					set.Clear();
+					if (i > 0 && p[v - w]) set.Add(uf.Find(v - w));
+					if (i + 1 < h && p[v + w]) set.Add(uf.Find(v + w));
+					if (j > 0 && p[v - 1]) set.Add(uf.Find(v - 1));
+					if (j + 1 < w && p[v + 1]) set.Add(uf.Find(v + 1));
 
-				nexts.Clear();
-				if (i > 0 && p[v - w]) nexts.Add(v - w);
-				if (i + 1 < h && p[v + w]) nexts.Add(v + w);
-				if (j > 0 && p[v - 1]) nexts.Add(v - 1);
-				if (j + 1 < w && p[v + 1]) nexts.Add(v + 1);
+					sum += 1 - set.Count;
+				}
 
-				sum += 1 - nexts.Select(uf.Find).Distinct().Count() + M;
-			}
-
-			sum %= M;
-			return (uf.SetsCount - redsCount + sum * MInv(redsCount)) % M;
+			return (uf.SetsCount - redsCount + MInt(sum * MInv(redsCount))) % M;
 		}
 
 		const long M = 998244353;
@@ -69,5 +67,6 @@ namespace OnlineTest.DataTrees.UF
 			return r;
 		}
 		static long MInv(long x) => MPow(x, M - 2);
+		static long MInt(long x) => (x %= M) < 0 ? x + M : x;
 	}
 }
