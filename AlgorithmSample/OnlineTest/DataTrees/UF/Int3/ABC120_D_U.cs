@@ -19,19 +19,16 @@ namespace OnlineTest.DataTrees.UF
 			var r = new List<long>();
 			var s = 0L;
 			var uf = new UnionFind(n + 1);
-			var u = new bool[m];
 
-			for (int j = m - 1; j >= 0; j--)
+			foreach (var (a, b) in es.Reverse())
 			{
-				var (a, b) = es[j];
-				u[j] = uf.Union(a, b);
+				uf.Union(a, b);
 			}
 
 			for (int j = 0; j < m; j++)
 			{
-				if (u[j])
+				if (uf.Undo(out var a, out var b))
 				{
-					uf.Undo(out var a, out var b);
 					s += (long)uf.GetSize(a) * uf.GetSize(b);
 				}
 				r.Add(s);

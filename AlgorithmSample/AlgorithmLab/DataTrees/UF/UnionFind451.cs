@@ -29,7 +29,11 @@ namespace AlgorithmLab.DataTrees.UF451
 
 		public bool Union(int x, int y)
 		{
-			if ((x = Find(x)) == (y = Find(y))) return false;
+			if ((x = Find(x)) == (y = Find(y)))
+			{
+				history.Push((x, y));
+				return false;
+			}
 
 			if (sizes[x] < sizes[y]) (x, y) = (y, x);
 			parents[y] = x;
@@ -39,15 +43,14 @@ namespace AlgorithmLab.DataTrees.UF451
 			return true;
 		}
 
+		// Union メソッドの呼び出しに対応するため、分離されるとは限りません。
 		public bool Undo(out int rx, out int ry)
 		{
-			if (history.Count == 0)
-			{
-				(rx, ry) = (-1, -1);
-				return false;
-			}
+			if (history.Count == 0) throw new InvalidOperationException("No history.");
 
 			(rx, ry) = history.Pop();
+			if (rx == ry) return false;
+
 			parents[ry] = -1;
 			sizes[rx] -= sizes[ry];
 			++SetsCount;
