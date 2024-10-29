@@ -17,32 +17,47 @@ namespace OnlineTest.DataTrees.UF
 			var s0 = Array.ConvertAll(new bool[h], _ => Console.ReadLine());
 
 			var n = h * w;
-			var s = s0.SelectMany(t => t).ToArray();
+			var p = s0.SelectMany(t => t.Select(c => c == '#')).ToArray();
 
 			var uf = new UnionFind(n);
-			var map = Array.ConvertAll(new bool[n], _ => new List<int>());
 
 			for (int i = 0; i < h; i++)
 				for (int j = 1; j < w; j++)
 				{
 					var v = w * i + j;
-					if (s[v] == '#' && s[v - 1] == '#') uf.Union(v, v - 1);
-					if (s[v] == '.' && s[v - 1] == '#') map[v].Add(v - 1);
-					if (s[v] == '#' && s[v - 1] == '.') map[v - 1].Add(v);
+					if (p[v] && p[v - 1]) uf.Union(v, v - 1);
 				}
 
 			for (int j = 0; j < w; j++)
 				for (int i = 1; i < h; i++)
 				{
 					var v = w * i + j;
-					if (s[v] == '#' && s[v - w] == '#') uf.Union(v, v - w);
-					if (s[v] == '.' && s[v - w] == '#') map[v].Add(v - w);
-					if (s[v] == '#' && s[v - w] == '.') map[v - w].Add(v);
+					if (p[v] && p[v - w]) uf.Union(v, v - w);
 				}
 
-			var reds = Enumerable.Range(0, n).Where(v => s[v] == '.').ToArray();
-			var sum = reds.Select(v => 1 - map[v].Select(uf.Find).Distinct().Count() + M).Aggregate((x, y) => (x + y) % M);
-			return (uf.SetsCount - reds.Length + sum * MInv(reds.Length)) % M;
+			var redsCount = 0;
+			var sum = 0L;
+			var nexts = new List<int>();
+
+			for (int v = 0; v < n; v++)
+			{
+				if (p[v]) continue;
+				redsCount++;
+
+				var i = v / w;
+				var j = v % w;
+
+				nexts.Clear();
+				if (i > 0 && p[v - w]) nexts.Add(v - w);
+				if (i + 1 < h && p[v + w]) nexts.Add(v + w);
+				if (j > 0 && p[v - 1]) nexts.Add(v - 1);
+				if (j + 1 < w && p[v + 1]) nexts.Add(v + 1);
+
+				sum += 1 - nexts.Select(uf.Find).Distinct().Count() + M;
+			}
+
+			sum %= M;
+			return (uf.SetsCount - redsCount + sum * MInv(redsCount)) % M;
 		}
 
 		const long M = 998244353;

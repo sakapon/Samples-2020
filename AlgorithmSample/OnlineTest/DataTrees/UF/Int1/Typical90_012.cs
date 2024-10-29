@@ -20,7 +20,7 @@ namespace OnlineTest.DataTrees.UF
 			var n = h * w;
 
 			var r = new List<bool>();
-			var red = new bool[n];
+			var p = new bool[n];
 			var uf = new UnionFind(n);
 
 			foreach (var q in qs)
@@ -29,12 +29,12 @@ namespace OnlineTest.DataTrees.UF
 				{
 					var (i, j) = (q[1] - 1, q[2] - 1);
 					var v = w * i + j;
-					red[v] = true;
+					p[v] = true;
 
-					if (i > 0 && red[v - w]) uf.Union(v, v - w);
-					if (i + 1 < h && red[v + w]) uf.Union(v, v + w);
-					if (j > 0 && red[v - 1]) uf.Union(v, v - 1);
-					if (j + 1 < w && red[v + 1]) uf.Union(v, v + 1);
+					if (i > 0 && p[v - w]) uf.Union(v, v - w);
+					if (i + 1 < h && p[v + w]) uf.Union(v, v + w);
+					if (j > 0 && p[v - 1]) uf.Union(v, v - 1);
+					if (j + 1 < w && p[v + 1]) uf.Union(v, v + 1);
 				}
 				else
 				{
@@ -42,7 +42,7 @@ namespace OnlineTest.DataTrees.UF
 					var u = w * i + j;
 					(i, j) = (q[3] - 1, q[4] - 1);
 					var v = w * i + j;
-					r.Add(red[u] && uf.AreSame(u, v));
+					r.Add(p[u] && uf.AreSame(u, v));
 				}
 			}
 
