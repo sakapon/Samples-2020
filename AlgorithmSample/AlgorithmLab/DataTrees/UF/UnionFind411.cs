@@ -22,6 +22,9 @@ namespace AlgorithmLab.DataTrees.UF411
 		public int ItemsCount => nodes.Length;
 		public int SetsCount { get; private set; }
 
+		// (parent, child)
+		public event Action<int, int> United;
+
 		public UnionFind(int n)
 		{
 			nodes = new Node[n];
@@ -44,6 +47,7 @@ namespace AlgorithmLab.DataTrees.UF411
 			ry.Parent = rx;
 			rx.Size += ry.Size;
 			--SetsCount;
+			United?.Invoke(rx.Item, ry.Item);
 			return true;
 		}
 
