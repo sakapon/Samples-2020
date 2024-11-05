@@ -36,7 +36,7 @@ namespace OnlineTest.DataTrees.UF
 					if (p[v] != p[v - w]) uf.Union(v, v - w);
 				}
 
-			return uf.ToSets().Select(g => g.Key.Value).Sum(p => (long)p.c * p.d);
+			return uf.GetSetInfoes().Sum(g => (long)g.Value.c * g.Value.d);
 		}
 	}
 }

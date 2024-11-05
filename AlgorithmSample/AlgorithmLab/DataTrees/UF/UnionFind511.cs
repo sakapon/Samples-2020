@@ -12,7 +12,7 @@ namespace AlgorithmLab.DataTrees.UF511
 		public class Node
 		{
 			public int Item;
-			public Node Parent;
+			internal Node Parent;
 			public int Size = 1;
 			public TValue Value;
 			string DebuggerDisplay => Parent == null ? $"{{{Item}, Size = {Size}, Value = {Value}}}" : $"{{{Item} (Not Root)}}";
@@ -37,6 +37,7 @@ namespace AlgorithmLab.DataTrees.UF511
 		public bool AreSame(int x, int y) => Find(x) == Find(y);
 		public int GetSize(int x) => Find(x).Size;
 		public TValue GetValue(int x) => Find(x).Value;
+		public void SetValue(int x, TValue value) => Find(x).Value = value;
 
 		public bool Union(int x, int y)
 		{
@@ -55,6 +56,8 @@ namespace AlgorithmLab.DataTrees.UF511
 			return true;
 		}
 
+		// 根とサイズと値の情報のみを取得します。
+		public Node[] GetSetInfoes() => Array.FindAll(nodes, n => n.Parent == null);
 		public ILookup<Node, Node> ToSets() => nodes.ToLookup(Find);
 	}
 }
