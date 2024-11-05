@@ -12,13 +12,13 @@ namespace AlgorithmLab.DataTrees.UF411
 		public class Node
 		{
 			public int Item;
-			public Node Parent;
+			internal Node Parent;
 			public int Size = 1;
 		}
 
 		readonly Node[] nodes;
 		// path compression
-		public Node this[int x] { get { Find(x); return nodes[x]; } }
+		//public Node this[int x] { get { Find(x); return nodes[x]; } }
 		public int ItemsCount => nodes.Length;
 		public int SetsCount { get; private set; }
 
@@ -51,6 +51,8 @@ namespace AlgorithmLab.DataTrees.UF411
 			return true;
 		}
 
+		// 根とサイズの情報のみを取得します。
+		public Node[] GetSetInfoes() => Array.FindAll(nodes, n => n.Parent == null);
 		public ILookup<Node, Node> ToSets() => nodes.ToLookup(Find);
 	}
 }

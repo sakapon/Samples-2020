@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlgorithmLab.DataTrees.UF401;
+using AlgorithmLab.DataTrees.UF411;
 
 namespace OnlineTest.DataTrees.UF
 {
@@ -43,16 +43,7 @@ namespace OnlineTest.DataTrees.UF
 					}
 				}
 
-			var r = 0;
-			var u = new bool[n];
-			for (int v = 0; v < n; v++)
-			{
-				var rv = uf.Find(v);
-				if (u[rv]) continue;
-				u[rv] = true;
-				if (s[rv] == '#') r++;
-			}
-			return r;
+			return uf.GetSetInfoes().Count(g => s[g.Item] == '#');
 		}
 	}
 }

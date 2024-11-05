@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlgorithmLab.DataTrees.UF401;
+using AlgorithmLab.DataTrees.UF411;
 
 namespace OnlineTest.DataTrees.UF
 {
@@ -21,7 +21,7 @@ namespace OnlineTest.DataTrees.UF
 			{
 				uf.Union(a, b);
 			}
-			return Enumerable.Range(1, n).Max(uf.GetSize);
+			return uf.GetSetInfoes().Max(g => g.Size);
 		}
 	}
 }

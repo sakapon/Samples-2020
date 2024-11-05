@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlgorithmLab.DataTrees.UF401;
+using AlgorithmLab.DataTrees.UF411;
 
 namespace OnlineTest.DataTrees.UF
 {
@@ -20,7 +20,7 @@ namespace OnlineTest.DataTrees.UF
 			{
 				uf.Union(a[i], a[n - 1 - i]);
 			}
-			return uf.ToSets().Sum(g => uf.GetSize(g.Key) - 1);
+			return uf.GetSetInfoes().Sum(g => g.Size - 1);
 		}
 	}
 }
