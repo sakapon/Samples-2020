@@ -1,7 +1,8 @@
 ﻿using System.Numerics;
 
 // Int32 vertexes, node-based
-// TValue を作用素として利用するには、(f + g)(x) = f(g(x)) となるように Addition を定義すればよい。
+// TValue には、零元、逆元、加算が求められます。
+// TValue を一般的な作用素として利用するには、(f + g)(x) = f(g(x)) となるように Addition を定義します。
 namespace AlgorithmLab.DataTrees.UF612
 {
 	[System.Diagnostics.DebuggerDisplay(@"ItemsCount = {ItemsCount}, SetsCount = {SetsCount}")]
@@ -35,7 +36,7 @@ namespace AlgorithmLab.DataTrees.UF612
 			if (n.Parent == null) return n;
 
 			var r = Find(n.Parent);
-			// 作用素の場合、右が先
+			// 注意: 一般的な作用素の場合の順序
 			n.Value += n.Parent.Value;
 			return n.Parent = r;
 		}
@@ -59,7 +60,7 @@ namespace AlgorithmLab.DataTrees.UF612
 			ry.Parent = rx;
 			rx.Size += ry.Size;
 			--SetsCount;
-			// 作用素の場合、右が先
+			// 注意: 一般的な作用素の場合の順序
 			ry.Value = -nodes[y].Value + x2y + nodes[x].Value;
 			return true;
 		}
