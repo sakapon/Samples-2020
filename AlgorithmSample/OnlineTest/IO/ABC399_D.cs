@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OnlineTest.IO
 {
@@ -21,21 +20,26 @@ namespace OnlineTest.IO
 			var a = Read();
 
 			var r = 0;
-			var d = new Dictionary<(int, int), int>();
+			var p = new int[n + 1];
+			Array.Fill(p, -2);
 
-			for (int i = 1; i < 2 * n; i++)
+			for (int i = 0; i < 2 * n - 1; i++)
 			{
-				var (u, v) = (a[i - 1], a[i]);
-				if (u > v) (u, v) = (v, u);
-				if (!d.ContainsKey((u, v)))
-					d[(u, v)] = i;
-				else if (i - d[(u, v)] > 2)
-					r++;
-			}
-			for (int i = 3; i < 2 * n; i++)
-			{
-				if (a[i - 3] == a[i - 1] && a[i - 2] == a[i])
-					r++;
+				var (u, v) = (a[i], a[i + 1]);
+				var d = p[v] - p[u];
+
+				if (d == 1)
+				{
+					if (i - p[v] >= 1)
+						r++;
+				}
+				else if (d == -1)
+				{
+					if (i - p[u] > 1)
+						r++;
+				}
+
+				p[u] = i;
 			}
 			return r;
 		}
