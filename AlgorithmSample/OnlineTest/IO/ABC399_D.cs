@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using AlgorithmLab.IO;
 
 namespace OnlineTest.IO
 {
 	// Test: https://atcoder.jp/contests/abc399/tasks/abc399_d
 	class ABC399_D
 	{
-		static int[] Read() => Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
 		static void Main()
 		{
-			var t = int.Parse(Console.ReadLine());
+			IOHelper.In.Read(out int t);
 			var r = Array.ConvertAll(new bool[t], _ => Solve());
 			Console.WriteLine(string.Join("\n", r));
 		}
 
 		static int Solve()
 		{
-			var n = int.Parse(Console.ReadLine());
-			var a = Read();
+			IOHelper.In
+				.Read(out int n)
+				.ReadLine(out int[] a);
 
 			var r = 0;
 			var p = new int[n + 1];
