@@ -65,11 +65,25 @@ namespace AlgorithmLab.IO
 				Convert.ChangeType(String(), typeof(T));
 			return (T)o;
 		}
+		public T[] Values<T>(int n)
+		{
+			var a = new T[n];
+			for (int i = 0; i < n; ++i) a[i] = Value<T>();
+			return a;
+		}
 
 		public void Read<T>(out T v) => v = Value<T>();
 		public void Read<T1, T2>(out (T1, T2) v) => v = (Value<T1>(), Value<T2>());
-		public void Read<T>(int n, out T[] v) => v = Array.ConvertAll(new bool[n], _ => Value<T>());
-		public void Read<T1, T2>(int n, out (T1, T2)[] v) => v = Array.ConvertAll(new bool[n], _ => (Value<T1>(), Value<T2>()));
-		public void Read<T>(int n1, int n2, out T[][] v) => v = Array.ConvertAll(new bool[n1], _ => Array.ConvertAll(new bool[n2], _ => Value<T>()));
+		public void Read<T>(int n, out T[] v) => v = Values<T>(n);
+		public void Read<T1, T2>(int n, out (T1, T2)[] v)
+		{
+			v = new (T1, T2)[n];
+			for (int i = 0; i < n; ++i) v[i] = (Value<T1>(), Value<T2>());
+		}
+		public void Read<T>(int n1, int n2, out T[][] v)
+		{
+			v = new T[n1][];
+			for (int i = 0; i < n1; ++i) v[i] = Values<T>(n2);
+		}
 	}
 }
