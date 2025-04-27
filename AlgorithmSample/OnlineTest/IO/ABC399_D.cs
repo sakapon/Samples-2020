@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using AlgorithmLab.IO;
 
 namespace OnlineTest.IO
@@ -8,14 +7,15 @@ namespace OnlineTest.IO
 	class ABC399_D
 	{
 		static AsciiBlockReader cin = new AsciiBlockReader(Console.OpenStandardInput());
+		static AsciiBlockWriter cout = new AsciiBlockWriter(Console.OpenStandardOutput());
 		static void Main()
 		{
 			cin.Read(out int t);
-			var r = Array.ConvertAll(new bool[t], _ => Solve());
-			Console.WriteLine(string.Join("\n", r));
+			while (t-- > 0) Solve();
+			cout.Flush();
 		}
 
-		static int Solve()
+		static void Solve()
 		{
 			cin.Read(out int n);
 			cin.Read(2 * n, out int[] a);
@@ -42,7 +42,7 @@ namespace OnlineTest.IO
 
 				p[u] = i;
 			}
-			return r;
+			cout.Write(r);
 		}
 	}
 }

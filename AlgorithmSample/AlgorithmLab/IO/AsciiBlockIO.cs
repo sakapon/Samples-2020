@@ -8,6 +8,7 @@ namespace AlgorithmLab.IO
 	public class AsciiBlockIO
 	{
 		public static AsciiBlockReader In { get; } = new AsciiBlockReader(Console.OpenStandardInput());
+		public static AsciiBlockWriter Out { get; } = new AsciiBlockWriter(Console.OpenStandardOutput());
 	}
 
 	public class AsciiBlockReader
@@ -84,6 +85,44 @@ namespace AlgorithmLab.IO
 		{
 			v = new T[n1][];
 			for (int i = 0; i < n1; ++i) v[i] = Values<T>(n2);
+		}
+	}
+
+	public class AsciiBlockWriter
+	{
+		readonly System.IO.Stream so;
+		public AsciiBlockWriter(System.IO.Stream so) => this.so = new System.IO.BufferedStream(so, 8192);
+
+		public void Flush() => so.Flush();
+		public void Write(string s, bool lf = true)
+		{
+			foreach (var c in s) so.WriteByte((byte)c);
+			if (lf) so.WriteByte(10);
+		}
+		public void Write(bool b, bool lf = true) => Write(b ? "Yes" : "No", lf);
+		public void Write<T>(T v, bool lf = true)
+		{
+			if (v is bool b) Write(b, lf);
+			else Write(v.ToString(), lf);
+		}
+
+		public void WriteLine<T1, T2>(T1 v1, T2 v2)
+		{
+			Write(v1, false); so.WriteByte(32);
+			Write(v2, false); so.WriteByte(10);
+		}
+		public void WriteLine<T>(T[] vs)
+		{
+			for (int i = 0; i < vs.Length; ++i)
+			{
+				if (i != 0) so.WriteByte(32);
+				Write(vs[i].ToString(), false);
+			}
+			so.WriteByte(10);
+		}
+		public void WriteLines<T>(T[] vs)
+		{
+			foreach (var v in vs) Write(v.ToString());
 		}
 	}
 }
