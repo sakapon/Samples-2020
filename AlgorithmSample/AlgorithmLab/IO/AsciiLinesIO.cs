@@ -1,6 +1,7 @@
 ﻿using System;
 
 // BufferedStream により高速化します (が、ConsoleMethods と変わりません)。
+// static AsciiLineReader cin = new AsciiLineReader(Console.OpenStandardInput());
 namespace AlgorithmLab.IO
 {
 	public class AsciiLineReader
