@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using AlgorithmLab.IO;
 
 namespace OnlineTest.IO
@@ -9,18 +7,18 @@ namespace OnlineTest.IO
 	// Test: https://atcoder.jp/contests/abc399/tasks/abc399_d
 	class ABC399_D
 	{
+		static AsciiBlockReader cin = new AsciiBlockReader(Console.OpenStandardInput());
 		static void Main()
 		{
-			IOHelper.In.Read(out int t);
+			cin.Read(out int t);
 			var r = Array.ConvertAll(new bool[t], _ => Solve());
 			Console.WriteLine(string.Join("\n", r));
 		}
 
 		static int Solve()
 		{
-			IOHelper.In
-				.Read(out int n)
-				.ReadLine(out int[] a);
+			cin.Read(out int n);
+			cin.Read(2 * n, out int[] a);
 
 			var r = 0;
 			var p = new int[n + 1];
