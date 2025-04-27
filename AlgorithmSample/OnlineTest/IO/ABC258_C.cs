@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using AlgorithmLab.IO;
 
 namespace OnlineTest.IO
@@ -8,30 +6,30 @@ namespace OnlineTest.IO
 	// Test: https://atcoder.jp/contests/abc258/tasks/abc258_c
 	class ABC258_C
 	{
-		static AsciiIO io = new AsciiIO();
+		static AsciiBlockReader cin = new AsciiBlockReader(Console.OpenStandardInput());
+		static AsciiBlockWriter cout = new AsciiBlockWriter(Console.OpenStandardOutput());
 		static void Main()
 		{
-			var n = io.Int();
-			var qc = io.Int();
-			var s = io.String();
-			var sb = new StringBuilder();
+			cin.Read(out int n);
+			cin.Read(out int qc);
+			cin.Read(out string s);
 
 			var fi = 0;
 
 			while (qc-- > 0)
 			{
-				var t = io.Int();
-				var x = io.Int();
+				cin.Read(out int t);
+				cin.Read(out int x);
 				if (t == 1)
 				{
 					fi = (fi - x + n) % n;
 				}
 				else
 				{
-					sb.Append(s[(fi + x - 1) % n]).AppendLine();
+					cout.Write(s[(fi + x - 1) % n]);
 				}
 			}
-			Console.Write(sb);
+			cout.Flush();
 		}
 	}
 }

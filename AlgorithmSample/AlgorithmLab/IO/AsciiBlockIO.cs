@@ -3,6 +3,7 @@
 // BufferedStream と Long() により高速化します。
 // 指定したブロックのみ読み取ります。
 // static AsciiBlockReader cin = new AsciiBlockReader(Console.OpenStandardInput());
+// static AsciiBlockWriter cout = new AsciiBlockWriter(Console.OpenStandardOutput());
 namespace AlgorithmLab.IO
 {
 	public class AsciiBlockIO
